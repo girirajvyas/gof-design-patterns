@@ -8,14 +8,13 @@ This repository contains examples of all the design patterns listed in the GoF b
 4. Factory Method
 5. Abstract Factory
 
-# 1. Singleton design pattern
+# 1. Singleton pattern
 
 ## Concepts:
 - Only one instance created
 - Guarantees control of a resource
 - Lazily loaded (usually)
-
-Examples:  
+- **Examples:**  
    - Runtime.java  
    - Logger (singleton or factory)
    - Spring beans (by default, scope is singleton in spring)
@@ -51,6 +50,13 @@ Factory
 - Interface Driven
 - Adaptable to environment more easily *****
 
+| Singleton                        | Factory                              |
+| -------------                    |:-------------:                       |
+| Returns same instance            | Returns various instances            |
+| one constructor method - no args | multiple constructors                |
+| no interface                     | Interface Driven                     |
+| NA			                   | Adaptable to environment more easily |
+
 ## Summary
 - Guarantees one instance
 - Easy to implement
@@ -61,8 +67,7 @@ Factory
 Explore the Enum version of Singleton pattern
 
 
-
-# 2. Builder design pattern
+# 2. Builder pattern
 This a pattern people often use but rarely create of there own.  
 This pattern deals with construction of Objects with lot of parameters and want to make the object once we are done constructing it.
 
@@ -70,7 +75,7 @@ This pattern deals with construction of Objects with lot of parameters and want 
 - Handles complex constructors
 - Large number of parameters
 - Immutability
-- Examples:
+- **Examples:**
   - StringBuilder
   - DocumentBuilder
   - Locale.Builder
@@ -95,14 +100,14 @@ This pattern deals with construction of Objects with lot of parameters and want 
 - Copy all the field declarations in the inner class without making them final (In case you make field inside inner class as final you have to initialize that in constructor else you will ahve compilation error)
 - Create a public default constructor in Builder class (you can put any parameters here to make them mandatory)
 - Now, create methods taking field type as input and returning complete instance after setting that. for example
-   ```
+   ```java
 	public Builder bread(String bread) {
 				this.bread = bread;
 				return this;
 			}
    ```
 - Create a private constructor in Outer class that takes this Builder class and sets all the fields from the builder instance.
-  ```
+  ```java
 	private LunchOrder(Builder builder) {
 		this.bread = builder.bread;
 		this.condiments = builder.condiments;
@@ -111,13 +116,13 @@ This pattern deals with construction of Objects with lot of parameters and want 
 	}
   ```
 - Create a build method that will return the instance of Outer class. This is achieved by passing this builder instance to the outer class constructor
-  ```
+  ```java
 	public LunchOrder build() {
 			return new LunchOrder(this);
 		}
   ```
 - You can test the above builder as:
-  ```
+  ```java
     LunchOrder.Builder builder = new LunchOrder.Builder(); 
 		builder.bread("bread").condiments("condiments").dressing("dressing").meat("meat");
 		LunchOrder lunchOrder = builder.build();
@@ -152,9 +157,73 @@ Prototype
 ## Next
 Explore the Generics version of builder pattern
 
+# 3. Prototype pattern
+creates copy of objects that are very expensive to create
+
+## Concepts
+- Avoids costly creation
+- Avoids Subclassing
+- Typically doesn't use keyword "new"
+- Often utilizes an Interface
+- Usually implemented with a registry
+- Example:
+  - java.lang.Object#clone()
+  
+## Design considerations
+- Typically implements clone/cloneable
+- Avoids keyword "new"
+- Although copy, each instance is unique
+- Costly construction not handled by client (builder is opposite of prototype)
+- Can still utilize parameters for construction
+- Shallow vs deep copy design considerations can be made 
+ 
+## Example/Demo
+Create Prototype
+Demonstrate shallow copy
+Create with a registry
+
+Note: 
+1. we have seen an example with clone() method, but this can also be achieved by creatin an interface and implementing the clone method.
+2. you can replace string with enum in createItem method of registry.
+
+## Pitfalls
+- Sometimes not clear when to use
+- Used with other patterns
+   - Registry
+- mostly shallow copy by clone, for Deep copy we have to implement ourselves and it requires a lot of code
+
+## Contrast to other patterns
+Prototype
+- Light weight construction
+   - Copy constructor or clone method
+- choose shallow vs deep copy
+- main purpose to create copy of itself 
+
+Factory
+- Flexible Objects based on request
+   - multiple constructors can be use instead of just clone method
+- create fresh and cconcrete instance of object
+
+## Summary
+- Guarantee unique instance
+- Often refactored in 
+- Can help with performance issues
+- Dont always jump to a factory
+
+## Next:
+you can try prototype pattern with Generics and without clone method 
+
+## References
+https://refactoring.guru/design-patterns/prototype
 
 
+# 4. Factory method pattern
 
+## Concepts
+
+## Design considerations
+
+## Example/Demo
 
 
 
