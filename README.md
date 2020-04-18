@@ -39,23 +39,14 @@ see code
 **Note:** java.util.Calendar is not a Singleton, rather it is Prototype. It is confused as Singleton as it has getInstance() method.
 
 ## Contrast to other patterns
-Singleton  
-- Returns same instance 
-  - one constructor method - no args
-no interface
 
-Factory 
-- Returns various instances
-  - multiple constructors
-- Interface Driven
-- Adaptable to environment more easily *****
-
-| Singleton                        | Factory                              |
-| -------------                    |:-------------:                       |
-| Returns same instance            | Returns various instances            |
-| one constructor method - no args | multiple constructors                |
-| no interface                     | Interface Driven                     |
-| NA			                   | Adaptable to environment more easily |
+| Singleton                        | Factory                                           |
+| -------------                    |:-------------:                                    |
+| Returns same instance            | Returns various instances                         |
+| one constructor method - no args | multiple constructors                             |
+| no interface                     | Interface Driven                                  |
+| No Subclasses                    | Always SubClasses are involved in a way or other  |
+| NA			                   | Adaptable to environment more easily**            |
 
 ## Summary
 - Guarantees one instance
@@ -220,22 +211,75 @@ https://refactoring.guru/design-patterns/prototype
 # 4. Factory method pattern
 
 ## Concepts
-
-## Design considerations
+- Doesn't expose instantiation logic
+- Defer to subclasses
+- Common interfaces
+- Specified by architecture, implemented by user
+- Examples:
+   - Calendar (many consider this as Singleton example due to no arg getInstance() method)
+   - ResourceBundle
+   - NumberFormat
+   
+## Design Considerations
+- Factory is responsible for lifecycle
+- It has common interface
+- For this common interface, there are Concrete classes
+- Parameterized create method
 
 ## Example/Demo
+- Create Pages
+- Create Website
+- Create concrete classes
+- Create factory
+- Create Enum
 
+Flow:
+```
+                                    abstract Website
+    Blog extends Website                                        Shop extends Website
+	- PostPage                                                   - CartPage
+	- AboutPage                                                  - ItemPage
+	- CommentPage                                                - SearchPage
+	- ContactPage
+	
+   WebsiteFactory
+	factoryMethod(Type type)   
+	Switch (type):  
+	  BLOG:
+	     return new Blog();
+	  Shop
+         return new Shop();	  
+```
+   
+## Pitfalls:
+- Complexity 
+- creation in subclass **
+- Refactoring: This is not something that is refactored later, rather a design decision to make early in development
 
+## Contrast to other patterns
 
+| Singleton                        | Factory                                           |
+| -------------                    |:-------------:                                    |
+| Returns same instance            | Returns various instances                         |
+| one constructor method - no args | multiple constructors                             |
+| no interface                     | Interface Driven                                  |
+| No Subclasses                    | Always SubClasses are involved in a way or other  |
+| NA			                   | Adaptable to environment more easily**            |
 
+## Summary
+- Parameter Driven (chooses type based on this)
+- Solves Complex creation (Choose type at runtime)
+- A little complex
+- Opposite of a Singleton
 
+# 5. AbstractFactory pattern
 
+## Concepts
 
-
-
-
-
-
+- Factory of Factories
+- Factory of related Objects
+- Common Interface
+- Defer to subclasses for instantiation
 
 
 
