@@ -139,6 +139,14 @@ Prototype
 - Avoids calling complex constructors
 - Difficult to implement in legacy code
 
+| Builder                               | Prototype                              |
+| -------------                         |:-------------:                         |
+| Handles complex constructors          | Implemented around a clone             |
+| no interface required                 | Avoids calling complex constructors    |
+| Can be a saperate class               | NA                                     |
+| Difficult to implement in legacy code | Difficult to implement in legacy code  |
+
+
 ## Summary
 - Creative way to deal with complexity
 - Easy to implement
@@ -195,6 +203,13 @@ Factory
    - multiple constructors can be use instead of just clone method
 - create fresh and cconcrete instance of object
 
+| Prototype                             | Factory                                                            |
+| -------------                         |:-------------:                                                     |
+| Light weight construction             | Flexible Objects based on request                                  |
+|  - Copy constructor or clone method   |  - multiple constructors can be use instead of just clone method   |
+| choose shallow vs deep copy           | Create fresh and cconcrete instance of object                      |
+| main purpose to create copy of itself | NA                                                                 |
+
 ## Summary
 - Guarantee unique instance
 - Often refactored in 
@@ -203,9 +218,7 @@ Factory
 
 ## Next:
 you can try prototype pattern with Generics and without clone method 
-
-## References
-https://refactoring.guru/design-patterns/prototype
+References: https://refactoring.guru/design-patterns/prototype
 
 
 # 4. Factory method pattern
@@ -234,8 +247,10 @@ https://refactoring.guru/design-patterns/prototype
 - Create Enum
 
 Flow:
-```
+```bash
                                     abstract Website
+			_______________________________|___________________________
+		   |							                               |
     Blog extends Website                                        Shop extends Website
 	- PostPage                                                   - CartPage
 	- AboutPage                                                  - ItemPage
@@ -243,12 +258,14 @@ Flow:
 	- ContactPage
 	
    WebsiteFactory
-	factoryMethod(Type type)   
-	Switch (type):  
-	  BLOG:
-	     return new Blog();
-	  Shop
-         return new Shop();	  
+	factoryMethod(Type type) {   
+	     Switch (type):  
+	       BLOG:
+	         return new Blog();
+	       Shop
+         return new Shop();
+    }
+	
 ```
    
 ## Pitfalls:
@@ -280,7 +297,76 @@ Flow:
 - Factory of related Objects
 - Common Interface
 - Defer to subclasses for instantiation
+- **Examples**
+   - DocumentBuilderFactory
+   - Mostly in frameworks
 
+## Design Considerations
+- Groups Factories Together
+- Factory is responsible for lifecycle of itself
+- Common Interface
+- Concrete classes are returned from the underlying factory
+- Parameterized create method like factory pattern
+- Built using composition, not the case with Factory.
+
+## Example/Demo
+- Create classes that will be used
+- Build AbstractFactory
+- Then build Factory as it will be used by abstractfactory
+- Factory returns concrete implementation
+
+ Flow
+ ```bash
+                                    CreditCardFactory (Abstract Factory)
+						- static CreditCardFactory getCreditCardFactory(int creditScore)
+						- abstract CreditCard getCreditCard(CardType cardType);
+                        - abstract Validator getValidator(CardType cardType);						
+				___________________________________|______________________________________
+	           |                                                                          | 								
+        AmexFactory  (extends CreditCardFactory)                             VisaFactory  (extends CreditCardFactory)   
+     
+     	public CreditCard getCreditCard(CardType cardType) {
+		   switch (cardType) {
+		      case GOLD:
+		   	    return new AmexGoldCreditCard();
+		      case PLATINUM:
+		   	    return new AmexPlatinumCreditCard();
+		   }
+	    }
+		
+	    public Validator getValidator(CardType cardType) {
+		   switch (cardType) {
+		      case GOLD:
+			    return new AmexGoldValidator();
+		      case PLATINUM:
+			     return new AmexPlatinumValidator();
+		}
+	}
+```
+
+if you are not using the ORM and you have to use the db queries depending on the db you are using, this pattern will find implementation their.
+
+## Pitfalls
+- Complexity - most complex of creational design patterns
+- Runtime Switch - cleenct can change the flow by passing some parameters
+- Pattern within a pattern
+- problem specific (limited scope)
+- Starts as a factory and the refactored to abstractFactory
+
+## Contrast to other patterns
+
+| Factory                              | AbstractFactory                                     |
+| -------------                        |:-------------:                                      |
+| Returns various instances            | Implemented with a factory                          |
+|   - multiple constructors            | Hides the underlying concrete factory 	             |
+| Interface Driven                     | 1 more layer of Abstraction added to  environment   |
+| Adaptable to environment more easily | Built through composition                           |
+
+## Summary
+- Group of similar factories
+- Complex
+- Heavy abstraction
+- written at framework level
 
 
 
