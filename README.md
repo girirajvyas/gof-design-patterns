@@ -1,12 +1,39 @@
 # gof-design-patterns (23)
 This repository contains examples of all the design patterns listed in the GoF book
 
+## Why you should learn Design patterns
+- Easy to communicate a proble among fellow developers
+- It provides a common vocabulary to explain about problem
+- It is an abstract topic
+- Revisit materails about patterns will alway give you an new perspective everytime.
+
+## How to approach
+For each pattern you will see below points covered:
+- Overview of the pattern
+- Concepts involved
+- Design Considerations
+- Live Example from an API | Example/Demo
+- Pitfalls (Drawbacks)
+- Contrast to another patterns
+- Summary	
+
 # Creational Design Patterns (5)
-1. Singleton
-2. Builder
-3. Prototype
-4. Factory Method
-5. Abstract Factory
+1. [Singleton](https://github.com/girirajvyas/gof-design-patterns#1-singleton-pattern)
+2. [Builder](https://github.com/girirajvyas/gof-design-patterns#2-builder-pattern)
+3. [Prototype](https://github.com/girirajvyas/gof-design-patterns#3-prototype-pattern)
+4. [Factory Method](https://github.com/girirajvyas/gof-design-patterns#4-factory-method-pattern)
+5. [Abstract Factory](https://github.com/girirajvyas/gof-design-patterns#5-abstractfactory-pattern)
+
+# Structural Design Patterns (7)
+1. Adapter 
+2. Bridge
+3. Composite
+4. Decorator
+5. Facade
+6. Flyweight
+7. Proxy
+
+# Creational Design Patterns
 
 # 1. Singleton pattern
 
@@ -128,23 +155,13 @@ This pattern deals with construction of Objects with lot of parameters and want 
 - Adds complexity, as people are not comfortable with object returning itself with each subsequent call
 
 ## Contrast to other patterns
-Builder  
-- Handles complex constructors
-- no interface required
-- Can be a saperate class
-- works with a legacy code
-
-Prototype  
-- Implemented around a clone
-- Avoids calling complex constructors
-- Difficult to implement in legacy code
 
 | Builder                               | Prototype                              |
 | -------------                         |:-------------:                         |
 | Handles complex constructors          | Implemented around a clone             |
 | no interface required                 | Avoids calling complex constructors    |
 | Can be a saperate class               | NA                                     |
-| Difficult to implement in legacy code | Difficult to implement in legacy code  |
+| works with a legacy code              | Difficult to implement in legacy code  |
 
 
 ## Summary
@@ -165,7 +182,7 @@ creates copy of objects that are very expensive to create
 - Typically doesn't use keyword "new"
 - Often utilizes an Interface
 - Usually implemented with a registry
-- Example:
+- **Example:**
   - java.lang.Object#clone()
   
 ## Design considerations
@@ -192,23 +209,13 @@ Note:
 - mostly shallow copy by clone, for Deep copy we have to implement ourselves and it requires a lot of code
 
 ## Contrast to other patterns
-Prototype
-- Light weight construction
-   - Copy constructor or clone method
-- choose shallow vs deep copy
-- main purpose to create copy of itself 
-
-Factory
-- Flexible Objects based on request
-   - multiple constructors can be use instead of just clone method
-- create fresh and cconcrete instance of object
 
 | Prototype                             | Factory                                                            |
 | -------------                         |:-------------:                                                     |
 | Light weight construction             | Flexible Objects based on request                                  |
 |  - Copy constructor or clone method   |  - multiple constructors can be use instead of just clone method   |
-| choose shallow vs deep copy           | Create fresh and cconcrete instance of object                      |
-| main purpose to create copy of itself | NA                                                                 |
+| Choose shallow vs deep copy           | Create fresh and cconcrete instance of object                      |
+| Main purpose to create copy of itself | NA                                                                 |
 
 ## Summary
 - Guarantee unique instance
@@ -228,7 +235,7 @@ References: https://refactoring.guru/design-patterns/prototype
 - Defer to subclasses
 - Common interfaces
 - Specified by architecture, implemented by user
-- Examples:
+- **Examples:**
    - Calendar (many consider this as Singleton example due to no arg getInstance() method)
    - ResourceBundle
    - NumberFormat
@@ -368,12 +375,76 @@ if you are not using the ORM and you have to use the db queries depending on the
 - Heavy abstraction
 - written at framework level
 
+# Structural Design Patterns
+
+# 1. Adapter pattern
+Pattern for connecting new code to the legacy code without having to change thenworking contract that was produced from legacy code originally
+
+## Concepts
+- Similar to physical plug Adapter (doesnt cover all scenarios tough, but can be a good example for starter)
+- Convert Interface into another Interface
+- connects Legacy code to current code
+- Translates requiest from the client code to the code that we are adapting to
+- Client <- Adapter -> Adaptee
+- **Examples**
+  - Arrays -> Lists
+  - Streams 
+  
+## Design Considerations
+- Client Centric
+- Integrate new with old code
+- Often implemented with Interface, but not required 
+- Adaptee can be the implementation
+
+## Example/Demo
+- Create Adapter
+- Make sure it is not Decorator
+- Another Adapter example
+
+Create an Adapter class  
+Take the input that is not in sync with the requirement as cinstructor parameter  
+This adapter class implements the same interface that we had for our required entity  
+
+## Pitfalls
+- Not a lot of pitfalls
+- Dont Complicate
+- ususally multiple adapters can be created to make code works
+- Don't add functionality, Consider Decorator or any other pattern in case you need to add functionality
+
+## Contrast to other patterns
+
+| Factory                              | AbstractFactory                                     |
+| -------------                        |:-------------:                                      |
+| Works after code is designed         | Designed upfront                                    |
+| works mostly with Legacy             | so that Abstraction and implementation can vary     |
+| Retrofitted                          | Built in advance                                    |
+| Provodes different interface         | Both adapt multiple systems                         |
+
+## Summary
+
+- Simple solution
+- Easy to implement
+- Integrate with legacy code
+- Can provide multiple adapters
+
+# 2. Bridge pattern
+Similar to adapter with 1 major difference that Adapter works with legacy code and bridge works with new code
+
+## Concepts
+
+
+
+
 
 
 ## References:  
 https://java-design-patterns.com/patterns/  
 
 Courses:  
+https://app.pluralsight.com/library/courses/design-patterns-java-creational/table-of-contents
+https://app.pluralsight.com/library/courses/design-patterns-java-structural/table-of-contents
 
 
+> Prototype patterns are usually implemented with a Registry
+> A Prototype is used when you want to guarantee a unique instance that is lightweight to create
 
