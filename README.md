@@ -2,16 +2,16 @@
 
 
 ## Table of contents
-- Introduction
-- Why you should learn Design patterns
-- How to approach
-- Creational Design Patterns
+1. Introduction
+2. Why you should learn Design patterns
+3. How to approach
+4. Creational Design Patterns
    1. [Singleton](#1-singleton-pattern)
    2. [Builder](#2-builder-pattern)
    3. [Prototype](#3-prototype-pattern)
    4. [Factory Method](#4-factory-method-pattern)
    5. [Abstract Factory](#5-abstractfactory-pattern)
-- Structural Design Patterns
+5. Structural Design Patterns
    1. [Adapter](#1-adapter-pattern) 
    2. [Bridge](https://github.com/girirajvyas/gof-design-patterns#2-bridge-pattern)
    3. Composite
@@ -19,7 +19,7 @@
    5. Facade
    6. Flyweight
    7. Proxy
-- Behavioral Design Patterns
+6. Behavioral Design Patterns
 
 ## Introduction
 This repository contains examples of all the design patterns listed in the GoF book
