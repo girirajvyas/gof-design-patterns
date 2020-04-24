@@ -1,4 +1,27 @@
 # gof-design-patterns (23)
+
+
+## Table of contents
+- Introduction
+- Why you should learn Design patterns
+- How to approach
+- Creational Design Patterns
+   1. [Singleton](#1-singleton-pattern)
+   2. [Builder](#2-builder-pattern)
+   3. [Prototype](#3-prototype-pattern)
+   4. [Factory Method](#4-factory-method-pattern)
+   5. [Abstract Factory](#5-abstractfactory-pattern)
+- Structural Design Patterns
+   1. [Adapter](#1-adapter-pattern) 
+   2. [Bridge](https://github.com/girirajvyas/gof-design-patterns#2-bridge-pattern)
+   3. Composite
+   4. Decorator
+   5. Facade
+   6. Flyweight
+   7. Proxy
+- Behavioral Design Patterns
+
+## Introduction
 This repository contains examples of all the design patterns listed in the GoF book
 
 ## Why you should learn Design patterns
@@ -18,15 +41,15 @@ For each pattern you will see below points covered:
 - Summary	
 
 # Creational Design Patterns (5)
-1. [Singleton](https://github.com/girirajvyas/gof-design-patterns#1-singleton-pattern)
-2. [Builder](https://github.com/girirajvyas/gof-design-patterns#2-builder-pattern)
-3. [Prototype](https://github.com/girirajvyas/gof-design-patterns#3-prototype-pattern)
-4. [Factory Method](https://github.com/girirajvyas/gof-design-patterns#4-factory-method-pattern)
-5. [Abstract Factory](https://github.com/girirajvyas/gof-design-patterns#5-abstractfactory-pattern)
+1. [Singleton](#1-singleton-pattern)
+2. [Builder](#2-builder-pattern)
+3. [Prototype](#3-prototype-pattern)
+4. [Factory Method](#4-factory-method-pattern)
+5. [Abstract Factory](#5-abstractfactory-pattern)
 
 # Structural Design Patterns (7)
-1. Adapter 
-2. Bridge
+1. [Adapter](#1-adapter-pattern) 
+2. [Bridge](https://github.com/girirajvyas/gof-design-patterns#2-bridge-pattern)
 3. Composite
 4. Decorator
 5. Facade
@@ -84,6 +107,7 @@ see code
 ## Next
 Explore the Enum version of Singleton pattern
 
+**[&#11014; back to top](#table-of-contents)**
 
 # 2. Builder pattern
 This a pattern people often use but rarely create of there own.  
@@ -223,10 +247,13 @@ Note:
 - Can help with performance issues
 - Dont always jump to a factory
 
+> Prototype patterns are usually implemented with a Registry
+
+> A Prototype is used when you want to guarantee a unique instance that is lightweight to create
+
 ## Next:
 you can try prototype pattern with Generics and without clone method 
 References: https://refactoring.guru/design-patterns/prototype
-
 
 # 4. Factory method pattern
 
@@ -413,12 +440,12 @@ This adapter class implements the same interface that we had for our required en
 
 ## Contrast to other patterns
 
-| Factory                              | AbstractFactory                                     |
+| Adapter                              | Bridge                                     |
 | -------------                        |:-------------:                                      |
 | Works after code is designed         | Designed upfront                                    |
 | works mostly with Legacy             | so that Abstraction and implementation can vary     |
 | Retrofitted                          | Built in advance                                    |
-| Provodes different interface         | Both adapt multiple systems                         |
+| Provides different interface         | Both adapt multiple systems                         |
 
 ## Summary
 
@@ -432,7 +459,20 @@ Similar to adapter with 1 major difference that Adapter works with legacy code a
 
 ## Concepts
 
+- Decouple Abstraction and Implementation
+- Utilizes Encapsulation, Composition and Inheritance
+- Changes in Abstraction won't affect client, client is unaware of abstraction on backend
+- Details wont be right to begin with
+- **Examples**
+  - Driver
+  - JDBC Driver
 
+## Design Considerations
+- It uses a lot of Interfaces and Abstract classes
+- Composition over Inheritance
+- more than just composition
+- Expect the changes from both sides
+- Abstraction, Implementor, Refined Abstraction, Concrete Implementor
 
 
 
@@ -445,6 +485,4 @@ https://app.pluralsight.com/library/courses/design-patterns-java-creational/tabl
 https://app.pluralsight.com/library/courses/design-patterns-java-structural/table-of-contents
 
 
-> Prototype patterns are usually implemented with a Registry
-> A Prototype is used when you want to guarantee a unique instance that is lightweight to create
 
