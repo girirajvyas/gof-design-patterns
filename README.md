@@ -2,24 +2,24 @@
 
 
 ## Table of contents
-1. Introduction
-2. Why you should learn Design patterns
-3. How to approach
-4. Creational Design Patterns
-   1. [Singleton](#1-singleton-pattern)
-   2. [Builder](#2-builder-pattern)
-   3. [Prototype](#3-prototype-pattern)
-   4. [Factory Method](#4-factory-method-pattern)
-   5. [Abstract Factory](#5-abstractfactory-pattern)
-5. Structural Design Patterns
-   1. [Adapter](#1-adapter-pattern) 
-   2. [Bridge](https://github.com/girirajvyas/gof-design-patterns#2-bridge-pattern)
-   3. Composite
-   4. Decorator
-   5. Facade
-   6. Flyweight
-   7. Proxy
-6. Behavioral Design Patterns
+- Introduction
+- Why you should learn Design patterns
+- How to approach
+- Creational Design Patterns (5)
+    1. [Singleton](#1-singleton-pattern)
+    2. [Builder](#2-builder-pattern)
+    3. [Prototype](#3-prototype-pattern)
+    4. [Factory Method](#4-factory-method-pattern)
+    5. [Abstract Factory](#5-abstractfactory-pattern)
+- Structural Design Patterns (7)
+    1. [Adapter](#1-adapter-pattern) 
+    2. [Bridge](#2-bridge-pattern)
+    3. Composite
+    4. Decorator
+    5. Facade
+    6. Flyweight
+    7. Proxy
+- Behavioral Design Patterns (11)
 
 ## Introduction
 This repository contains examples of all the design patterns listed in the GoF book
@@ -197,6 +197,9 @@ This pattern deals with construction of Objects with lot of parameters and want 
 ## Next
 Explore the Generics version of builder pattern
 
+
+**[&#11014; back to top](#table-of-contents)**
+
 # 3. Prototype pattern
 creates copy of objects that are very expensive to create
 
@@ -254,6 +257,8 @@ Note:
 ## Next:
 you can try prototype pattern with Generics and without clone method 
 References: https://refactoring.guru/design-patterns/prototype
+
+**[&#11014; back to top](#table-of-contents)**
 
 # 4. Factory method pattern
 
@@ -322,6 +327,8 @@ Flow:
 - Solves Complex creation (Choose type at runtime)
 - A little complex
 - Opposite of a Singleton
+
+**[&#11014; back to top](#table-of-contents)**
 
 # 5. AbstractFactory pattern
 
@@ -402,6 +409,8 @@ if you are not using the ORM and you have to use the db queries depending on the
 - Heavy abstraction
 - written at framework level
 
+**[&#11014; back to top](#table-of-contents)**
+
 # Structural Design Patterns
 
 # 1. Adapter pattern
@@ -470,9 +479,114 @@ Similar to adapter with 1 major difference that Adapter works with legacy code a
 ## Design Considerations
 - It uses a lot of Interfaces and Abstract classes
 - Composition over Inheritance
-- more than just composition
+- More than just composition
 - Expect the changes from both sides
 - Abstraction, Implementor, Refined Abstraction, Concrete Implementor
+
+## Example/Demo
+Here we will have 2 examples
+
+Example 1  with shape and colour
+- Color and shape without bridge
+    ```java
+						                           Shape(Abstract class)
+				   	                      (public abstract void applyColor())
+                           _______________________________|______________________________________					
+                          |                                                                      |
+                Square (Abstract class)                                              Circle (Abstract class)
+         _______________|________________                                              _______________|________________ 
+        |                                |                                            |                                |
+    RedSquare                 GreenSquare                                          RedCircle                      GreenCircle
+ 
+     Note:Adding any new type and its colour will be a lot of work in this implementation using INHERITANCE
+    ```
+- Color and shape with bridge
+    ```java
+	                                           Colour (Interface)
+							               		void applyColor()
+                           _______________________________|______________________________________
+						  |				                                                         |
+                 RedColour (concrete class)                                            RedColour (concrete class)
+	            			 
+												 
+											Shape(Abstract class)
+												 public Shape(Colour colour) {
+		                                             this.colour = colour;
+	                                             }
+				   	                        (public abstract void applyColor())
+                           _______________________________|______________________________________					
+                          |                                                                      |
+                Square (Concrete class)                                              Circle (Concrete class)
+	
+	 Note:  Adding a new colour or Shape is easy as we are using COMPOSITION over INHERITANCE
+    ```	
+- Create Bridge with Printer and Formatter
+    ```java
+	                                             Formatter (Interface)
+							       String format(String header, List<Detail> details)
+                           _______________________________|______________________________________
+						  |				                                                         |
+                  PrintFormatter(Concrete class)                                            HTMLFormatter (Concrete class)
+	            			 
+												 
+											     Printer(Abstract class)
+										     public Printer(Formatter formatter) {
+		                                         this.formatter = formatter;
+	                                         }
+				   	                        public abstract String getHeader()
+											public abstract List<Detail> getDetails()
+                           _______________________________|______________________________________					
+                          |                                                                      |
+                MoviePrinter (Concrete class)                                            AnyOtherPrinter(Concrete class)
+	
+	 Note:  Adding a new Formatter or Printer is easy as we are using COMPOSITION over INHERITANCE
+    ```
+
+## Pitfalls
+- Increases complexity
+- Conceptually difficult to plan
+- More than just OO principles
+- little confusing about what goes where in code
+
+## Contrast to other patterns
+
+| Adapter                              | Bridge                                     |
+| -------------                        |:-------------:                                      |
+| Works after code is designed         | Designed upfront                                    |
+| works mostly with Legacy             | so that Abstraction and implementation can vary     |
+| Retrofitted                          | Built in advance                                    |
+| Provides different interface         | Complex                         |
+
+## Summary
+
+- Designed for uncertainty
+- Can be complex
+- provides flexibility
+- more than composition
+
+
+**[&#11014; back to top](#table-of-contents)**
+
+# 3. Composite pattern
+Hierarchical pattern that deals with the tree structures of information
+
+## Concepts
+- Component represents part or whole structures
+- Composite objects into tree structures
+- Individual Objects treated as a composite
+- Same operations applied on individual and composites
+- **Examples**
+    - java.awt.Component
+	- JSF widgets
+	- Restful sservice GETs
+	
+## Design Considerations
+
+
+
+
+
+
 
 
 
@@ -485,4 +599,10 @@ https://app.pluralsight.com/library/courses/design-patterns-java-creational/tabl
 https://app.pluralsight.com/library/courses/design-patterns-java-structural/table-of-contents
 
 
-
+Additional References:
+1. Apache derby configuration: https://www.codejava.net/java-se/jdbc/connect-to-apache-derby-java-db-via-jdbc
+Did you know:  
+As announced in June 2015, JavaDB is no longer included in recent versions of the JDK.  
+It was removed from JDK 7 and JDK 8 with the July 17, 2018 Critical Patch Update.  
+JavaDB was a rebranding of Apache Derby. Developers who like to continue using JavaDB should download the latest version from The Apache DB Project.  
+Source: https://www.oracle.com/java/technologies/javadb.html
