@@ -286,25 +286,26 @@ References: https://refactoring.guru/design-patterns/prototype
 - Create Enum
 
 Flow:
-```bash
-                                    abstract Website
-			_______________________________|___________________________
-		   |							                               |
+```java
+                             Website (abstract class)
+                          abstract void createWebsite()
+                          public List<Page> getPages()
+             __________________________|___________________________
+            |                                                      |
     Blog extends Website                                        Shop extends Website
-	- PostPage                                                   - CartPage
-	- AboutPage                                                  - ItemPage
-	- CommentPage                                                - SearchPage
-	- ContactPage
-	
+    - PostPage                                                   - CartPage
+    - AboutPage                                                  - ItemPage
+    - CommentPage                                                - SearchPage
+    - ContactPage
+
    WebsiteFactory
-	factoryMethod(Type type) {   
-	     Switch (type):  
-	       BLOG:
-	         return new Blog();
-	       Shop
+    factoryMethod(Type type) {   
+       Switch (type):  
+         BLOG:
+           return new Blog();
+         Shop
          return new Shop();
     }
-	
 ```
    
 ## Pitfalls:
@@ -356,33 +357,31 @@ Flow:
 - Then build Factory as it will be used by abstractfactory
 - Factory returns concrete implementation
 
- Flow
- ```bash
+Flow
+```java
                                     CreditCardFactory (Abstract Factory)
-						- static CreditCardFactory getCreditCardFactory(int creditScore)
-						- abstract CreditCard getCreditCard(CardType cardType);
-                        - abstract Validator getValidator(CardType cardType);						
-				___________________________________|______________________________________
-	           |                                                                          | 								
-        AmexFactory  (extends CreditCardFactory)                             VisaFactory  (extends CreditCardFactory)   
-     
-     	public CreditCard getCreditCard(CardType cardType) {
-		   switch (cardType) {
-		      case GOLD:
-		   	    return new AmexGoldCreditCard();
-		      case PLATINUM:
-		   	    return new AmexPlatinumCreditCard();
-		   }
-	    }
-		
-	    public Validator getValidator(CardType cardType) {
-		   switch (cardType) {
-		      case GOLD:
-			    return new AmexGoldValidator();
-		      case PLATINUM:
-			     return new AmexPlatinumValidator();
-		}
-	}
+                    - static CreditCardFactory getCreditCardFactory(int creditScore)
+                    - abstract CreditCard getCreditCard(CardType cardType);
+                    - abstract Validator getValidator(CardType cardType);
+               ___________________________________|_________________________________
+              |                                                                     |
+        AmexFactory  (extends CreditCardFactory)                VisaFactory  (extends CreditCardFactory)
+     public CreditCard getCreditCard(CardType cardType) {
+        switch (cardType) {
+          case GOLD:
+   	        return new AmexGoldCreditCard();
+          case PLATINUM:
+   	        return new AmexPlatinumCreditCard();
+        }
+     }
+    public Validator getValidator(CardType cardType) {
+        switch (cardType) {
+          case GOLD:
+            return new AmexGoldValidator();
+          case PLATINUM:
+            return new AmexPlatinumValidator();
+        }
+    }
 ```
 
 if you are not using the ORM and you have to use the db queries depending on the db you are using, this pattern will find implementation their.
@@ -489,57 +488,56 @@ Here we will have 2 examples
 Example 1  with shape and colour
 - Color and shape without bridge
     ```java
-						                           Shape(Abstract class)
-				   	                      (public abstract void applyColor())
-                           _______________________________|______________________________________					
-                          |                                                                      |
-                Square (Abstract class)                                              Circle (Abstract class)
-         _______________|________________                                              _______________|________________ 
-        |                                |                                            |                                |
-    RedSquare                 GreenSquare                                          RedCircle                      GreenCircle
+                                            Shape(Abstract class)
+                                      (public abstract void applyColor())
+                           __________________________|_________________________
+                          |                                                    |
+                Square (Abstract class)                              Circle (Abstract class)
+         _______________|________________                       _______________|________________ 
+        |                                |                     |                                |
+    RedSquare                 GreenSquare                  RedCircle                      GreenCircle
  
      Note:Adding any new type and its colour will be a lot of work in this implementation using INHERITANCE
     ```
 - Color and shape with bridge
     ```java
-	                                           Colour (Interface)
-							               		void applyColor()
-                           _______________________________|______________________________________
-						  |				                                                         |
-                 RedColour (concrete class)                                            RedColour (concrete class)
-	            			 
-												 
-											Shape(Abstract class)
-												 public Shape(Colour colour) {
-		                                             this.colour = colour;
-	                                             }
-				   	                        (public abstract void applyColor())
-                           _______________________________|______________________________________					
-                          |                                                                      |
-                Square (Concrete class)                                              Circle (Concrete class)
-	
-	 Note:  Adding a new colour or Shape is easy as we are using COMPOSITION over INHERITANCE
-    ```	
+                                      Colour (Interface)
+                           	          void applyColor()
+                           ___________________|___________________
+                          |                                       |
+            RedColour (concrete class)               RedColour (concrete class)
+
+
+                                    Shape(Abstract class)
+                                  public Shape(Colour colour) {
+                                      this.colour = colour;
+                                  }
+                                  public abstract void applyColor()
+                    ___________________________|_________________________
+                   |                                                     |
+            Square (Concrete class)                         Circle (Concrete class)
+
+      Note:  Adding a new colour or Shape is easy as we are using COMPOSITION over INHERITANCE
+    ```
 - Create Bridge with Printer and Formatter
     ```java
-	                                             Formatter (Interface)
-							       String format(String header, List<Detail> details)
-                           _______________________________|______________________________________
-						  |				                                                         |
-                  PrintFormatter(Concrete class)                                            HTMLFormatter (Concrete class)
-	            			 
-												 
-											     Printer(Abstract class)
-										     public Printer(Formatter formatter) {
-		                                         this.formatter = formatter;
-	                                         }
-				   	                        public abstract String getHeader()
-											public abstract List<Detail> getDetails()
-                           _______________________________|______________________________________					
-                          |                                                                      |
-                MoviePrinter (Concrete class)                                            AnyOtherPrinter(Concrete class)
-	
-	 Note:  Adding a new Formatter or Printer is easy as we are using COMPOSITION over INHERITANCE
+                                   Formatter (Interface)
+                     String format(String header, List<Detail> details)
+            ___________________________|_____________________________
+           |                                                         |
+    PrintFormatter(Concrete class)                 HTMLFormatter (Concrete class)
+
+
+                                   Printer(Abstract class)
+                           public Printer(Formatter formatter) {
+                                 this.formatter = formatter;
+                           }
+                           public abstract String getHeader()
+                           public abstract List<Detail> getDetails()
+            _______________________________|______________________________
+           |                                                              |
+    MoviePrinter (Concrete class)                          AnyOtherPrinter(Concrete class)
+    Note:  Adding a new Formatter or Printer is easy as we are using COMPOSITION over INHERITANCE
     ```
 
 ## Pitfalls
