@@ -1,10 +1,10 @@
 # gof-design-patterns (23)
 
-
 ## Table of contents
-- Introduction
-- Why you should learn Design patterns
-- How to approach
+- [Introduction](Introduction)
+- [What is a design pattern](#What-is-a-design-pattern)
+- [Why you should learn Design patterns]()
+- [How to approach]()
 - Creational Design Patterns (5)
     1. [Singleton](#1-singleton-pattern)
     2. [Builder](#2-builder-pattern)
@@ -14,7 +14,7 @@
 - Structural Design Patterns (7)
     1. [Adapter](#1-adapter-pattern) 
     2. [Bridge](#2-bridge-pattern)
-    3. Composite
+    3. [Composite](#3-Composite-pattern)
     4. Decorator
     5. Facade
     6. Flyweight
@@ -23,6 +23,12 @@
 
 ## Introduction
 This repository contains examples of all the design patterns listed in the GoF book
+
+## What is a design pattern
+From Wiki:-
+- In software engineering, a software design pattern is a general, **reusable solution to a commonly occurring problem** within a given context in software design.  
+- It is not a finished design that can be transformed directly into source or machine code. Rather, it is a **description or template for how to solve a problem** that can be used in many different situations. 
+- Design patterns are formalized best practices that the programmer can use to solve common problems when designing an application or system.
 
 ## Why you should learn Design patterns
 - Easy to communicate a proble among fellow developers
@@ -38,7 +44,7 @@ For each pattern you will see below points covered:
 - Live Example from an API | Example/Demo
 - Pitfalls (Drawbacks)
 - Contrast to another patterns
-- Summary	
+- Summary
 
 # Creational Design Patterns (5)
 1. [Singleton](#1-singleton-pattern)
@@ -59,6 +65,8 @@ For each pattern you will see below points covered:
 # Creational Design Patterns
 
 # 1. Singleton pattern
+
+<script src="https://gist.github.com/girirajvyas/2cb8d88d631e66343dd9ca7536b196e5.js"></script>
 
 ## Concepts:
 - Only one instance created
@@ -483,9 +491,7 @@ Similar to adapter with 1 major difference that Adapter works with legacy code a
 - Abstraction, Implementor, Refined Abstraction, Concrete Implementor
 
 ## Example/Demo
-Here we will have 2 examples
 
-Example 1  with shape and colour
 - Color and shape without bridge
     ```java
                                             Shape(Abstract class)
@@ -575,16 +581,25 @@ Hierarchical pattern that deals with the tree structures of information
 - Same operations applied on individual and composites
 - **Examples**
     - java.awt.Component
-	- JSF widgets
-	- Restful sservice GETs
-	
+    - JSF widgets
+    - Restful sservice GETs
+
 ## Design Considerations
+- Tree Structured
+- Root starts with Component
+- Leaf or Composite, same operations
+- Leaf has all the oprations, Composite along with all the operations knows about its child
+- Component, Leaf, Composite
+
+## Example/Demo
+- Menu, MenuItem, MenuComponent
+- Create Composite
+- Features not supported demo
+
+```
 
 
-
-
-
-
+```
 
 
 
@@ -604,3 +619,6 @@ As announced in June 2015, JavaDB is no longer included in recent versions of th
 It was removed from JDK 7 and JDK 8 with the July 17, 2018 Critical Patch Update.  
 JavaDB was a rebranding of Apache Derby. Developers who like to continue using JavaDB should download the latest version from The Apache DB Project.  
 Source: https://www.oracle.com/java/technologies/javadb.html
+
+https://www.javabrahman.com/design-patterns/gof-gang-four-design-patterns/
+
