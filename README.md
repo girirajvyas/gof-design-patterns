@@ -47,11 +47,16 @@ For each pattern you will see below points covered:
 - Summary
 
 # Creational Design Patterns (5)
-1. [Singleton](#1-singleton-pattern)
-2. [Builder](#2-builder-pattern)
-3. [Prototype](#3-prototype-pattern)
-4. [Factory Method](#4-factory-method-pattern)
-5. [Abstract Factory](#5-abstractfactory-pattern)
+
+|Sr. no| Pattern Name                                   | Description                                           |
+|-----:| -------------                                  |:-------------:                                    |
+|  1   | [Singleton](#1-singleton-pattern)              | **Ensure a class only has one instance, and provide a global point of access to it** |
+|  2   | [Builder](#2-builder-pattern)                  | Saperate the construction of complex object from its representation so that the same construction process can create different representations                                  |
+|  3   | [Prototype](#3-prototype-pattern)              | **Specify the kinds of objects to create using a protypical instance, and create new objects by copying this prototype**                                  |
+|  4   | [Factory Method](#4-factory-method-pattern)    | Define an interface for creating an object, but let sub-classess decide which class to instantiate. Factory method lets a class defer instantiation to subclasses                                  |
+|  5   | [Abstract Factory](#5-abstractfactory-pattern) |                                   |
+
+
 
 # Structural Design Patterns (7)
 1. [Adapter](#1-adapter-pattern) 
@@ -65,8 +70,6 @@ For each pattern you will see below points covered:
 # Creational Design Patterns
 
 # 1. Singleton pattern
-
-<script src="https://gist.github.com/girirajvyas/2cb8d88d631e66343dd9ca7536b196e5.js"></script>
 
 ## Concepts:
 - Only one instance created
@@ -104,7 +107,7 @@ see code
 | one constructor method - no args | multiple constructors                             |
 | no interface                     | Interface Driven                                  |
 | No Subclasses                    | Always SubClasses are involved in a way or other  |
-| NA			                   | Adaptable to environment more easily**            |
+| NA                               | Adaptable to environment more easily**            |
 
 ## Summary
 - Guarantees one instance
@@ -614,11 +617,10 @@ https://app.pluralsight.com/library/courses/design-patterns-java-structural/tabl
 
 Additional References:
 1. Apache derby configuration: https://www.codejava.net/java-se/jdbc/connect-to-apache-derby-java-db-via-jdbc
-Did you know:  
-As announced in June 2015, JavaDB is no longer included in recent versions of the JDK.  
-It was removed from JDK 7 and JDK 8 with the July 17, 2018 Critical Patch Update.  
-JavaDB was a rebranding of Apache Derby. Developers who like to continue using JavaDB should download the latest version from The Apache DB Project.  
-Source: https://www.oracle.com/java/technologies/javadb.html
+
+**Did you know:**  
+ > As announced in June 2015, JavaDB is no longer included in recent versions of the JDK. It was removed from JDK 7 and JDK 8 with the July 17, 2018 Critical Patch Update. JavaDB was a rebranding of Apache Derby. Developers who like to continue using JavaDB should download the latest version from The Apache DB Project.  Source: https://www.oracle.com/java/technologies/javadb.html
+
 
 https://www.javabrahman.com/design-patterns/gof-gang-four-design-patterns/
-
+https://github.com/TushaarGVS/Design-Patterns-Mentorship
