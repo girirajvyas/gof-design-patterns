@@ -1,10 +1,10 @@
 # gof-design-patterns (23)
 
 ## Table of contents
-- [Introduction](Introduction)
-- [What is a design pattern](#What-is-a-design-pattern)
-- [Why you should learn Design patterns]()
-- [How to approach]()
+- [Introduction](#introduction)
+- [What is a design pattern](#what-is-a-design-pattern)
+- [Why you should learn Design patterns](#why-you-should-learn-Design-patterns)
+- [How to approach](#how-to-approach)
 - Creational Design Patterns (5)
     1. [Singleton](#1-singleton-pattern)
     2. [Builder](#2-builder-pattern)
@@ -59,13 +59,16 @@ For each pattern you will see below points covered:
 
 
 # Structural Design Patterns (7)
-1. [Adapter](#1-adapter-pattern) 
-2. [Bridge](https://github.com/girirajvyas/gof-design-patterns#2-bridge-pattern)
-3. Composite
-4. Decorator
-5. Facade
-6. Flyweight
-7. Proxy
+
+|Sr. no| Pattern Name                       | Description                                           |
+|-----:| -------------                      |:-------------:                                    |
+|  1   | [Adapter](#1-adapter-pattern)      | **E** |
+|  2   | [Bridge](#2-bridge-pattern)        |      |
+|  3   | [Composite](#3-composite-pattern)  | **S**            |
+|  4   | [Decorator](#4-decorator-pattern)  |    |
+|  5   | [Facade](#5-facade-pattern)        |                              |
+|  6   | [Flyweight](#6-flyweight-pattern)  |    |
+|  7   | [Proxy](#7-proxy-pattern)          |                                   |
 
 # Creational Design Patterns
 
@@ -599,10 +602,67 @@ Hierarchical pattern that deals with the tree structures of information
 - Create Composite
 - Features not supported demo
 
+```java
+                                            MenuComponent(Abstract class)
+                                                 String name
+                                                 String url
+                                            List<MenuComponent> menuCOmponent;
+                           __________________________|_________________________
+                          |                                                    |
+                Menu (Concrete class)                              MenuItem (Concrete class)
+             add(MenuComponent menuCOmponent)
+             remove(MenuComponent menuCOmponent)
 ```
 
+## Pitfalls
+- Can overly simplify system
+- Difficult to restrict what to add
+- Implementation can be costly
 
-```
+## Contrast to other patterns
+
+| Composite                              | Decorator                              |
+| -------------                          |:-------------:                         |
+| Tree Structure                         | Contains another entity  (Composition) |
+| Leaf and composite have same interface | Modifies behaviour(adds)               |
+| Unity between Objects                  | Doesn't change underlying object       |
+
+## Summary
+
+- Generalizes a hierarchical structure
+- Can simplify things too much
+- Easier for clients 
+- Composite != Composition
+
+# 4. Decorator pattern
+
+## Concepts
+- Wrapper to add functionality
+- Add behaviour without affecting others
+- It is more than just inheritance
+- follows **Single Responsibility Principle**
+- Compose behaviour dynamically
+- **Examples**:
+    - java.io.InputStream
+    - java.util.Collections#checkedList() - not clear
+    - All ui components in swing and awt
+    
+## Design considerations
+
+- Inheritance based
+- Utilizes Composition and Inheritance (is-a, has-a)
+- Alternative to subclassing as it adheres to SRP
+- Constructor requires instance from hierarchy
+- Component, ConcreteComponent, Decorator, ConcreteDecorator
+ 
+
+
+# 5. Facade pattern
+
+# 6. Flyweight pattern
+
+# 7. Proxy pattern
+
 
 
 
