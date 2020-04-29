@@ -653,8 +653,48 @@ Hierarchical pattern that deals with the tree structures of information
 - Utilizes Composition and Inheritance (is-a, has-a)
 - Alternative to subclassing as it adheres to SRP
 - Constructor requires instance from hierarchy
-- Component, ConcreteComponent, Decorator, ConcreteDecorator
+- 
  
+## Example/Demo
+- Create Component(Sandwich), ConcreteComponent(SimpleSandwich), Decorator(SandwichDecorator), ConcreteDecorator(MeatDecorator, DressingDecorator)
+- Create decorator pattern eventually
+- Implement another decorator
+- Not a Creational pattern
+
+```java
+                                        Sandwich (Interface)
+                                        public String make()
+                       __________________________|_________________________
+                      |                                                    |
+      SimpleSandwich (Concrete class)                            SandwichDecorator(Abstract class)
+                                                 __________________________|_________________________
+                                                 |                                                    |
+                                  MeatDecorator (Concrete class)                        DressingDecorator (Concrete class)
+
+    Note: We added functionality to SimpleSandwich that did not existed before. hence it is structural and not creational pattern
+```
+
+## Pitfalls
+- New class for every feature added
+- Multiple little objects
+- Often confused with simple inheritance
+
+## Contrast to other patterns
+
+| Composite                              | Decorator                              |
+| -------------                          |:-------------:                         |
+| Tree Structure                         | Contains another entity  (Composition) |
+| Leaf and composite have same interface | Modifies behaviour(adds)               |
+| Unity between Objects                  | Doesn't change underlying object       |
+
+## Summary
+
+- Original Object can stay the same
+- Unique way to add functionality
+- Confused with inheritance
+- Can be more COmplex for clients
+
+
 
 
 # 5. Facade pattern
