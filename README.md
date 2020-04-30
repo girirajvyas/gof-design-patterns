@@ -218,7 +218,7 @@ Explore the Generics version of builder pattern
 
 **[&#11014; back to top](#table-of-contents)**
 
-# 3. :clipboard: Prototype pattern
+# 3. Prototype pattern :clipboard:
 creates copy of objects that are very expensive to create
 
 ## Concepts
