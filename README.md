@@ -94,13 +94,13 @@ For each pattern you will see below points covered:
 ## Example/Demo
 see code
 
-## PitFalls
+## PitFalls :stop_sign:
 - Often overused
 - Difficult to unittest
 - if not careful, not threadsafe
 - sometimes confused for factory
 
-**Note:** java.util.Calendar is not a Singleton, rather it is Prototype. It is confused as Singleton as it has getInstance() method.
+**Note:** :dart: java.util.Calendar is not a Singleton, rather it is Prototype. It is confused as Singleton as it has getInstance() method.
 
 ## Contrast to other patterns
 
@@ -476,6 +476,8 @@ This adapter class implements the same interface that we had for our required en
 - Integrate with legacy code
 - Can provide multiple adapters
 
+**[&#11014; back to top](#table-of-contents)**
+
 # 2. Bridge pattern
 Similar to adapter with 1 major difference that Adapter works with legacy code and bridge works with new code
 
@@ -560,12 +562,12 @@ Similar to adapter with 1 major difference that Adapter works with legacy code a
 
 ## Contrast to other patterns
 
-| Adapter                              | Bridge                                     |
+| Adapter                              | Bridge                                              |
 | -------------                        |:-------------:                                      |
 | Works after code is designed         | Designed upfront                                    |
 | works mostly with Legacy             | so that Abstraction and implementation can vary     |
 | Retrofitted                          | Built in advance                                    |
-| Provides different interface         | Complex                         |
+| Provides different interface         | Complex                                             |
 
 ## Summary
 
@@ -573,7 +575,6 @@ Similar to adapter with 1 major difference that Adapter works with legacy code a
 - Can be complex
 - provides flexibility
 - more than composition
-
 
 **[&#11014; back to top](#table-of-contents)**
 
@@ -634,6 +635,8 @@ Hierarchical pattern that deals with the tree structures of information
 - Easier for clients 
 - Composite != Composition
 
+**[&#11014; back to top](#table-of-contents)**
+
 # 4. Decorator pattern
 
 ## Concepts
@@ -653,7 +656,6 @@ Hierarchical pattern that deals with the tree structures of information
 - Utilizes Composition and Inheritance (is-a, has-a)
 - Alternative to subclassing as it adheres to SRP
 - Constructor requires instance from hierarchy
-- 
  
 ## Example/Demo
 - Create Component(Sandwich), ConcreteComponent(SimpleSandwich), Decorator(SandwichDecorator), ConcreteDecorator(MeatDecorator, DressingDecorator)
@@ -662,16 +664,17 @@ Hierarchical pattern that deals with the tree structures of information
 - Not a Creational pattern
 
 ```java
-                                        Sandwich (Interface)
-                                        public String make()
-                       __________________________|_________________________
-                      |                                                    |
-      SimpleSandwich (Concrete class)                            SandwichDecorator(Abstract class)
-                                                 __________________________|_________________________
-                                                 |                                                    |
-                                  MeatDecorator (Concrete class)                        DressingDecorator (Concrete class)
+                               Sandwich (Interface)
+                                public String make()
+               __________________________|_________________________
+              |                                                    |
+    SimpleSandwich (Concrete class)            SandwichDecorator(Abstract class)
+                                __________________________|_________________________
+                               |                                                    |
+           MeatDecorator (Concrete class)                        DressingDecorator (Concrete class)
 
-    Note: We added functionality to SimpleSandwich that did not existed before. hence it is structural and not creational pattern
+    Note: We added functionality to SimpleSandwich that did not existed before. 
+          Hence, it is structural and not creational pattern
 ```
 
 ## Pitfalls
@@ -694,15 +697,66 @@ Hierarchical pattern that deals with the tree structures of information
 - Confused with inheritance
 - Can be more COmplex for clients
 
-
-
+**[&#11014; back to top](#table-of-contents)**
 
 # 5. Facade pattern
 
+Provides simple interface to COmplex or difficult to use system that is odten result of a poorly designed API
+
+## Concepts
+
+- Make an API easier to use
+- Reduce dependencies on outside code
+- Simplify the interface or client usage
+- Usually a refactoring pattern
+- **Examples**
+    - java.net.URL
+    - javax.faces.context.FacesContext
+    - SLF4j is also based on principle of facade
+
+## Design
+
+- Class that utilizes composition
+- Shouldn't have a need for inheritance
+- Typically encompasses full lifecycle (Not mandatorily)
+
+## Example/Demo
+
+- Complex Client
+- Client, Facade, JDBC
+- Simplified Client Code
+
+## Pitfalls
+
+- Typically used to cleanup code
+- Should think about API design
+- Flat problem/structure
+- The "singleton" of structural pattern (often misused due to simplicity)
+
+## Contrast to other patterns
+
+| Adapter                       | Facade                 |
+| -------------                 |:-------------:         |
+| Also a refactoring pattern    | Simplifies interface   |
+| Retrofitted                   | Works with composites  |
+| Provides different interface  | Cleaner API            |
+
+## Summary
+
+- Simplifies the client interface
+- Easy pattern to implement
+- Refactoring pattern
+
+
+**[&#11014; back to top](#table-of-contents)**
+
 # 6. Flyweight pattern
+
+**[&#11014; back to top](#table-of-contents)**
 
 # 7. Proxy pattern
 
+**[&#11014; back to top](#table-of-contents)**
 
 
 
