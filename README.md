@@ -1,5 +1,10 @@
 # gof-design-patterns (23)
 
+******
+    This repository contains examples of all the design patterns listed in the GoF book
+******
+
+
 ## Table of contents
 - [Introduction](#introduction)
 - [What is a design pattern](#what-is-a-design-pattern)
@@ -15,14 +20,12 @@
     1. [Adapter](#1-adapter-pattern) 
     2. [Bridge](#2-bridge-pattern)
     3. [Composite](#3-Composite-pattern)
-    4. Decorator(#4-decorator-pattern)
-    5. Facade(#5-facade-pattern)
-    6. Flyweight(#6-flyweight-pattern)
-    7. Proxy(#7-proxy-pattern)
+    4. [Decorator](#4-decorator-pattern)
+    5. [Facade](#5-facade-pattern)
+    6. [Flyweight](#6-flyweight-pattern)
+    7. [Proxy](#7-proxy-pattern)
 - Behavioral Design Patterns (11)
 
-## Introduction
-This repository contains examples of all the design patterns listed in the GoF book
 
 ## What is a design pattern
 From Wiki:-
@@ -215,7 +218,7 @@ Explore the Generics version of builder pattern
 
 **[&#11014; back to top](#table-of-contents)**
 
-# 3. Prototype pattern
+# 3. :clipboard: Prototype pattern
 creates copy of objects that are very expensive to create
 
 ## Concepts
@@ -275,7 +278,7 @@ References: https://refactoring.guru/design-patterns/prototype
 
 **[&#11014; back to top](#table-of-contents)**
 
-# 4. Factory method pattern
+# 4. :factory: Factory method pattern
 
 ## Concepts
 - Doesn't expose instantiation logic
@@ -798,7 +801,11 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 
 **[&#11014; back to top](#table-of-contents)**
 
+
 # 7. Proxy pattern
+
+## concepts
+
 
 **[&#11014; back to top](#table-of-contents)**
 
