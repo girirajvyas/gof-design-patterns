@@ -15,10 +15,10 @@
     1. [Adapter](#1-adapter-pattern) 
     2. [Bridge](#2-bridge-pattern)
     3. [Composite](#3-Composite-pattern)
-    4. Decorator
-    5. Facade
-    6. Flyweight
-    7. Proxy
+    4. Decorator(#4-decorator-pattern)
+    5. Facade(#5-facade-pattern)
+    6. Flyweight(#6-flyweight-pattern)
+    7. Proxy(#7-proxy-pattern)
 - Behavioral Design Patterns (11)
 
 ## Introduction
@@ -26,9 +26,10 @@ This repository contains examples of all the design patterns listed in the GoF b
 
 ## What is a design pattern
 From Wiki:-
-- In software engineering, a software design pattern is a general, **reusable solution to a commonly occurring problem** within a given context in software design.  
-- It is not a finished design that can be transformed directly into source or machine code. Rather, it is a **description or template for how to solve a problem** that can be used in many different situations. 
-- Design patterns are formalized best practices that the programmer can use to solve common problems when designing an application or system.
+- **A general reusable solution to a commonly occurring problem** within a given context in software design.  
+- Not a finished design that can be transformed directly into source or machine code. 
+- Rather, it is a **description or template for how to solve a problem** that can be used in many different situations. 
+- Design patterns are **formalized best practices** that the programmer can use to solve common problems when designing an application or system.
 
 ## Why you should learn Design patterns
 - Easy to communicate a proble among fellow developers
@@ -94,13 +95,13 @@ For each pattern you will see below points covered:
 ## Example/Demo
 see code
 
-## PitFalls :stop_sign:
+## PitFalls 
 - Often overused
 - Difficult to unittest
 - if not careful, not threadsafe
 - sometimes confused for factory
 
-**Note:** :dart: java.util.Calendar is not a Singleton, rather it is Prototype. It is confused as Singleton as it has getInstance() method.
+:stop_sign: java.util.Calendar is not a Singleton, rather it is Prototype. It is confused as Singleton as it has getInstance() method.
 
 ## Contrast to other patterns
 
@@ -747,10 +748,53 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 - Easy pattern to implement
 - Refactoring pattern
 
-
 **[&#11014; back to top](#table-of-contents)**
 
 # 6. Flyweight pattern
+
+## Concepts
+
+- More efficient use of memory
+- Large number of similar objects
+- Immutable
+- Most of the object states can be extrinsic
+- **Examples**
+    - java.lang.String
+    - java.lang.Integer#valueOf
+    - Boolean, Byte, Character, Short, Long
+
+## Design Considerations
+
+- It is pattern of patterns
+- Utilizes a Factory
+- Encompasses Creation and Structure
+- Client, Factory, Flyweight, ConcreteFlyWeight
+
+## Example/Demo
+
+- Inventory management system
+- Client, Catalog, Order(ConcreteFlyWeight) and Item
+
+## Pitfalls
+
+- Complex pattern
+- premature optimization of code 
+- must understand factory
+- Not a graphical pattern 
+
+## Contrast to other patterns
+
+| Flyweight             | Facade                         |
+| -------------         |:-------------:                 |
+| Memory optimization   | Refactoring pattern            |
+| Optimization pattern  | Simplified client              |
+| Immutable objects     | provides a different interface |
+
+## Summary
+
+- Great for memory management
+- A little bit complex
+- Used a lot by core API
 
 **[&#11014; back to top](#table-of-contents)**
 

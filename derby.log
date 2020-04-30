@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Fri May 01 00:08:09 IST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-0171-cc61-bb26-00000e9449d0 
+on database directory memory:D:\Sources\github\gof-design-patterns\codejava\webdb with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+Loaded from file:/D:/Sources/github/gof-design-patterns/resources/derby/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_241-b07
+user.dir=D:\Sources\github\gof-design-patterns
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
