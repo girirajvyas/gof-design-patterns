@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="resources/derby/derby.jar"/>
 	<classpathentry kind="lib" path="resources/derby/derbyclient.jar"/>
+	<classpathentry kind="lib" path="resources/twitter4j/twitter4j-core-4.0.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

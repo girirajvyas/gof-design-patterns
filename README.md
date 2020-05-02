@@ -127,7 +127,7 @@ Explore the Enum version of Singleton pattern
 
 **[&#11014; back to top](#table-of-contents)**
 
-# 2. Builder pattern
+# 2. Builder pattern :construction_worker:
 This a pattern people often use but rarely create of there own.  
 This pattern deals with construction of Objects with lot of parameters and want to make the object once we are done constructing it.
 
@@ -161,32 +161,31 @@ This pattern deals with construction of Objects with lot of parameters and want 
 - Create a public default constructor in Builder class (you can put any parameters here to make them mandatory)
 - Now, create methods taking field type as input and returning complete instance after setting that. for example
    ```java
-	public Builder bread(String bread) {
-				this.bread = bread;
-				return this;
-			}
+    public Builder bread(String bread) {
+       this.bread = bread;
+       return this;
+    }
    ```
 - Create a private constructor in Outer class that takes this Builder class and sets all the fields from the builder instance.
   ```java
-	private LunchOrder(Builder builder) {
-		this.bread = builder.bread;
-		this.condiments = builder.condiments;
-		this.dressing = builder.dressing;
-		this.meat = builder.meat;
-	}
+    private LunchOrder(Builder builder) {
+        this.bread = builder.bread;
+        this.condiments = builder.condiments;
+        this.dressing = builder.dressing;
+        this.meat = builder.meat;
+    }
   ```
 - Create a build method that will return the instance of Outer class. This is achieved by passing this builder instance to the outer class constructor
   ```java
-	public LunchOrder build() {
-			return new LunchOrder(this);
-		}
+    public LunchOrder build() {
+       return new LunchOrder(this);
+    }
   ```
 - You can test the above builder as:
   ```java
     LunchOrder.Builder builder = new LunchOrder.Builder(); 
-		builder.bread("bread").condiments("condiments").dressing("dressing").meat("meat");
-		LunchOrder lunchOrder = builder.build();
-  
+    builder.bread("bread").condiments("condiments").dressing("dressing").meat("meat");
+    LunchOrder lunchOrder = builder.build();
   ```
 - Done  
 
@@ -278,7 +277,7 @@ References: https://refactoring.guru/design-patterns/prototype
 
 **[&#11014; back to top](#table-of-contents)**
 
-# 4. :factory: Factory method pattern
+# 4. Factory method pattern :factory: 
 
 ## Concepts
 - Doesn't expose instantiation logic
@@ -430,7 +429,7 @@ if you are not using the ORM and you have to use the db queries depending on the
 
 # Structural Design Patterns
 
-# 1. Adapter pattern
+# 1. Adapter pattern  :electric_plug:
 Pattern for connecting new code to the legacy code without having to change thenworking contract that was produced from legacy code originally
 
 ## Concepts
@@ -482,7 +481,7 @@ This adapter class implements the same interface that we had for our required en
 
 **[&#11014; back to top](#table-of-contents)**
 
-# 2. Bridge pattern
+# 2. Bridge pattern  :bridge_at_night:
 Similar to adapter with 1 major difference that Adapter works with legacy code and bridge works with new code
 
 ## Concepts
@@ -582,7 +581,7 @@ Similar to adapter with 1 major difference that Adapter works with legacy code a
 
 **[&#11014; back to top](#table-of-contents)**
 
-# 3. Composite pattern
+# 3. Composite pattern  :leaves:
 Hierarchical pattern that deals with the tree structures of information
 
 ## Concepts
@@ -806,10 +805,58 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 
 ## concepts
 
+- Interface by wrapping
+- Can add functionality
+- Solves problems such as Security, Simplicity, Remote service call, expensive object to create
+- Proxy call to access real object
+- **Examples**
+    - java.lang.reflect.Proxy
+    - java.rmi.*
+    - Spering and few parts of Hibernate
+
+## Design Considerations
+
+- Interface based 
+- Interface and Implementation class
+- java.lang.reflect.InvocationHandler
+- java.lang.reflect.Proxy
+- Client, Interface, InvocationHandler, Proxy, Implementation
+
+## Example/Demo
+
+- Twitter API Download
+- Twitter Service Impl
+- Restrict POST call
+
+Side notes:
+1. Create Twitter account (mobile number is mandatory)
+2. http://twitter4j.org/en/index.html -> Download -> Latest stable version -> twitter4j-4.0.7.zip / JavaDoc
+3. app.twitter.com -> create new app -> get those tokens, generate new access tokens if not already created. use these details in TwitterServiceImpl
+
+## Pitfalls
+
+- Only one proxy
+- Another abstraction layer
+- Similar to another patterns 
+
+## Contrast to other patterns
+
+| Proxy                                           | Decorator                              |
+| -------------                                   |:-------------:                         |
+| Can add functionality, but not its main purpose | Dynamically add functionality          |
+| Can only have one proxy                         | Chained                                |
+| Compile time                                    | Runtime                                |
+|                                                 | Decorator points to its own type       |
+
+## Summary
+
+- Great utilities built into java API
+- Only one instance
+- Used by Dependency Injection/IOC frameworks
+- Great way to implement lazy loading
+- 
 
 **[&#11014; back to top](#table-of-contents)**
-
-
 
 
 ## References:  
