@@ -76,7 +76,7 @@ For each pattern you will see below points covered:
 
 # Creational Design Patterns
 
-# 1. Singleton pattern
+# 1. Singleton pattern :gem:
 
 ## Concepts:
 - Only one instance created
@@ -348,7 +348,7 @@ Flow:
 
 **[&#11014; back to top](#table-of-contents)**
 
-# 5. AbstractFactory pattern
+# 5. AbstractFactory pattern :factory:  :factory:
 
 ## Concepts
 
@@ -640,7 +640,7 @@ Hierarchical pattern that deals with the tree structures of information
 
 **[&#11014; back to top](#table-of-contents)**
 
-# 4. Decorator pattern
+# 4. Decorator pattern :heart_decoration:
 
 ## Concepts
 - Wrapper to add functionality
@@ -702,7 +702,7 @@ Hierarchical pattern that deals with the tree structures of information
 
 **[&#11014; back to top](#table-of-contents)**
 
-# 5. Facade pattern
+# 5. Facade pattern  :notes:
 
 Provides simple interface to COmplex or difficult to use system that is odten result of a poorly designed API
 
@@ -752,7 +752,7 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 
 **[&#11014; back to top](#table-of-contents)**
 
-# 6. Flyweight pattern
+# 6. Flyweight pattern :butterfly:
 
 ## Concepts
 
@@ -801,7 +801,7 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 **[&#11014; back to top](#table-of-contents)**
 
 
-# 7. Proxy pattern
+# 7. Proxy pattern :trollface:
 
 ## concepts
 
