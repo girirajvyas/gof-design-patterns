@@ -25,7 +25,17 @@
     6. [Flyweight](#6-flyweight-pattern-butterfly)
     7. [Proxy](#7-proxy-pattern-trollface)
 - Behavioral Design Patterns (11)
-
+    1. [Chain of Responsibility](#)
+    2. Command
+    3. Interpretor
+    4. Iterator
+    5. Mediator
+    6. Memento
+    7. Observer
+    8. State
+    9. Strategy
+    10. Template method
+    11. Visitor
 
 ## What is a design pattern
 From Wiki:-
@@ -52,27 +62,27 @@ For each pattern you will see below points covered:
 
 # Creational Design Patterns (5)
 
-|Sr. no| Pattern Name                                   | Description                                           |
-|-----:| -------------                                  |:-------------:                                    |
-|  1   | [Singleton](#1-singleton-pattern-gem)              | **Ensure a class only has one instance, and provide a global point of access to it** |
-|  2   | [Builder](#2-builder-pattern-construction_worker)                  | Saperate the construction of complex object from its representation so that the same construction process can create different representations                                  |
-|  3   | [Prototype](#3-prototype-pattern-clipboard)              | **Specify the kinds of objects to create using a protypical instance, and create new objects by copying this prototype**                                  |
-|  4   | [Factory Method](#4-factory-method-pattern-factory)    | Define an interface for creating an object, but let sub-classess decide which class to instantiate. Factory method lets a class defer instantiation to subclasses                                  |
-|  5   | [Abstract Factory](#5-abstractfactory-pattern-factory--factory) |                                   |
+|Sr. no| Pattern Name                                                    | Description                                           |
+|-----:| -------------                                                   |:-------------:                                    |
+|  1   | [Singleton](#1-singleton-pattern-gem)                           | **Ensure a class only has one instance, and provide a global point of access to it** |
+|  2   | [Builder](#2-builder-pattern-construction_worker)               | Saperate the construction of complex object from its representation so that the same construction process can create different representations                                  |
+|  3   | [Prototype](#3-prototype-pattern-clipboard)                     | **Specify the kinds of objects to create using a protypical instance, and create new objects by copying this prototype**                                  |
+|  4   | [Factory Method](#4-factory-method-pattern-factory)             | Define an interface for creating an object, but let sub-classess decide which class to instantiate. Factory method lets a class defer instantiation to subclasses |
+|  5   | [Abstract Factory](#5-abstractfactory-pattern-factory--factory) | **Provide an interface for creating families of related or dependent objects without specifying their concrete classes.**                                         |
 
 
 
 # Structural Design Patterns (7)
 
-|Sr. no| Pattern Name                       | Description                                           |
-|-----:| -------------                      |:-------------:                                    |
-|  1   | [Adapter](#1-adapter-pattern--electric_plug)      | **Convert the interface of a class into another interface clients expect. Adapter lets classescwork together that couldn't otherwise because of incompatible interfaces.** |
-|  2   | [Bridge](#2-bridge-pattern--bridge_at_night)        | Decouple an abstraction from its implementation so that the two can vary independently     |
-|  3   | [Composite](#3-composite-pattern--leaves)  | **Compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat individual objects and compositions of objects uniformly.**            |
-|  4   | [Decorator](#4-decorator-pattern-heart_decoration)  | Attach additional responsibilities to an object dynamica lly.Decorators provide a flexible alternative to subclassing for extending functionality.   |
-|  5   | [Facade](#5-facade-pattern--notes)        | **Provide a unified interface to a set of interfaces in a subsystem. Facade defines a higher-level interfa ce that makes the subsystem easier to use.**                             |
-|  6   | [Flyweight](#6-flyweight-pattern-butterfly)  | Use sharing to support large numbers of fine-grained objects efficiently.   |
-|  7   | [Proxy](#7-proxy-pattern-trollface)          | Provide a surrogate or placeholder for another object to control access to it.                                  |
+|Sr. no| Pattern Name                                      | Description                                           |
+|-----:| -------------                                     |:-------------:                                    |
+|  1   | [Adapter](#1-adapter-pattern--electric_plug)      | **Convert the interface of a class into another interface clients expect. Adapter lets classes work together that couldn't otherwise because of incompatible interfaces.** |
+|  2   | [Bridge](#2-bridge-pattern--bridge_at_night)      | Decouple an abstraction from its implementation so that the two can vary independently     |
+|  3   | [Composite](#3-composite-pattern--leaves)         | **Compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat individual objects and compositions of objects uniformly.**            |
+|  4   | [Decorator](#4-decorator-pattern-heart_decoration)| Attach additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.   |
+|  5   | [Facade](#5-facade-pattern--notes)                | **Provide a unified interface to a set of interfaces in a subsystem. Facade defines a higher-level interface that makes the subsystem easier to use.**                             |
+|  6   | [Flyweight](#6-flyweight-pattern-butterfly)       | Use sharing to support large numbers of fine-grained objects efficiently.   |
+|  7   | [Proxy](#7-proxy-pattern-trollface)               | **Provide a surrogate or placeholder for another object to control access to it.**                                  |
 
 # Creational Design Patterns
 
@@ -859,20 +869,95 @@ Side notes:
 **[&#11014; back to top](#table-of-contents)**
 
 
-## References:  
-https://java-design-patterns.com/patterns/  
+# Creational Design Patterns
 
-Courses:  
+## 1. Chain of responsibility :chains:
+
+## Concepts
+
+- Decoupling sender and reciever
+- Receiver contains reference to next receiver
+- Promotes loose coupling
+- No handler is also OK
+- **Examples**
+    - java.util.Logging.Logger#log()
+    - javax.servlet.Filter#doFilter()
+    - Security chain filter in Spring security
+    
+## Design
+
+- Chain of receiver Objects
+- Handler is interface based
+- ConcreteHandler for each implementation
+- Each Handler has a reference to the next
+- Handler, ConcreteHandler 
+
+## Example/Demo
+
+- Components involved are Handler, Successor, Request
+- Create Handler
+- Chain
+
+Type of handlers: Director, VP, CEO
+
+```java
+                                   Handler(Abstract class)
+                           public Handler(Handler successor) {
+                                 this.successor = successor;
+                           }
+                           public abstract void handleRequest(Request request)
+            _______________________________|______________________________
+           |                               |                              |
+    Director (Concrete class)        VP  (Concrete class)         CEO (Concrete class)
+```
+
+## Pitfalls
+
+- Handling/Handler is not guaranted
+- Runtime configuration check
+- Chain length/performance issues
+
+## Contrast to other patterns
+
+| Chain of responsibility         | Command                           |
+| -------------                   |:-------------:                    |
+| Handler is unique               | Command also unique               |
+| knows about successor           | Encapsulates function             |
+| can utilize the command pattern | Reversible or trackable in nature |
+
+# Summary
+
+- Decouples the sender and receiver
+- Can be configured at runtime
+- Hierarchical in nature
+- Careful with large chains
+
+
+**[&#11014; back to top](#table-of-contents)**
+
+## References:
+**Courses:**  
 https://app.pluralsight.com/library/courses/design-patterns-java-creational/table-of-contents
 https://app.pluralsight.com/library/courses/design-patterns-java-structural/table-of-contents
 
+**All types of design patterns in Java (includes GoF, Microservices, Cloud, etc patterns):**  
+https://java-design-patterns.com/patterns/  
 
-Additional References:
+**All relevant Github repositories on this topic**
+https://github.com/TushaarGVS/Design-Patterns-Mentorship
+https://github.com/kamranahmedse/design-patterns-for-humans
+https://github.com/icoderman/gof-design-patterns
+https://github.com/iluwatar/java-design-patterns/blob/master/README.md
+https://github.com/adesozasilva/creational-design-pattern
+https://github.com/bzdgn/gang-of-four-design-patterns-in-java
+https://github.com/AshV/GoF-Design-Patterns-by-Example
+
+
+**Good reads**
+https://www.javabrahman.com/design-patterns/gof-gang-four-design-patterns/
+
+**Additional References:**
 1. Apache derby configuration: https://www.codejava.net/java-se/jdbc/connect-to-apache-derby-java-db-via-jdbc
 
 **Did you know:**  
  > As announced in June 2015, JavaDB is no longer included in recent versions of the JDK. It was removed from JDK 7 and JDK 8 with the July 17, 2018 Critical Patch Update. JavaDB was a rebranding of Apache Derby. Developers who like to continue using JavaDB should download the latest version from The Apache DB Project.  Source: https://www.oracle.com/java/technologies/javadb.html
-
-
-https://www.javabrahman.com/design-patterns/gof-gang-four-design-patterns/
-https://github.com/TushaarGVS/Design-Patterns-Mentorship
