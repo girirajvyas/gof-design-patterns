@@ -11,19 +11,19 @@
 - [Why you should learn Design patterns](#why-you-should-learn-Design-patterns)
 - [How to approach](#how-to-approach)
 - Creational Design Patterns (5)
-    1. [Singleton](#1-singleton-pattern)
-    2. [Builder](#2-builder-pattern)
-    3. [Prototype](#3-prototype-pattern)
-    4. [Factory Method](#4-factory-method-pattern)
-    5. [Abstract Factory](#5-abstractfactory-pattern)
+    1. [Singleton](#1-singleton-pattern-gem)
+    2. [Builder](#2-builder-pattern-construction_worker)
+    3. [Prototype](#3-prototype-pattern-clipboard)
+    4. [Factory Method](#4-factory-method-pattern-factory)
+    5. [Abstract Factory](#5-abstractfactory-pattern-factory--factory)
 - Structural Design Patterns (7)
-    1. [Adapter](#1-adapter-pattern) 
-    2. [Bridge](#2-bridge-pattern)
-    3. [Composite](#3-Composite-pattern)
-    4. [Decorator](#4-decorator-pattern)
-    5. [Facade](#5-facade-pattern)
-    6. [Flyweight](#6-flyweight-pattern)
-    7. [Proxy](#7-proxy-pattern)
+    1. [Adapter](#1-adapter-pattern--electric_plug) 
+    2. [Bridge](#2-bridge-pattern--bridge_at_night)
+    3. [Composite](#3-Composite-pattern--leaves)
+    4. [Decorator](#4-decorator-pattern-heart_decoration)
+    5. [Facade](#5-facade-pattern--notes)
+    6. [Flyweight](#6-flyweight-pattern-butterfly)
+    7. [Proxy](#7-proxy-pattern-trollface)
 - Behavioral Design Patterns (11)
 
 
@@ -54,11 +54,11 @@ For each pattern you will see below points covered:
 
 |Sr. no| Pattern Name                                   | Description                                           |
 |-----:| -------------                                  |:-------------:                                    |
-|  1   | [Singleton](#1-singleton-pattern)              | **Ensure a class only has one instance, and provide a global point of access to it** |
-|  2   | [Builder](#2-builder-pattern)                  | Saperate the construction of complex object from its representation so that the same construction process can create different representations                                  |
-|  3   | [Prototype](#3-prototype-pattern)              | **Specify the kinds of objects to create using a protypical instance, and create new objects by copying this prototype**                                  |
-|  4   | [Factory Method](#4-factory-method-pattern)    | Define an interface for creating an object, but let sub-classess decide which class to instantiate. Factory method lets a class defer instantiation to subclasses                                  |
-|  5   | [Abstract Factory](#5-abstractfactory-pattern) |                                   |
+|  1   | [Singleton](#1-singleton-pattern-gem)              | **Ensure a class only has one instance, and provide a global point of access to it** |
+|  2   | [Builder](#2-builder-pattern-construction_worker)                  | Saperate the construction of complex object from its representation so that the same construction process can create different representations                                  |
+|  3   | [Prototype](#3-prototype-pattern-clipboard)              | **Specify the kinds of objects to create using a protypical instance, and create new objects by copying this prototype**                                  |
+|  4   | [Factory Method](#4-factory-method-pattern-factory)    | Define an interface for creating an object, but let sub-classess decide which class to instantiate. Factory method lets a class defer instantiation to subclasses                                  |
+|  5   | [Abstract Factory](#5-abstractfactory-pattern-factory--factory) |                                   |
 
 
 
@@ -66,13 +66,13 @@ For each pattern you will see below points covered:
 
 |Sr. no| Pattern Name                       | Description                                           |
 |-----:| -------------                      |:-------------:                                    |
-|  1   | [Adapter](#1-adapter-pattern)      | **E** |
-|  2   | [Bridge](#2-bridge-pattern)        |      |
-|  3   | [Composite](#3-composite-pattern)  | **S**            |
-|  4   | [Decorator](#4-decorator-pattern)  |    |
-|  5   | [Facade](#5-facade-pattern)        |                              |
-|  6   | [Flyweight](#6-flyweight-pattern)  |    |
-|  7   | [Proxy](#7-proxy-pattern)          |                                   |
+|  1   | [Adapter](#1-adapter-pattern--electric_plug)      | **Convert the interface of a class into another interface clients expect. Adapter lets classescwork together that couldn't otherwise because of incompatible interfaces.** |
+|  2   | [Bridge](#2-bridge-pattern--bridge_at_night)        | Decouple an abstraction from its implementation so that the two can vary independently     |
+|  3   | [Composite](#3-composite-pattern--leaves)  | **Compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat individual objects and compositions of objects uniformly.**            |
+|  4   | [Decorator](#4-decorator-pattern-heart_decoration)  | Attach additional responsibilities to an object dynamica lly.Decorators provide a flexible alternative to subclassing for extending functionality.   |
+|  5   | [Facade](#5-facade-pattern--notes)        | **Provide a unified interface to a set of interfaces in a subsystem. Facade defines a higher-level interfa ce that makes the subsystem easier to use.**                             |
+|  6   | [Flyweight](#6-flyweight-pattern-butterfly)  | Use sharing to support large numbers of fine-grained objects efficiently.   |
+|  7   | [Proxy](#7-proxy-pattern-trollface)          | Provide a surrogate or placeholder for another object to control access to it.                                  |
 
 # Creational Design Patterns
 
@@ -801,7 +801,7 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 **[&#11014; back to top](#table-of-contents)**
 
 
-# 7. Proxy pattern :trollface:
+# 7. Proxy pattern  :trollface:
 
 ## concepts
 
