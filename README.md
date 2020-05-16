@@ -822,7 +822,7 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 - **Examples**
     - java.lang.reflect.Proxy
     - java.rmi.*
-    - Spering and few parts of Hibernate
+    - Spring and few parts of Hibernate
 
 ## Design Considerations
 
@@ -864,12 +864,11 @@ Side notes:
 - Only one instance
 - Used by Dependency Injection/IOC frameworks
 - Great way to implement lazy loading
-- 
 
 **[&#11014; back to top](#table-of-contents)**
 
 
-# Creational Design Patterns
+# Behavioral Design Patterns
 
 ## 1. Chain of responsibility :chains:
 
@@ -883,8 +882,8 @@ Side notes:
     - java.util.Logging.Logger#log()
     - javax.servlet.Filter#doFilter()
     - Security chain filter in Spring security
-    
-## Design
+
+## Design Considerations
 
 - Chain of receiver Objects
 - Handler is interface based
@@ -932,8 +931,62 @@ Type of handlers: Director, VP, CEO
 - Hierarchical in nature
 - Careful with large chains
 
-
 **[&#11014; back to top](#table-of-contents)**
+
+## 2. Command pattern :genie:
+
+## Concepts
+
+- Encapsulate request as and object
+- Object oriented callback
+- Decouple sender from processor
+- Often used for "undo" functionality
+- Examples:
+    - java.lang.Runnable
+    - javax.swing.action
+
+## Design Considerations
+
+- Object per command
+- Command interface is base of all commands
+- Execute method
+- "unexecute" method for undo operations
+- Advanced implementations use Reflection to decouple the client from receiver or processor using a callback
+- Command, Invoker, ConcreteCommand
+
+## Example/Demo
+
+- Command, Invoker, ConcreteCommand, Receiver
+- extend example to Manage states
+- Macro Command
+
+
+- Switch: invoker
+- State: stored in Receiver(Light.java) via isOn variable and managed it via toggle() method
+- Macro: fire multiple commands
+
+## Pitfalls
+
+- Dependent on other patterns
+- Multiple commands (duplicating logic in multiple commands), better to use composite or commands comboned with Chain of responsibility
+- Make use of memento to handle state
+- if tracking of objects need to store a history, you may also need to look at prototype for creating copies of commands to store on a list
+
+## Contrast to other patterns
+
+| Command                                   | Strategy                    |
+| -------------                             |:-------------:              |
+| Object per command                        | Object per strategy         |
+| Class contains 'what' we are trying to do | Strategy contains the 'How' |
+| Encapsulates action/request               | Encapsulates algorithm      |
+
+## Summary
+
+- Encapsulate each request as an object
+- Decouple sender from processor
+- Very few drawbacks
+- Often used for undo functionality
+
 
 ## References:
 **Courses:**  
