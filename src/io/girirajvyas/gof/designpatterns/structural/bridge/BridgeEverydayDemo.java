@@ -13,7 +13,7 @@ public class BridgeEverydayDemo {
 			//DriverManager.registerDriver(new org.apache.derby.jdbc.EmbeddedDriver());
 			// URL syntax: jdbc:derby:[subsubprotocol:][databaseName][;attribute=value]*
 			String dbUrl = "jdbc:derby:memory:designpatterns/webdb;create=true";
-			DriverManager.setLogStream(System.out); // to see steps
+			//DriverManager.setLogStream(System.out); // to see steps
 			Connection connection = DriverManager.getConnection(dbUrl);
 			
 			Statement statement = connection.createStatement();

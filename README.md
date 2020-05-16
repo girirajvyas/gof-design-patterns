@@ -25,9 +25,9 @@
     6. [Flyweight](#6-flyweight-pattern-butterfly)
     7. [Proxy](#7-proxy-pattern-trollface)
 - Behavioral Design Patterns (11)
-    1. [Chain of Responsibility](#)
-    2. Command
-    3. Interpretor
+    1. [Chain of Responsibility](#1-chain-of-responsibility-chains)
+    2. [Command](#2-command-pattern-genie)
+    3. [Interpretor](#3-Interpreter-pattern-speaking_head)
     4. Iterator
     5. Mediator
     6. Memento
@@ -811,7 +811,7 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 **[&#11014; back to top](#table-of-contents)**
 
 
-# 7. Proxy pattern  :trollface:
+# 7. Proxy pattern :trollface:
 
 ## concepts
 
@@ -986,6 +986,62 @@ Type of handlers: Director, VP, CEO
 - Decouple sender from processor
 - Very few drawbacks
 - Often used for undo functionality
+
+**[&#11014; back to top](#table-of-contents)**
+
+## 3. Interpreter pattern :speaking_head:
+
+## Concepts
+
+- represent grammer
+- Interprete a sentence
+- Map a domain
+- Abstract Syntax Tree (AST)
+- Examples:
+    - Java.util.Pattern
+    - java.text.Format
+
+## Design Considerations
+
+- AbstractExpression declares an interface for executing an operations
+- Operation is Interpret method
+- Expressions are broken into TerminalExpression i.e leaf of tree and contains no other expression
+- In case it has other expressions it is NonTerminalExpression
+- Pieces of UML diagram: Context, AbstractExpression, TerminalExpression, NonTerminalExpression, Client
+
+## Example/Demo
+
+- Expression, Terminalexpression, AndExpression, OrExpression
+- parse example
+
+## Pitfalls
+
+- If grammer becomes complex, hard to mantain
+- Class per rules makes hard to maintain
+- Use of other patterns is required to implement complex grammer
+- use in solving very specific case
+
+
+## Contrast to other patterns
+
+| Interpreter                                    | Visitor                                             |
+| -------------                                  |:-------------:                                      |
+| Access to properties                           | Needs oberver functionality                         |
+| Function as methods                            | Functionality found in one place                    |
+| Adding new functionality changes every variant | Adding a new variant rquires changing every visitor |
+
+## Summary
+
+- Use when defining a grammer, Rules or validation
+- usegenerics to make it more powerful
+- limited to very specific use case
+- Consider the visitor pattern depending on the changes you are expecting.
+
+## 4. Iterator pattern :loop:
+
+## Concepts
+
+
 
 
 ## References:
