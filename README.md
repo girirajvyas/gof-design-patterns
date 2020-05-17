@@ -56,7 +56,7 @@ For each pattern you will see below points covered:
 - Concepts involved
 - Design Considerations
 - Live Example from an API | Example/Demo
-- Pitfalls (Drawbacks)
+- Drawbacks (Pitfalls)
 - Contrast to another patterns
 - Summary
 
@@ -88,6 +88,9 @@ For each pattern you will see below points covered:
 
 # 1. Singleton pattern :gem:
 
+- `GoF`: Ensure a class only has `one instance`, and provide a global point of contact to access it. 
+- `Wiki`: Restricts the instantiation of a class to one "single" instance.
+
 ## Concepts:
 - Only one instance created
 - Guarantees control of a resource
@@ -105,10 +108,25 @@ For each pattern you will see below points covered:
 - static in nature, but not implemented via static class  as it does not guarantee it will be thread safe (contradicts bill pugh implementation, verify this)
 - no parameters required for construction, in case parameter is required for construction than it violates singleton.
 
-## Example/Demo
+## Everyday Example in use
+
+```java
+    Runtime singletonRuntime = Runtime.getRuntime();
+    singletonRuntime.gc();
+    System.out.println(singletonRuntime);
+    
+    Runtime anotherInstance = Runtime.getRuntime();
+    System.out.println(anotherInstance);
+    
+    if (singletonRuntime == anotherInstance) {
+            System.out.println("They are the same instance");
+    }
+```
+
+## Demo
 see code
 
-## PitFalls 
+## Drawbacks 
 - Often overused
 - Difficult to unittest
 - if not careful, not threadsafe
@@ -138,8 +156,10 @@ Explore the Enum version of Singleton pattern
 **[&#11014; back to top](#table-of-contents)**
 
 # 2. Builder pattern :construction_worker:
-This a pattern people often use but rarely create of there own.  
-This pattern deals with construction of Objects with lot of parameters and want to make the object once we are done constructing it.
+
+- `GoF`: Separate the construction of a complex object from its representation so that the same construction process can create different representations.
+- `Wiki`: The builder pattern is a design pattern designed to provide a flexible solution to various object creation problems in object-oriented programming. The intent of the Builder design pattern is to separate the construction of a complex object from its representation 
+- `Other`: This a pattern people often use but rarely create of there own. This pattern deals with construction of Objects with lot of parameters and want to make the object once we are done constructing it.
 
 ## Concepts
 - Handles complex constructors
@@ -199,7 +219,7 @@ This pattern deals with construction of Objects with lot of parameters and want 
   ```
 - Done  
 
-## Pitfalls
+## Drawbacks
 - Immutable objects are created
 - Inner static class is generally used for implementation
 - it is always Designed first 
@@ -256,7 +276,7 @@ Note:
 1. we have seen an example with clone() method, but this can also be achieved by creatin an interface and implementing the clone method.
 2. you can replace string with enum in createItem method of registry.
 
-## Pitfalls
+## Drawbacks
 - Sometimes not clear when to use
 - Used with other patterns
    - Registry
@@ -335,7 +355,7 @@ Flow:
     }
 ```
    
-## Pitfalls:
+## Drawbacks:
 - Complexity 
 - creation in subclass **
 - Refactoring: This is not something that is refactored later, rather a design decision to make early in development
@@ -413,7 +433,7 @@ Flow
 
 if you are not using the ORM and you have to use the db queries depending on the db you are using, this pattern will find implementation their.
 
-## Pitfalls
+## Drawbacks
 - Complexity - most complex of creational design patterns
 - Runtime Switch - cleenct can change the flow by passing some parameters
 - Pattern within a pattern
@@ -467,8 +487,8 @@ Create an Adapter class
 Take the input that is not in sync with the requirement as cinstructor parameter  
 This adapter class implements the same interface that we had for our required entity  
 
-## Pitfalls
-- Not a lot of pitfalls
+## Drawbacks
+- Not a lot of Drawbacks
 - Dont Complicate
 - ususally multiple adapters can be created to make code works
 - Don't add functionality, Consider Decorator or any other pattern in case you need to add functionality
@@ -567,7 +587,7 @@ Similar to adapter with 1 major difference that Adapter works with legacy code a
     Note:  Adding a new Formatter or Printer is easy as we are using COMPOSITION over INHERITANCE
     ```
 
-## Pitfalls
+## Drawbacks
 - Increases complexity
 - Conceptually difficult to plan
 - More than just OO principles
@@ -628,7 +648,7 @@ Hierarchical pattern that deals with the tree structures of information
              remove(MenuComponent menuCOmponent)
 ```
 
-## Pitfalls
+## Drawbacks
 - Can overly simplify system
 - Difficult to restrict what to add
 - Implementation can be costly
@@ -690,7 +710,7 @@ Hierarchical pattern that deals with the tree structures of information
           Hence, it is structural and not creational pattern
 ```
 
-## Pitfalls
+## Drawbacks
 - New class for every feature added
 - Multiple little objects
 - Often confused with simple inheritance
@@ -739,7 +759,7 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 - Client, Facade, JDBC
 - Simplified Client Code
 
-## Pitfalls
+## Drawbacks
 
 - Typically used to cleanup code
 - Should think about API design
@@ -787,7 +807,7 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 - Inventory management system
 - Client, Catalog, Order(ConcreteFlyWeight) and Item
 
-## Pitfalls
+## Drawbacks
 
 - Complex pattern
 - premature optimization of code 
@@ -843,7 +863,7 @@ Side notes:
 2. http://twitter4j.org/en/index.html -> Download -> Latest stable version -> twitter4j-4.0.7.zip / JavaDoc
 3. app.twitter.com -> create new app -> get those tokens, generate new access tokens if not already created. use these details in TwitterServiceImpl
 
-## Pitfalls
+## Drawbacks
 
 - Only one proxy
 - Another abstraction layer
@@ -910,7 +930,7 @@ Type of handlers: Director, VP, CEO
     Director (Concrete class)        VP  (Concrete class)         CEO (Concrete class)
 ```
 
-## Pitfalls
+## Drawbacks
 
 - Handling/Handler is not guaranted
 - Runtime configuration check
@@ -965,7 +985,7 @@ Type of handlers: Director, VP, CEO
 - State: stored in Receiver(Light.java) via isOn variable and managed it via toggle() method
 - Macro: fire multiple commands
 
-## Pitfalls
+## Drawbacks
 
 - Dependent on other patterns
 - Multiple commands (duplicating logic in multiple commands), better to use composite or commands comboned with Chain of responsibility
@@ -1014,7 +1034,7 @@ Type of handlers: Director, VP, CEO
 - Expression, Terminalexpression, AndExpression, OrExpression
 - parse example
 
-## Pitfalls
+## Drawbacks
 
 - If grammer becomes complex, hard to mantain
 - Class per rules makes hard to maintain
@@ -1033,13 +1053,31 @@ Type of handlers: Director, VP, CEO
 ## Summary
 
 - Use when defining a grammer, Rules or validation
-- usegenerics to make it more powerful
+- use generics to make it more powerful
 - limited to very specific use case
 - Consider the visitor pattern depending on the changes you are expecting.
 
 ## 4. Iterator pattern :loop:
 
-## Concepts
+## Concepts (why would you choose)
+
+- Traverse a container
+- Doesn't expose underlying structure
+- Iterator decouples the algorithms from the data
+- Sequential in nature (not all objects have sequential set of data)
+- Examples:
+    - java.util.Iterator
+    - java.util.Enumeration
+
+## Design Considerations
+
+- It is interface based
+- Follws factory method pattern in way you get the instance of iterator
+- Independent, but fail fast 
+- Enumerators are fail safe
+- pieces from UML: Iterator, ConcreteIterator
+
+## Example/Demo
 
 
 
