@@ -1078,8 +1078,50 @@ Type of handlers: Director, VP, CEO
 - pieces from UML: Iterator, ConcreteIterator
 
 ## Example/Demo
+- Create BikeRepository
+- It implements Iterable -> implement method Iterable
+- Create Iterator impl with 3 methods: hasNext(), next(), remove() 
+- this can be used with foreach by default as foreach supports iterable
 
+## Drawbacks
+- No Access to index
+- Base iterator is unideirectional (exception is listiterator)
+- for lesser data speed/efficiency is slight less than direclt looping on index, for large data sets it is still best option
 
+## Contrast to other pattern
+
+| Iterator                              | for loop                            |
+| -------------                         |:-------------:                      |
+| Interface based                       | Traversal in client                 |
+| Hence, Traversal algorithm is removed | For each syntax is not allowed here |
+| No access to index                    | Exposes an index                    |
+| Helps in concurrent modification      | Doesn't change under;yiong object   |
+|                                       | Typically slower                    |
+
+## Summary
+
+- Efficient way to traverse
+- Hides algorithm
+- Simplify client
+- can use forEach
+
+## 5. Mediator pattern :phone:
+
+## Concepts
+- Need to acheive loose coupling within objects
+- Well-defined set of objects taht communicate in complex ways
+- In case it is tough tp create reusable components you should refer this pattern--bridge_at_night
+- It simplty acts as a hub/router in your application
+- Examples : 
+    - java.util.Timer
+    - java.lang.reflect.Method#invoke()
+
+## Design considerations
+
+- Interface based with a concrete class
+- Minimizes Inheritance
+- Mediator knows colleagues
+- Pieces of mediator pattern are: Mediator, ConcreteMediator
 
 
 ## References:
