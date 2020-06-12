@@ -84,6 +84,234 @@ For each pattern you will see below points covered:
 
 # Creational Design Patterns
 
+# 1. Singleton pattern :gem:
+
+- `GoF`: Ensure a class only has `one instance`, and provide a global point of contact to access it. 
+- `Wiki`: Restricts the instantiation of a class to one "single" instance.
+
+## Concepts:
+- Only one instance created. It is achieved by providing only one entry point to create the new instance of the class
+- Useful where we have to control the resources, such as database connections or sockets 
+- Lazily loaded (usually)
+- **Examples:**  
+   - Runtime.java  
+   - Logger (singleton or factory)
+   - Spring beans (by default, scope is singleton in spring)
+
+## Design considerations
+- Class is responsible for creating itself and its lifecycle
+- Private instance
+- Private constructor
+- Static in nature, but not implemented via static class  as it does not guarantee it will be thread safe (contradicts bill pugh implementation, verify this)
+- No parameters required for construction, in case parameter is required for construction than it violates singleton.
+
+## Everyday Example in use
+
+```java
+    Runtime singletonRuntime = Runtime.getRuntime();
+    singletonRuntime.gc();
+    System.out.println(singletonRuntime);
+    
+    Runtime anotherInstance = Runtime.getRuntime();
+    System.out.println(anotherInstance);
+    
+    if (singletonRuntime == anotherInstance) {
+            System.out.println("They are the same instance");
+    }
+```
+
+## Demo
+
+**Steps to create:**  
+- We have 5 major versions of Singleton
+    - Eager initialization
+    - Lazy initialization with synchronized method
+    - Lazy initialization with double check locking method
+    - Lazy initialized with static inner class
+    - Lazy initialized with `Enum` which leads to less code. (Recommended by Joshua bloch in Effective Java)
+
+
+**Common step:**  
+- Create a class with private Constructor to prevent initialization.  
+- Making constructor private prevents the initialization via `new` keyword
+- We expose a public static method (commonly name as for getInstance()) to provide the single entry point that returns its instance 
+```java
+public class Singleton {
+  private Singleton() {
+ }
+ 
+ public static Singleton getInstance(){
+ }
+}
+```
+
+**Eager Initialization**  
+- Instance is created at the time of class loading, this is the easiest method to create a singleton class.
+- Create a final static class variable INSTANCE and initialize this with new instance of class
+- Create static method that returns this instance.
+```java
+public class SingletonEager {
+
+  private static final SingletonEager INSTANCE = new SingletonEager();
+
+  private SingletonEager() {}
+
+  public static SingletonEager getInstance() {
+    return INSTANCE;
+  }
+}
+```
+- **Disadvantages**
+    - Instance is created even if the client application may not be using it.
+    - It will create an issue if your singleton class in creating a database connection or creating a socket which may lead to memory leak problem
+
+> As a general rule, we name the method as getInstance(), this is just convention and not mandatorily to be followed
+
+**Prevent initialization via Reflection**  
+- To prevent from Initialization via reflection, you can throw exception from constructor
+```java
+  private Singleton() {
+    // In case Reflection is used for initialization
+    if (INSTANCE != null) {
+      throw new RuntimeException("Please instantiate via getInstance() method");
+    }
+  }
+```
+
+**Lazy initialization with synchronized method**  
+- Create a static class variable INSTANCE.
+- Create a synchronized method to return instance. If it is not initialized, initialize it and return.
+- In case you do not make method synchronized, multiple instances might be created in multithreaded environment
+```java
+public class SingletonLazyWithSynchronizedMethod {
+
+  private static SingletonLazyWithSynchronizedMethod INSTANCE;
+
+  private SingletonLazyWithSynchronizedMethod() {
+    if (INSTANCE != null) {
+      throw new RuntimeException("Please instantiate via getInstance() method");
+    }
+  }
+
+  public static synchronized SingletonLazyWithSynchronizedMethod getInstance() {
+    if (INSTANCE == null) {
+      INSTANCE = new SingletonLazyWithSynchronizedMethod();
+    }
+    return INSTANCE;
+  }
+}
+```
+- **Disadvantages**
+    - Slow performance because of locking overheand in every call
+    - Unnecessary synchronization that is not required once the instance variable is initialized.
+    - Demo of multiple instances in case method is not synchronized
+      ```java
+        private static void lazySingletonMultiThreadsIssueDemo() {
+        Thread t1 = new Thread(() ->  {
+          SingletonLazy instance1 = SingletonLazy.getInstance();
+          System.out.println("Hashcode of instance1: "+ instance1.hashCode());
+        });
+        
+        Thread t2 = new Thread(() ->  {
+          SingletonLazy instance2 = SingletonLazy.getInstance();
+          System.out.println("Hashcode of instance2: "+ instance2.hashCode());
+        });
+        
+        t1.start();
+        t2.start();
+        
+        Output:
+        Hashcode of instance1: 60675678
+        Hashcode of instance2: 1100599114
+        }
+      ```
+
+**Lazy initialization with synchronized block**  
+- To overcome this slow performance we will use this method for initialization.
+- Create a static class variable INSTANCE. 
+- We are marking this variable `volatile`, so that any changes to this instance are visible to other threads instantly
+- You can return instance if it is already initialized. Now, we add conditions when the instance is null. We create a synchroniized block and create an instance inside this block. We add an additional null check to avoid duplicate initialization because of two threads.
+- Synchronized block will be executed only when the INSTANCE is null and prevent unnecessary synchronization once the instance variable is initialized
+```java
+public class SingletonLazyWithDoubleCheckLocking {
+
+  private static volatile SingletonLazyWithDoubleCheckLocking INSTANCE;
+
+  private SingletonLazyWithDoubleCheckLocking() {
+    if (INSTANCE != null) {
+      throw new RuntimeException("Please instantiate via getInstance() method");
+    }
+  }
+
+  public static SingletonLazyWithDoubleCheckLocking getInstance() {
+    // Check synchronization only if the instance is null. There will be a
+    // little impact in performance only for the first time.
+    if (INSTANCE == null) {
+      synchronized (Singleton.class) {
+        // double check if instance is still null, It can be the case that till the time
+        // thread2 reaches here, thread1 has already initialized the instance
+        if (INSTANCE == null) {
+          INSTANCE = new SingletonLazyWithDoubleCheckLocking();
+        }
+      }
+    }
+    return INSTANCE;
+  }
+}
+```
+
+> Without volatile modifier, it’s possible for another thread in Java to see half initialized state of INSTANCE variable, but with volatile variable guaranteeing happens-before relationship, all the write will happen on volatile INSTANCE before any read of INSTANCE variable.
+
+**Prevent duplicate object creation via serialization**  
+- In case of serializing the Singleton class, you might not get the same instance. to solve this issue you have to implement readresolve method
+```java
+    protected Object readResolve() {
+        return INSTANCE;
+    }
+``` 
+
+**Lazy initialization with static inner class**  
+- TODO, code available
+
+
+**Enum Singleton**  
+- Implementation added with DbSingletonEnum
+
+> The best way to implement a `Serializable Singleton` is to use an Enum
+
+> From Joshua Bloch's Effective Java: This approach is functionally equivalent to the public field approach, except that it is more concise, provides the serialization machinery for free, and provides an ironclad guarantee against multiple instantiation, even in the face of sophisticated serialization or reflection attacks. While this approach has yet to be widely adopted, a single-element enum type is the best way to implement a singleton.
+
+## Drawbacks 
+- Often overused
+- Difficult to unittest
+- If not careful, not threadsafe
+- Sometimes confused for factory
+
+:stop_sign: java.util.Calendar is not a Singleton, rather it is Prototype. It is confused as Singleton as it has getInstance() method.
+
+## Contrast to other patterns
+
+| Singleton                        | Factory                                           |
+| -------------                    |:-------------:                                    |
+| Returns same instance            | Returns various instances                         |
+| One constructor method - no args | Multiple constructors                             |
+| No interface                     | Interface Driven                                  |
+| No Subclasses                    | Always SubClasses are involved in a way or other  |
+| NA                               | Adaptable to environment more easily**            |
+
+
+## Summary
+- Guarantees one instance
+- Easy to implement
+- Solves a well defined problem
+- You can still violate the Singleton principle by creating more than one instance of the Singleton class by using cloning or using multiple class loaders
+- Don't abuse it
+
+## Next
+Explore the Enum version of Singleton pattern
+
+**[&#11014; back to top](#table-of-contents)**
+
 # 2. Builder pattern :construction_worker:
 
 - `GoF`: Separate the construction of a complex object from its representation so that the same construction process can create different representations.
