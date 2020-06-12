@@ -17,7 +17,7 @@ public class Singleton {
 	/**
 	 * 1. Eager Initialization Example
 	 */
-	// private static Singleton INSTANCE = new Singleton();
+	// private static final Singleton INSTANCE = new Singleton();
 
 	/**
 	 * 2. for Lazy initialization, initialized as null<br>
@@ -90,9 +90,9 @@ public class Singleton {
 	 * 
 	 * @return
 	 */
-	protected Object readResolve() {
-		return INSTANCE;
-	}
+  	protected Singleton readResolve() {
+  		return INSTANCE;
+  	}
 
 	/**
 	 * Bill pugh implementation

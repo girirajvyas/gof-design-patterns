@@ -27,8 +27,8 @@
 - Behavioral Design Patterns (11)
     1. [Chain of Responsibility](#1-chain-of-responsibility-chains)
     2. [Command](#2-command-pattern-genie)
-    3. [Interpretor](#3-Interpreter-pattern-speaking_head)
-    4. Iterator
+    3. [Interpreter](#3-Interpreter-pattern-speaking_head)
+    4. [Iterator](#4-Iterator-pattern-loop)
     5. Mediator
     6. Memento
     7. Observer
@@ -92,21 +92,20 @@ For each pattern you will see below points covered:
 - `Wiki`: Restricts the instantiation of a class to one "single" instance.
 
 ## Concepts:
-- Only one instance created
-- Guarantees control of a resource
+- Only one instance created. It is achieved by providing only one entry point to create the new instance of the class
+- Useful where we have to control the resources, such as database connections or sockets 
 - Lazily loaded (usually)
 - **Examples:**  
    - Runtime.java  
    - Logger (singleton or factory)
    - Spring beans (by default, scope is singleton in spring)
-      
 
 ## Design considerations
 - Class is responsible for creating itself and its lifecycle
-- private instance
-- private constructor
-- static in nature, but not implemented via static class  as it does not guarantee it will be thread safe (contradicts bill pugh implementation, verify this)
-- no parameters required for construction, in case parameter is required for construction than it violates singleton.
+- Private instance
+- Private constructor
+- Static in nature, but not implemented via static class  as it does not guarantee it will be thread safe (contradicts bill pugh implementation, verify this)
+- No parameters required for construction, in case parameter is required for construction than it violates singleton.
 
 ## Everyday Example in use
 
@@ -124,13 +123,173 @@ For each pattern you will see below points covered:
 ```
 
 ## Demo
-see code
+
+**Steps to create:**  
+- We have 5 versions of Singleton
+    - Eager initialization
+    - Lazy initialization with synchronized method
+    - Lazy initialization with double check locking method
+    - Lazy initialized with static inner class
+    - Lazy initialized with `Enum` which leads to less code. (Recommended by Joshua bloch in Effective Java)
+
+
+**Common step:**  
+- Create a class with private Constructor to prevent initialization.  
+- Making constructor private prevents the initialization via `new` keyword
+- We expose a public static method (commonly name as for getInstance()) to provide the single entry point that returns its instance 
+```java
+public class Singleton {
+  private Singleton() {
+ }
+ 
+ public static Singleton getInstance(){
+ }
+}
+```
+
+
+**Eager Initialization**  
+- Instance is created at the time of class loading, this is the easiest method to create a singleton class.
+- Create a final static class variable INSTANCE and initialize this with new instance of class
+- Create static method that returns this instance.
+```java
+public class SingletonEager {
+
+  private static final SingletonEager INSTANCE = new SingletonEager();
+
+  private SingletonEager() {}
+
+  public static SingletonEager getInstance() {
+    return INSTANCE;
+  }
+}
+```
+- **Disadvantages**
+    - Instance is created even if the client application may not be using it.
+    - It will create an issue if your singleton class in creating a database connection or creating a socket which may lead to memory leak problem
+
+> As a general rule, we name the method as getInstance(), this is just convention and not mandatorily to be followed
+
+**Prevent initialization via Reflection**  
+- To prevent from Initialization via reflection, you can throw exception from constructor
+```java
+  private Singleton() {
+    // In case Reflection is used for initialization
+    if (INSTANCE != null) {
+      throw new RuntimeException("Please instantiate via getInstance() method");
+    }
+  }
+```
+
+**Lazy initialization with synchronized method**  
+- Create a static class variable INSTANCE and initialize this with `null`.
+- Create a synchronized method to return instance. If it is not initialized, initialize it and return.
+- In case you do not make method synchronized, multiple instances might be created in multithreaded environment
+```java
+public class SingletonLazyWithSynchronizedMethod {
+
+  private static SingletonLazyWithSynchronizedMethod INSTANCE;
+
+  private SingletonLazyWithSynchronizedMethod() {
+    if (INSTANCE != null) {
+      throw new RuntimeException("Please instantiate via getInstance() method");
+    }
+  }
+
+  public static synchronized SingletonLazyWithSynchronizedMethod getInstance() {
+    if (INSTANCE == null) {
+      INSTANCE = new SingletonLazyWithSynchronizedMethod();
+    }
+    return INSTANCE;
+  }
+}
+```
+- **Disadvantages**
+    - Slow performance because of locking overheand in every call
+    - Unnecessary synchronization that is not required once the instance variable is initialized.
+    - Demo of multiple instances in case method is not synchronized
+      ```java
+        private static void lazySingletonMultiThreadsIssueDemo() {
+        Thread t1 = new Thread(() ->  {
+          SingletonLazy instance1 = SingletonLazy.getInstance();
+          System.out.println("Hashcode of instance1: "+ instance1.hashCode());
+        });
+        
+        Thread t2 = new Thread(() ->  {
+          SingletonLazy instance2 = SingletonLazy.getInstance();
+          System.out.println("Hashcode of instance2: "+ instance2.hashCode());
+        });
+        
+        t1.start();
+        t2.start();
+        
+        Output:
+        Hashcode of instance1: 60675678
+        Hashcode of instance2: 1100599114
+        }
+      ```
+
+**Lazy initialization with synchronized block**  
+- To overcome this slow performance we will use this method for initialization.
+- Create a static class variable INSTANCE. 
+- We are marking this variable `volatile`, so that any changes to this instance are visible to other threads instantly
+- You can return instance if it is already initialized. Now, we add conditions when the instance is null. We create a synchroniized block and create an instance inside this block. We add an additional null check to avoid duplicate initialization because of two threads.
+- Synchronized block will be executed only when the INSTANCE is null and prevent unnecessary synchronization once the instance variable is initialized
+```java
+public class SingletonLazyWithDoubleCheckLocking {
+
+  private static volatile SingletonLazyWithDoubleCheckLocking INSTANCE;
+
+  private SingletonLazyWithDoubleCheckLocking() {
+    if (INSTANCE != null) {
+      throw new RuntimeException("Please instantiate via getInstance() method");
+    }
+  }
+
+  public static SingletonLazyWithDoubleCheckLocking getInstance() {
+    // Check synchronization only if the instance is null. There will be a
+    // little impact in performance only for the first time.
+    if (INSTANCE == null) {
+      synchronized (Singleton.class) {
+        // double check if instance is still null, It can be the case that till the time
+        // thread2 reaches here, thread1 has already initialized the instance
+        if (INSTANCE == null) {
+          INSTANCE = new SingletonLazyWithDoubleCheckLocking();
+        }
+      }
+    }
+    return INSTANCE;
+  }
+}
+```
+
+> Without volatile modifier, it’s possible for another thread in Java to see half initialized state of INSTANCE variable, but with volatile variable guaranteeing happens-before relationship, all the write will happen on volatile INSTANCE before any read of INSTANCE variable.
+
+**Prevent duplicate object creation via serialization**  
+- In case of serializing the Singleton class, you might not get the same instance. to solve this issue you have to implement readresolve method
+```java
+    protected Object readResolve() {
+        return INSTANCE;
+    }
+``` 
+
+**Lazy initialization with static inner class**  
+- TODO, code available
+
+
+**Enum Singleton**  
+
+
+https://stackoverflow.com/questions/16771373/singleton-via-enum-way-is-lazy-initialized
+https://stackoverflow.com/questions/26285520/implementing-singleton-with-an-enum-in-java
+https://howtodoinjava.com/java/enum/is-enum-really-best-for-singletons/
+https://dzone.com/articles/java-singletons-using-enum
 
 ## Drawbacks 
 - Often overused
 - Difficult to unittest
-- if not careful, not threadsafe
-- sometimes confused for factory
+- If not careful, not threadsafe
+- Sometimes confused for factory
 
 :stop_sign: java.util.Calendar is not a Singleton, rather it is Prototype. It is confused as Singleton as it has getInstance() method.
 
@@ -139,20 +298,26 @@ see code
 | Singleton                        | Factory                                           |
 | -------------                    |:-------------:                                    |
 | Returns same instance            | Returns various instances                         |
-| one constructor method - no args | multiple constructors                             |
-| no interface                     | Interface Driven                                  |
+| One constructor method - no args | Multiple constructors                             |
+| No interface                     | Interface Driven                                  |
 | No Subclasses                    | Always SubClasses are involved in a way or other  |
 | NA                               | Adaptable to environment more easily**            |
+
+> The best way to implement a `Serializable Singleton` is to use an Enum
+
+> From Joshua Bloch's Effective Java: This approach is functionally equivalent to the public field approach, except that it is more concise, provides the serialization machinery for free, and provides an ironclad guarantee against multiple instantiation, even in the face of sophisticated serialization or reflection attacks. While this approach has yet to be widely adopted, a single-element enum type is the best way to implement a singleton.
 
 ## Summary
 - Guarantees one instance
 - Easy to implement
 - Solves a well defined problem
+- You can still violate the Singleton principle by creating more than one instance of the Singleton class by using cloning or using multiple class loaders
 - Don't abuse it
 
 ## Next
 Explore the Enum version of Singleton pattern
 
+Good read: https://medium.com/@kevalpatel2106/digesting-singleton-design-pattern-in-java-5d434f4f322
 **[&#11014; back to top](#table-of-contents)**
 
 # 2. Builder pattern :construction_worker:
@@ -183,7 +348,7 @@ Explore the Enum version of Singleton pattern
 - Create Builder (LunchOrder.java / LunchOrderDemo.java)
 - Build out example
 
-**Steps to create Builder:**
+**Steps to create:**
 - Create a class which is supposed to have many fields and required immutable instance
 - Decalre all fields as final, so that they can only be initialized in constructor
 - Create a public static builder inner class
@@ -222,7 +387,7 @@ Explore the Enum version of Singleton pattern
 ## Drawbacks
 - Immutable objects are created
 - Inner static class is generally used for implementation
-- it is always Designed first 
+- It is always Designed first 
 - Adds complexity, as people are not comfortable with object returning itself with each subsequent call
 
 ## Contrast to other patterns
@@ -230,9 +395,9 @@ Explore the Enum version of Singleton pattern
 | Builder                               | Prototype                              |
 | -------------                         |:-------------:                         |
 | Handles complex constructors          | Implemented around a clone             |
-| no interface required                 | Avoids calling complex constructors    |
+| No interface required                 | Avoids calling complex constructors    |
 | Can be a saperate class               | NA                                     |
-| works with a legacy code              | Difficult to implement in legacy code  |
+| Works with a legacy code              | Difficult to implement in legacy code  |
 
 
 ## Summary
@@ -598,7 +763,7 @@ Similar to adapter with 1 major difference that Adapter works with legacy code a
 | Adapter                              | Bridge                                              |
 | -------------                        |:-------------:                                      |
 | Works after code is designed         | Designed upfront                                    |
-| works mostly with Legacy             | so that Abstraction and implementation can vary     |
+| Works mostly with Legacy             | So that Abstraction and implementation can vary     |
 | Retrofitted                          | Built in advance                                    |
 | Provides different interface         | Complex                                             |
 
@@ -1041,7 +1206,6 @@ Type of handlers: Director, VP, CEO
 - Use of other patterns is required to implement complex grammer
 - use in solving very specific case
 
-
 ## Contrast to other patterns
 
 | Interpreter                                    | Visitor                                             |
@@ -1056,6 +1220,8 @@ Type of handlers: Director, VP, CEO
 - use generics to make it more powerful
 - limited to very specific use case
 - Consider the visitor pattern depending on the changes you are expecting.
+
+**[&#11014; back to top](#table-of-contents)**
 
 ## 4. Iterator pattern :loop:
 
@@ -1105,6 +1271,8 @@ Type of handlers: Director, VP, CEO
 - Simplify client
 - can use forEach
 
+ **[&#11014; back to top](#table-of-contents)**
+
 ## 5. Mediator pattern :phone:
 
 ## Concepts
@@ -1112,7 +1280,7 @@ Type of handlers: Director, VP, CEO
 - Well-defined set of objects taht communicate in complex ways
 - In case it is tough tp create reusable components you should refer this pattern--bridge_at_night
 - It simplty acts as a hub/router in your application
-- Examples : 
+- **Examples:** 
     - java.util.Timer
     - java.lang.reflect.Method#invoke()
 
@@ -1126,24 +1294,24 @@ Type of handlers: Director, VP, CEO
 
 ## References:
 **Courses:**  
-https://app.pluralsight.com/library/courses/design-patterns-java-creational/table-of-contents
-https://app.pluralsight.com/library/courses/design-patterns-java-structural/table-of-contents
+- https://app.pluralsight.com/library/courses/design-patterns-java-creational/table-of-contents
+- https://app.pluralsight.com/library/courses/design-patterns-java-structural/table-of-contents
 
 **All types of design patterns in Java (includes GoF, Microservices, Cloud, etc patterns):**  
-https://java-design-patterns.com/patterns/  
+- https://java-design-patterns.com/patterns/  
 
 **All relevant Github repositories on this topic**
-https://github.com/TushaarGVS/Design-Patterns-Mentorship
-https://github.com/kamranahmedse/design-patterns-for-humans
-https://github.com/icoderman/gof-design-patterns
-https://github.com/iluwatar/java-design-patterns/blob/master/README.md
-https://github.com/adesozasilva/creational-design-pattern
-https://github.com/bzdgn/gang-of-four-design-patterns-in-java
-https://github.com/AshV/GoF-Design-Patterns-by-Example
+- https://github.com/TushaarGVS/Design-Patterns-Mentorship
+- https://github.com/kamranahmedse/design-patterns-for-humans
+- https://github.com/icoderman/gof-design-patterns
+- https://github.com/iluwatar/java-design-patterns/blob/master/README.md
+- https://github.com/adesozasilva/creational-design-pattern
+- https://github.com/bzdgn/gang-of-four-design-patterns-in-java
+- https://github.com/AshV/GoF-Design-Patterns-by-Example
 
 
 **Good reads**
-https://www.javabrahman.com/design-patterns/gof-gang-four-design-patterns/
+- https://www.javabrahman.com/design-patterns/gof-gang-four-design-patterns/
 
 **Additional References:**
 1. Apache derby configuration: https://www.codejava.net/java-se/jdbc/connect-to-apache-derby-java-db-via-jdbc
