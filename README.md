@@ -260,7 +260,7 @@ public class SingletonLazyWithDoubleCheckLocking {
 }
 ```
 
-> Without volatile modifier, it’s possible for another thread in Java to see half initialized state of INSTANCE variable, but with volatile variable guaranteeing happens-before relationship, all the write will happen on volatile INSTANCE before any read of INSTANCE variable.
+
 
 **Prevent duplicate object creation via serialization**  
 - In case of serializing the Singleton class, you might not get the same instance. to solve this issue you have to implement readresolve method
