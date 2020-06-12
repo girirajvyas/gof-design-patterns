@@ -178,6 +178,53 @@ public class SingletonEager {
   }
 ```
 
+**Lazy initialization with synchronized method**  
+- Create a static class variable INSTANCE.
+- Create a synchronized method to return instance. If it is not initialized, initialize it and return.
+- In case you do not make method synchronized, multiple instances might be created in multithreaded environment
+```java
+public class SingletonLazyWithSynchronizedMethod {
+
+  private static SingletonLazyWithSynchronizedMethod INSTANCE;
+
+  private SingletonLazyWithSynchronizedMethod() {
+    if (INSTANCE != null) {
+      throw new RuntimeException("Please instantiate via getInstance() method");
+    }
+  }
+
+  public static synchronized SingletonLazyWithSynchronizedMethod getInstance() {
+    if (INSTANCE == null) {
+      INSTANCE = new SingletonLazyWithSynchronizedMethod();
+    }
+    return INSTANCE;
+  }
+}
+```
+- **Disadvantages**
+    - Slow performance because of locking overheand in every call
+    - Unnecessary synchronization that is not required once the instance variable is initialized.
+    - Demo of multiple instances in case method is not synchronized
+      ```java
+        private static void lazySingletonMultiThreadsIssueDemo() {
+        Thread t1 = new Thread(() ->  {
+          SingletonLazy instance1 = SingletonLazy.getInstance();
+          System.out.println("Hashcode of instance1: "+ instance1.hashCode());
+        });
+        
+        Thread t2 = new Thread(() ->  {
+          SingletonLazy instance2 = SingletonLazy.getInstance();
+          System.out.println("Hashcode of instance2: "+ instance2.hashCode());
+        });
+        
+        t1.start();
+        t2.start();
+        
+        Output:
+        Hashcode of instance1: 60675678
+        Hashcode of instance2: 1100599114
+        }
+      ```
 
 **Lazy initialization with synchronized block**  
 - To overcome this slow performance we will use this method for initialization.
@@ -249,9 +296,6 @@ public class SingletonLazyWithDoubleCheckLocking {
 | No Subclasses                    | Always SubClasses are involved in a way or other  |
 | NA                               | Adaptable to environment more easily**            |
 
-> The best way to implement a `Serializable Singleton` is to use an Enum
-
-> From Joshua Bloch's Effective Java: This approach is functionally equivalent to the public field approach, except that it is more concise, provides the serialization machinery for free, and provides an ironclad guarantee against multiple instantiation, even in the face of sophisticated serialization or reflection attacks. While this approach has yet to be widely adopted, a single-element enum type is the best way to implement a singleton.
 
 ## Summary
 - Guarantees one instance
