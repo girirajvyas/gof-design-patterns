@@ -182,7 +182,7 @@ public class SingletonEager {
 ```
 
 **Lazy initialization with synchronized method**  
-- Create a static class variable INSTANCE and initialize this with `null`.
+- Create a static class variable INSTANCE.
 - Create a synchronized method to return instance. If it is not initialized, initialize it and return.
 - In case you do not make method synchronized, multiple instances might be created in multithreaded environment
 ```java
@@ -278,12 +278,8 @@ public class SingletonLazyWithDoubleCheckLocking {
 
 
 **Enum Singleton**  
+- Implementation added with DbSingletonEnum
 
-
-https://stackoverflow.com/questions/16771373/singleton-via-enum-way-is-lazy-initialized
-https://stackoverflow.com/questions/26285520/implementing-singleton-with-an-enum-in-java
-https://howtodoinjava.com/java/enum/is-enum-really-best-for-singletons/
-https://dzone.com/articles/java-singletons-using-enum
 
 ## Drawbacks 
 - Often overused
@@ -317,7 +313,6 @@ https://dzone.com/articles/java-singletons-using-enum
 ## Next
 Explore the Enum version of Singleton pattern
 
-Good read: https://medium.com/@kevalpatel2106/digesting-singleton-design-pattern-in-java-5d434f4f322
 **[&#11014; back to top](#table-of-contents)**
 
 # 2. Builder pattern :construction_worker:
@@ -1312,6 +1307,13 @@ Type of handlers: Director, VP, CEO
 
 **Good reads**
 - https://www.javabrahman.com/design-patterns/gof-gang-four-design-patterns/
+
+Singleton:  
+- Good read: https://medium.com/@kevalpatel2106/digesting-singleton-design-pattern-in-java-5d434f4f322
+- https://stackoverflow.com/questions/16771373/singleton-via-enum-way-is-lazy-initialized
+- https://stackoverflow.com/questions/26285520/implementing-singleton-with-an-enum-in-java
+- https://howtodoinjava.com/java/enum/is-enum-really-best-for-singletons/
+- https://dzone.com/articles/java-singletons-using-enum
 
 **Additional References:**
 1. Apache derby configuration: https://www.codejava.net/java-se/jdbc/connect-to-apache-derby-java-db-via-jdbc
