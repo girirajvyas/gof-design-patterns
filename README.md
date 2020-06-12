@@ -120,17 +120,6 @@ For each pattern you will see below points covered:
     }
 ```
 
-## Demo
-
-**Steps to create:**  
-- We have 5 major versions of Singleton
-    - Eager initialization
-    - Lazy initialization with synchronized method
-    - Lazy initialization with double check locking method
-    - Lazy initialized with static inner class
-    - Lazy initialized with `Enum` which leads to less code. (Recommended by Joshua bloch in Effective Java)
-
-
 
 ## Drawbacks 
 - Often overused
