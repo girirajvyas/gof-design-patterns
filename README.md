@@ -7,16 +7,16 @@
 
 ## Table of contents
 - [Introduction](#introduction)
-- [What is a design pattern](#what-is-a-design-pattern)
-- [Why you should learn Design patterns](#why-you-should-learn-Design-patterns)
-- [How to approach](#how-to-approach)
-- Creational Design Patterns (5)
+- [What is a design pattern](#what-is-a-design-pattern?)
+- [Why you should learn design patterns](#why-you-should-learn-design-patterns?)
+- [How to approach](#how-to-approach?)
+- Creational design patterns (5)
     1. [Singleton](#1-singleton-pattern-gem)
     2. [Builder](#2-builder-pattern-construction_worker)
     3. [Prototype](#3-prototype-pattern-clipboard)
     4. [Factory Method](#4-factory-method-pattern-factory)
     5. [Abstract Factory](#5-abstractfactory-pattern-factory--factory)
-- Structural Design Patterns (7)
+- Structural design patterns (7)
     1. [Adapter](#1-adapter-pattern--electric_plug) 
     2. [Bridge](#2-bridge-pattern--bridge_at_night)
     3. [Composite](#3-Composite-pattern--leaves)
@@ -24,12 +24,12 @@
     5. [Facade](#5-facade-pattern--notes)
     6. [Flyweight](#6-flyweight-pattern-butterfly)
     7. [Proxy](#7-proxy-pattern-trollface)
-- Behavioral Design Patterns (11)
+- Behavioral design patterns (11)
     1. [Chain of Responsibility](#1-chain-of-responsibility-chains)
     2. [Command](#2-command-pattern-genie)
     3. [Interpreter](#3-Interpreter-pattern-speaking_head)
     4. [Iterator](#4-Iterator-pattern-loop)
-    5. Mediator
+    5. [Mediator](#5-mediator-pattern-phone)
     6. Memento
     7. Observer
     8. State
@@ -37,52 +37,68 @@
     10. Template method
     11. Visitor
 
-## What is a design pattern
+## What is a design pattern?
 From Wiki:-
 - **A general reusable solution to a commonly occurring problem** within a given context in software design.  
 - Not a finished design that can be transformed directly into source or machine code. 
 - Rather, it is a **description or template for how to solve a problem** that can be used in many different situations. 
 - Design patterns are **formalized best practices** that the programmer can use to solve common problems when designing an application or system.
 
-## Why you should learn Design patterns
+## Why you should learn design patterns?
 - Easy to communicate a proble among fellow developers
 - It provides a common vocabulary to explain about problem
 - It is an abstract topic
 - Revisit materails about patterns will alway give you an new perspective everytime.
 
-## How to approach
+## How to approach?
 For each pattern you will see below points covered:
 - Overview of the pattern
 - Concepts involved
-- Design Considerations
-- Live Example from an API | Example/Demo
+- Design considerations
+- Demo / Live example from an API / Steps to create
 - Drawbacks (Pitfalls)
 - Contrast to another patterns
 - Summary
 
-# Creational Design Patterns (5)
+# Creational design patterns (5)
 
-|Sr. no| Pattern Name                                                    | Description                                           |
-|-----:| -------------                                                   |:-------------:                                    |
-|  1   | [Singleton](#1-singleton-pattern-gem)                           | **Ensure a class only has one instance, and provide a global point of access to it** |
-|  2   | [Builder](#2-builder-pattern-construction_worker)               | Saperate the construction of complex object from its representation so that the same construction process can create different representations                                  |
-|  3   | [Prototype](#3-prototype-pattern-clipboard)                     | **Specify the kinds of objects to create using a protypical instance, and create new objects by copying this prototype**                                  |
+|Sr. no| Pattern name                                                    | GoF book description                                                                                                                                                       |
+|-----:| -------------                                                   |:-------------:                                                                                                                                                    |
+|  1   | [Singleton](#1-singleton-pattern-gem)                           | **Ensure a class only has one instance, and provide a global point of access to it**                                                                              |
+|  2   | [Builder](#2-builder-pattern-construction_worker)               | Saperate the construction of complex object from its representation so that the same construction process can create different representations                    |
+|  3   | [Prototype](#3-prototype-pattern-clipboard)                     | **Specify the kinds of objects to create using a protypical instance, and create new objects by copying this prototype**                                          |
 |  4   | [Factory Method](#4-factory-method-pattern-factory)             | Define an interface for creating an object, but let sub-classess decide which class to instantiate. Factory method lets a class defer instantiation to subclasses |
 |  5   | [Abstract Factory](#5-abstractfactory-pattern-factory--factory) | **Provide an interface for creating families of related or dependent objects without specifying their concrete classes.**                                         |
 
-# Structural Design Patterns (7)
+# Structural design patterns (7)
 
-|Sr. no| Pattern Name                                      | Description                                           |
-|-----:| -------------                                     |:-------------:                                    |
+|Sr. no| Pattern name                                      | GoF book description                                                                                                                                                                |
+|-----:| -------------                                     |:-------------:                                                                                                                                                             |
 |  1   | [Adapter](#1-adapter-pattern--electric_plug)      | **Convert the interface of a class into another interface clients expect. Adapter lets classes work together that couldn't otherwise because of incompatible interfaces.** |
-|  2   | [Bridge](#2-bridge-pattern--bridge_at_night)      | Decouple an abstraction from its implementation so that the two can vary independently     |
-|  3   | [Composite](#3-composite-pattern--leaves)         | **Compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat individual objects and compositions of objects uniformly.**            |
-|  4   | [Decorator](#4-decorator-pattern-heart_decoration)| Attach additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.   |
-|  5   | [Facade](#5-facade-pattern--notes)                | **Provide a unified interface to a set of interfaces in a subsystem. Facade defines a higher-level interface that makes the subsystem easier to use.**                             |
-|  6   | [Flyweight](#6-flyweight-pattern-butterfly)       | Use sharing to support large numbers of fine-grained objects efficiently.   |
-|  7   | [Proxy](#7-proxy-pattern-trollface)               | **Provide a surrogate or placeholder for another object to control access to it.**                                  |
+|  2   | [Bridge](#2-bridge-pattern--bridge_at_night)      | Decouple an abstraction from its implementation so that the two can vary independently                                                                                     |
+|  3   | [Composite](#3-composite-pattern--leaves)         | **Compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat individual objects and compositions of objects uniformly.**       |
+|  4   | [Decorator](#4-decorator-pattern-heart_decoration)| Attach additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.                         |
+|  5   | [Facade](#5-facade-pattern--notes)                | **Provide a unified interface to a set of interfaces in a subsystem. Facade defines a higher-level interface that makes the subsystem easier to use.**                     |
+|  6   | [Flyweight](#6-flyweight-pattern-butterfly)       | Use sharing to support large numbers of fine-grained objects efficiently.                                                                                                  |
+|  7   | [Proxy](#7-proxy-pattern-trollface)               | **Provide a surrogate or placeholder for another object to control access to it.**                                                                                         |
 
-# Creational Design Patterns
+# Behavioral design patterns (11)
+
+|Sr. no| Pattern name                                                 | GoF book description                                                                                                                                                                                                      |
+|-----:| -------------                                                |:-------------:                                                                                                                                                                                                            |
+|  1   | [Chain of Responsibility](#1-chain-of-responsibility-chains) | **Avoid coupling the sender of a request to its receiver by giving more than one object a chance to handle the request. Chain the receiving objects and pass the request along the chain until an object handles it. **   |
+|  2   | [Command](#2-command-pattern-genie)                          | Encapsulate a request as an object, thereby letting you parameterize clients with different requests, queue or log requests, and support undoable operations.                                                             |
+|  3   | [Interpreter](#3-Interpreter-pattern-speaking_head)          | **Given a language, define a represention for its grammar along with an interpreter that uses the representation to interpret sentences in the language. **                                                               |
+|  4   | [Iterator](#4-Iterator-pattern-loop)                         | Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation.                                                                                                  |
+|  5   | [Mediator](#5-mediator-pattern-phone)                        | **Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently. ** |
+|  6   | [Memento]                                                    | Without violating encapsulation, capture and externali ze an object's internal state so that the object can be restored to this st ate later.                                                                             |
+|  7   | [Observer]                                                   | **Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically. **                                                                    |
+|  8   | [State]                                                      | Allow an object to alter its behavior when its internal state changes. The object will appear to change its class.                                                                                                        |
+|  9   | [Strategy]                                                   | **Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it. **                                                         |
+|  10  | [Template method]                                            | Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm 's structure.              |
+|  11  | [Visitor]                                                    | **Represent an operation to be performed on the elements of an object structure. Visitor lets you define a new operation without changing the classes of the elements on which it operates. **                            |
+
+# Creational design patterns
 
 # 1. Singleton pattern :gem:
 
@@ -130,11 +146,10 @@ For each pattern you will see below points covered:
     - Lazy initialized with static inner class
     - Lazy initialized with `Enum` which leads to less code. (Recommended by Joshua bloch in Effective Java)
 
-
 **Common step:**  
-- Create a class with private Constructor to prevent initialization.  
+- Create a class with `private constructor` to prevent initialization.  
 - Making constructor private prevents the initialization via `new` keyword
-- We expose a public static method (commonly name as for getInstance()) to provide the single entry point that returns its instance 
+- We expose a public static method (commonly named `getInstance()`) to provide the single entry point that returns its instance 
 ```java
 public class Singleton {
   private Singleton() {
@@ -147,7 +162,7 @@ public class Singleton {
 
 **Eager Initialization**  
 - Instance is created at the time of class loading, this is the easiest method to create a singleton class.
-- Create a final static class variable INSTANCE and initialize this with new instance of class
+- Create a static final class variable INSTANCE and initialize this with new instance of class
 - Create static method that returns this instance.
 ```java
 public class SingletonEager {
@@ -163,12 +178,12 @@ public class SingletonEager {
 ```
 - **Disadvantages**
     - Instance is created even if the client application may not be using it.
-    - It will create an issue if your singleton class in creating a database connection or creating a socket which may lead to memory leak problem
+    - It will create an issue if your singleton class in creating a database connection or creating a socket which may lead to memory leak problem.
 
 > As a general rule, we name the method as getInstance(), this is just convention and not mandatorily to be followed
 
 **Prevent initialization via Reflection**  
-- To prevent from Initialization via reflection, you can throw exception from constructor
+- To prevent from initialization via reflection, you can throw exception from constructor
 ```java
   private Singleton() {
     // In case Reflection is used for initialization
@@ -223,11 +238,13 @@ public class SingletonLazyWithSynchronizedMethod {
         Output:
         Hashcode of instance1: 60675678
         Hashcode of instance2: 1100599114
+        Note: you might have to run this quite a few times to see this different output.
+        As, you cannot predict the thread behaviour
         }
       ```
 
 **Lazy initialization with synchronized block**  
-- To overcome this slow performance we will use this method for initialization.
+- To overcome above slow performance issue we will use this way for initialization.
 - Create a static class variable INSTANCE. 
 - We are marking this variable `volatile`, so that any changes to this instance are visible to other threads instantly
 - You can return instance if it is already initialized. Now, we add conditions when the instance is null. We create a synchroniized block and create an instance inside this block. We add an additional null check to avoid duplicate initialization because of two threads.
@@ -265,7 +282,7 @@ public class SingletonLazyWithDoubleCheckLocking {
 **Prevent duplicate object creation via serialization**  
 - In case of serializing the Singleton class, you might not get the same instance. to solve this issue you have to implement readresolve method
 ```java
-    protected Object readResolve() {
+    protected Singleton readResolve() {
         return INSTANCE;
     }
 ``` 
@@ -283,11 +300,11 @@ public class SingletonLazyWithDoubleCheckLocking {
 
 ## Drawbacks 
 - Often overused
-- Difficult to unittest
+- Difficult to unit test
 - If not careful, not threadsafe
 - Sometimes confused for factory
 
-:stop_sign: java.util.Calendar is not a Singleton, rather it is Prototype. It is confused as Singleton as it has getInstance() method.
+:stop_sign:   java.util.Calendar is not a Singleton, rather it is Prototype. It is confused as Singleton as it has getInstance() method.
 
 ## Contrast to other patterns
 
@@ -310,7 +327,7 @@ public class SingletonLazyWithDoubleCheckLocking {
 ## Next
 Explore the Enum version of Singleton pattern
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014;   back to top](#table-of-contents)**
 
 # 2. Builder pattern :construction_worker:
 
