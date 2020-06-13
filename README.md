@@ -86,17 +86,17 @@ For each pattern you will see below points covered:
 
 |Sr. no| Pattern name                                                 | GoF book description                                                                                                                                                                                                      |
 |-----:| -------------                                                |:-------------:                                                                                                                                                                                                            |
-|  1   | [Chain of Responsibility](#1-chain-of-responsibility-chains) | **Avoid coupling the sender of a request to its receiver by giving more than one object a chance to handle the request. Chain the receiving objects and pass the request along the chain until an object handles it. **   |
+|  1   | [Chain of Responsibility](#1-chain-of-responsibility-chains) | **Avoid coupling the sender of a request to its receiver by giving more than one object a chance to handle the request. Chain the receiving objects and pass the request along the chain until an object handles it.**   |
 |  2   | [Command](#2-command-pattern-genie)                          | Encapsulate a request as an object, thereby letting you parameterize clients with different requests, queue or log requests, and support undoable operations.                                                             |
-|  3   | [Interpreter](#3-Interpreter-pattern-speaking_head)          | **Given a language, define a represention for its grammar along with an interpreter that uses the representation to interpret sentences in the language. **                                                               |
+|  3   | [Interpreter](#3-Interpreter-pattern-speaking_head)          | **Given a language, define a represention for its grammar along with an interpreter that uses the representation to interpret sentences in the language.**                                                               |
 |  4   | [Iterator](#4-Iterator-pattern-loop)                         | Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation.                                                                                                  |
-|  5   | [Mediator](#5-mediator-pattern-phone)                        | **Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently. ** |
+|  5   | [Mediator](#5-mediator-pattern-phone)                        | **Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently.** |
 |  6   | [Memento]                                                    | Without violating encapsulation, capture and externali ze an object's internal state so that the object can be restored to this st ate later.                                                                             |
-|  7   | [Observer]                                                   | **Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically. **                                                                    |
+|  7   | [Observer]                                                   | **Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.**                                                                    |
 |  8   | [State]                                                      | Allow an object to alter its behavior when its internal state changes. The object will appear to change its class.                                                                                                        |
-|  9   | [Strategy]                                                   | **Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it. **                                                         |
+|  9   | [Strategy]                                                   | **Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.**                                                         |
 |  10  | [Template method]                                            | Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm 's structure.              |
-|  11  | [Visitor]                                                    | **Represent an operation to be performed on the elements of an object structure. Visitor lets you define a new operation without changing the classes of the elements on which it operates. **                            |
+|  11  | [Visitor]                                                    | **Represent an operation to be performed on the elements of an object structure. Visitor lets you define a new operation without changing the classes of the elements on which it operates.**                            |
 
 # Creational design patterns
 
@@ -304,7 +304,7 @@ public class SingletonLazyWithDoubleCheckLocking {
 - If not careful, not threadsafe
 - Sometimes confused for factory
 
-:stop_sign:   java.util.Calendar is not a Singleton, rather it is Prototype. It is confused as Singleton as it has getInstance() method.
+> :stop_sign:   java.util.Calendar is not a Singleton, rather it is Prototype. It is confused as Singleton as it has getInstance() method.
 
 ## Contrast to other patterns
 
@@ -327,7 +327,7 @@ public class SingletonLazyWithDoubleCheckLocking {
 ## Next
 Explore the Enum version of Singleton pattern
 
-**[&#11014;   back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 # 2. Builder pattern :construction_worker:
 
