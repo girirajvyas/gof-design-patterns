@@ -64,11 +64,11 @@ For each pattern you will see below points covered:
 
 |Sr. no| Pattern name                                                    | GoF book description                                                                                                                                                       |
 |-----:| -------------                                                   |:-------------:                                                                                                                                                    |
-|  1   | [Singleton](#1-singleton-pattern-gem)                           | **Ensure a class only has one instance, and provide a global point of access to it**                                                                              |
-|  2   | [Builder](#2-builder-pattern-construction_worker)               | Saperate the construction of complex object from its representation so that the same construction process can create different representations                    |
-|  3   | [Prototype](#3-prototype-pattern-clipboard)                     | **Specify the kinds of objects to create using a protypical instance, and create new objects by copying this prototype**                                          |
-|  4   | [Factory Method](#4-factory-method-pattern-factory)             | Define an interface for creating an object, but let sub-classess decide which class to instantiate. Factory method lets a class defer instantiation to subclasses |
-|  5   | [Abstract Factory](#5-abstractfactory-pattern-factory--factory) | **Provide an interface for creating families of related or dependent objects without specifying their concrete classes.**                                         |
+|  1   | [Singleton](#1-singleton-pattern-gem)                           | Ensure a class only has one instance, and provide a global point of access to it                                                                              |
+|  2   | [Builder](#2-builder-pattern-construction_worker)               | **Saperate the construction of complex object from its representation so that the same construction process can create different representations**                    |
+|  3   | [Prototype](#3-prototype-pattern-clipboard)                     | Specify the kinds of objects to create using a protypical instance, and create new objects by copying this prototype                                          |
+|  4   | [Factory Method](#4-factory-method-pattern-factory)             | **Define an interface for creating an object, but let sub-classess decide which class to instantiate. Factory method lets a class defer instantiation to subclasses** |
+|  5   | [Abstract Factory](#5-abstractfactory-pattern-factory--factory) | Provide an interface for creating families of related or dependent objects without specifying their concrete classes.                                         |
 
 # Structural design patterns (7)
 
