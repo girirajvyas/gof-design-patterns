@@ -326,7 +326,7 @@ public class SingletonLazyWithDoubleCheckLocking {
 ## Next
 Explore the Enum version of Singleton pattern
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 # 2. Builder pattern :construction_worker:
 
@@ -418,7 +418,7 @@ Explore the Enum version of Singleton pattern
 Explore the Generics version of builder pattern
 
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 # 3. Prototype pattern :clipboard:
 
@@ -481,7 +481,7 @@ Note:
 you can try prototype pattern with Generics and without clone method 
 References: https://refactoring.guru/design-patterns/prototype
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 # 4. Factory method pattern :factory: 
 
@@ -552,7 +552,7 @@ Flow:
 - A little complex
 - Opposite of a Singleton
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 # 5. AbstractFactory pattern :factory:  :factory:
 
@@ -631,7 +631,7 @@ if you are not using the ORM and you have to use the db queries depending on the
 - Heavy abstraction
 - Written at framework level
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 # Structural Design Patterns
 
@@ -685,7 +685,7 @@ This adapter class implements the same interface that we had for our required en
 - Integrate with legacy code
 - Can provide multiple adapters
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 # 2. Bridge pattern  :bridge_at_night:
 Similar to adapter with 1 major difference that Adapter works with legacy code and bridge works with new code
@@ -785,7 +785,7 @@ Similar to adapter with 1 major difference that Adapter works with legacy code a
 - Provides flexibility
 - More than composition
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 # 3. Composite pattern  :leaves:
 Hierarchical pattern that deals with the tree structures of information
@@ -844,7 +844,7 @@ Hierarchical pattern that deals with the tree structures of information
 - Easier for clients 
 - Composite != Composition
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 # 4. Decorator pattern :heart_decoration:
 
@@ -906,7 +906,7 @@ Hierarchical pattern that deals with the tree structures of information
 - Confused with inheritance
 - Can be more COmplex for clients
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 # 5. Facade pattern  :notes:
 
@@ -956,7 +956,7 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 - Easy pattern to implement
 - Refactoring pattern
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 # 6. Flyweight pattern :butterfly:
 
@@ -1004,7 +1004,7 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 - A little bit complex
 - Used a lot by core API
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 
 # 7. Proxy pattern :trollface:
@@ -1061,7 +1061,7 @@ Side notes:
 - Used by Dependency Injection/IOC frameworks
 - Great way to implement lazy loading
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 
 # Behavioral Design Patterns
@@ -1127,7 +1127,7 @@ Type of handlers: Director, VP, CEO
 - Hierarchical in nature
 - Careful with large chains
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 ## 2. Command pattern :genie:
 
@@ -1183,7 +1183,7 @@ Type of handlers: Director, VP, CEO
 - Very few drawbacks
 - Often used for undo functionality
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 ## 3. Interpreter pattern :speaking_head:
 
@@ -1232,7 +1232,7 @@ Type of handlers: Director, VP, CEO
 - limited to very specific use case
 - Consider the visitor pattern depending on the changes you are expecting.
 
-**[&#11014; _  back to top](#table-of-contents)**
+**[&#11014;  back to top](#table-of-contents)**
 
 ## 4. Iterator pattern :loop:
 
@@ -1282,7 +1282,7 @@ Type of handlers: Director, VP, CEO
 - Simplify client
 - can use forEach
 
- **[&#11014; _  back to top](#table-of-contents)**
+ **[&#11014;  back to top](#table-of-contents)**
 
 ## 5. Mediator pattern :phone:
 
