@@ -1,15 +1,14 @@
 # gof-design-patterns (23)
 
 ******
-    This repository contains examples of all the design patterns listed in the GoF book
+    This repository contains examples of all the design patterns listed in the "Design patterns - Elements of Reusable Object-oriented Software" book by Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides popularly known as Gang of Four (GoF). 
 ******
 
 
 ## Table of contents
-- [Introduction](#introduction)
-- [What is a design pattern](#what-is-a-design-pattern?)
-- [Why you should learn design patterns](#why-you-should-learn-design-patterns?)
-- [How to approach](#how-to-approach?)
+- [What is a design pattern](#what-is-a-design-pattern)
+- [Why you should learn design patterns](#why-you-should-learn-design-patterns)
+- [How to approach](#how-to-approach)
 - Creational design patterns (5)
     1. [Singleton](#1-singleton-pattern-gem)
     2. [Builder](#2-builder-pattern-construction_worker)
@@ -419,7 +418,7 @@ Explore the Enum version of Singleton pattern
 Explore the Generics version of builder pattern
 
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 # 3. Prototype pattern :clipboard:
 
@@ -445,9 +444,9 @@ Explore the Generics version of builder pattern
 - Shallow vs deep copy design considerations can be made 
  
 ## Example/Demo
-Create Prototype
-Demonstrate shallow copy
-Create with a registry
+- Create Prototype
+- Demonstrate shallow copy
+- Create with a registry
 
 Note: 
 1. We have seen an example with `clone()` method, but this can also be achieved by creatin an interface and implementing the clone method.
@@ -482,7 +481,7 @@ Note:
 you can try prototype pattern with Generics and without clone method 
 References: https://refactoring.guru/design-patterns/prototype
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 # 4. Factory method pattern :factory: 
 
@@ -534,7 +533,7 @@ Flow:
    
 ## Drawbacks:
 - Complexity 
-- creation in subclass **
+- Creation in subclass **
 - Refactoring: This is not something that is refactored later, rather a design decision to make early in development
 
 ## Contrast to other patterns
@@ -553,7 +552,7 @@ Flow:
 - A little complex
 - Opposite of a Singleton
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 # 5. AbstractFactory pattern :factory:  :factory:
 
@@ -614,7 +613,7 @@ if you are not using the ORM and you have to use the db queries depending on the
 - Complexity - most complex of creational design patterns
 - Runtime Switch - cleenct can change the flow by passing some parameters
 - Pattern within a pattern
-- problem specific (limited scope)
+- Problem specific (limited scope)
 - Starts as a factory and the refactored to abstractFactory
 
 ## Contrast to other patterns
@@ -630,9 +629,9 @@ if you are not using the ORM and you have to use the db queries depending on the
 - Group of similar factories
 - Complex
 - Heavy abstraction
-- written at framework level
+- Written at framework level
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 # Structural Design Patterns
 
@@ -642,7 +641,7 @@ Pattern for connecting new code to the legacy code without having to change then
 ## Concepts
 - Similar to physical plug Adapter (doesnt cover all scenarios tough, but can be a good example for starter)
 - Convert Interface into another Interface
-- connects Legacy code to current code
+- Connects Legacy code to current code
 - Translates requiest from the client code to the code that we are adapting to
 - Client <- Adapter -> Adaptee
 - **Examples**
@@ -667,7 +666,7 @@ This adapter class implements the same interface that we had for our required en
 ## Drawbacks
 - Not a lot of Drawbacks
 - Dont Complicate
-- ususally multiple adapters can be created to make code works
+- Ususally multiple adapters can be created to make code works
 - Don't add functionality, Consider Decorator or any other pattern in case you need to add functionality
 
 ## Contrast to other patterns
@@ -675,7 +674,7 @@ This adapter class implements the same interface that we had for our required en
 | Adapter                              | Bridge                                     |
 | -------------                        |:-------------:                                      |
 | Works after code is designed         | Designed upfront                                    |
-| works mostly with Legacy             | so that Abstraction and implementation can vary     |
+| Works mostly with Legacy             | So that Abstraction and implementation can vary     |
 | Retrofitted                          | Built in advance                                    |
 | Provides different interface         | Both adapt multiple systems                         |
 
@@ -686,7 +685,7 @@ This adapter class implements the same interface that we had for our required en
 - Integrate with legacy code
 - Can provide multiple adapters
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 # 2. Bridge pattern  :bridge_at_night:
 Similar to adapter with 1 major difference that Adapter works with legacy code and bridge works with new code
@@ -768,7 +767,7 @@ Similar to adapter with 1 major difference that Adapter works with legacy code a
 - Increases complexity
 - Conceptually difficult to plan
 - More than just OO principles
-- little confusing about what goes where in code
+- Little confusing about what goes where in code
 
 ## Contrast to other patterns
 
@@ -783,10 +782,10 @@ Similar to adapter with 1 major difference that Adapter works with legacy code a
 
 - Designed for uncertainty
 - Can be complex
-- provides flexibility
-- more than composition
+- Provides flexibility
+- More than composition
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 # 3. Composite pattern  :leaves:
 Hierarchical pattern that deals with the tree structures of information
@@ -845,7 +844,7 @@ Hierarchical pattern that deals with the tree structures of information
 - Easier for clients 
 - Composite != Composition
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 # 4. Decorator pattern :heart_decoration:
 
@@ -853,7 +852,7 @@ Hierarchical pattern that deals with the tree structures of information
 - Wrapper to add functionality
 - Add behaviour without affecting others
 - It is more than just inheritance
-- follows **Single Responsibility Principle**
+- Follows **Single Responsibility Principle**
 - Compose behaviour dynamically
 - **Examples**:
     - java.io.InputStream
@@ -907,7 +906,7 @@ Hierarchical pattern that deals with the tree structures of information
 - Confused with inheritance
 - Can be more COmplex for clients
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 # 5. Facade pattern  :notes:
 
@@ -957,7 +956,7 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 - Easy pattern to implement
 - Refactoring pattern
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 # 6. Flyweight pattern :butterfly:
 
@@ -987,8 +986,8 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 ## Drawbacks
 
 - Complex pattern
-- premature optimization of code 
-- must understand factory
+- Premature optimization of code 
+- Must understand factory
 - Not a graphical pattern 
 
 ## Contrast to other patterns
@@ -997,7 +996,7 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 | -------------         |:-------------:                 |
 | Memory optimization   | Refactoring pattern            |
 | Optimization pattern  | Simplified client              |
-| Immutable objects     | provides a different interface |
+| Immutable objects     | Provides a different interface |
 
 ## Summary
 
@@ -1005,7 +1004,7 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 - A little bit complex
 - Used a lot by core API
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 
 # 7. Proxy pattern :trollface:
@@ -1062,7 +1061,7 @@ Side notes:
 - Used by Dependency Injection/IOC frameworks
 - Great way to implement lazy loading
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 
 # Behavioral Design Patterns
@@ -1128,7 +1127,7 @@ Type of handlers: Director, VP, CEO
 - Hierarchical in nature
 - Careful with large chains
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 ## 2. Command pattern :genie:
 
@@ -1167,7 +1166,7 @@ Type of handlers: Director, VP, CEO
 - Dependent on other patterns
 - Multiple commands (duplicating logic in multiple commands), better to use composite or commands comboned with Chain of responsibility
 - Make use of memento to handle state
-- if tracking of objects need to store a history, you may also need to look at prototype for creating copies of commands to store on a list
+- If tracking of objects need to store a history, you may also need to look at prototype for creating copies of commands to store on a list
 
 ## Contrast to other patterns
 
@@ -1184,13 +1183,13 @@ Type of handlers: Director, VP, CEO
 - Very few drawbacks
 - Often used for undo functionality
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 ## 3. Interpreter pattern :speaking_head:
 
 ## Concepts
 
-- represent grammer
+- Represents grammer
 - Interprete a sentence
 - Map a domain
 - Abstract Syntax Tree (AST)
@@ -1209,7 +1208,7 @@ Type of handlers: Director, VP, CEO
 ## Example/Demo
 
 - Expression, Terminalexpression, AndExpression, OrExpression
-- parse example
+- Parse example
 
 ## Drawbacks
 
@@ -1233,7 +1232,7 @@ Type of handlers: Director, VP, CEO
 - limited to very specific use case
 - Consider the visitor pattern depending on the changes you are expecting.
 
-**[&#11014; back to top](#table-of-contents)**
+**[&#11014; _  back to top](#table-of-contents)**
 
 ## 4. Iterator pattern :loop:
 
@@ -1283,7 +1282,7 @@ Type of handlers: Director, VP, CEO
 - Simplify client
 - can use forEach
 
- **[&#11014; back to top](#table-of-contents)**
+ **[&#11014; _  back to top](#table-of-contents)**
 
 ## 5. Mediator pattern :phone:
 
@@ -1308,6 +1307,7 @@ Type of handlers: Director, VP, CEO
 **Courses:**  
 - https://app.pluralsight.com/library/courses/design-patterns-java-creational/table-of-contents
 - https://app.pluralsight.com/library/courses/design-patterns-java-structural/table-of-contents
+- https://app.pluralsight.com/library/courses/design-patterns-java-behavioral/table-of-contents
 
 **All types of design patterns in Java (includes GoF, Microservices, Cloud, etc patterns):**  
 - https://java-design-patterns.com/patterns/  
