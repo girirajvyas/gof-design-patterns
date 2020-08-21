@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[30],{84:function(o){o.exports=JSON.parse('{"allTagsPath":"/gof-design-patterns/blog/tags","slug":"facebook","name":"facebook","count":1,"permalink":"/gof-design-patterns/blog/tags/facebook"}')}}]);

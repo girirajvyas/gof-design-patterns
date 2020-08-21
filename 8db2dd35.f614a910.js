@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[16],{71:function(o){o.exports=JSON.parse('{"allTagsPath":"/gof-design-patterns/blog/tags","slug":"hello","name":"hello","count":2,"permalink":"/gof-design-patterns/blog/tags/hello"}')}}]);
