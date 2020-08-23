@@ -1,7 +1,10 @@
 # gof-design-patterns (23)
 
 ******
-    This repository contains examples of all the design patterns listed in the "Design patterns - Elements of Reusable Object-oriented Software" book by Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides popularly known as Gang of Four (GoF). 
+    This repository contains examples of all the design patterns listed in the 
+    "Design patterns - Elements of Reusable Object-oriented Software" book 
+    by Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides 
+    popularly known as Gang of Four (GoF). 
 ******
 
 
