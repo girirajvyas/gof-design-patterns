@@ -46,6 +46,11 @@ From Wiki:-
 - Rather, it is a **description or template for how to solve a problem** that can be used in many different situations. 
 - Design patterns are **formalized best practices** that the programmer can use to solve common problems when designing an application or system.
 
+Classification:-
+- Creational: Deals with the creation of an object
+- Sructural: Deals with the class structure such as Inheritance and Composition.
+- Behavioral: Provides solution for the better interaction between objects, also how to provide lose coupling, and flexibility to extend easily in future.
+
 ## Why you should learn design patterns?
 - Easy to communicate a proble among fellow developers
 - It provides a common vocabulary to explain about problem
