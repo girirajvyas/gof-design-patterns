@@ -493,6 +493,14 @@ References: https://refactoring.guru/design-patterns/prototype
 
 # 4. Factory method pattern :factory: 
 
+## Different naming for factory pattern
+
+1. Creation method(Creation/Factory Method): "Refactoring" by Martin F. , "Refactoring to patterns" by Joshua K.
+2. Static factory method: "Effective Java" by Joshua B. 
+3. Simple (parameterized) factory: Head first Design patterns
+4. FActory MEthod and Abstract Factory: Design Patterns: Elements of Reusable Object oriented Software
+
+
 ## Concepts
 - Doesn't expose instantiation logic
 - Defer to subclasses
