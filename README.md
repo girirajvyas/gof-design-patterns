@@ -60,7 +60,7 @@ Classification:-
 ## How to approach?
 For each pattern you will see below points covered:
 - Overview of the pattern
-- Concepts involved
+- Why would you choose?
 - Design considerations
 - Demo / Live example from an API / Steps to create
 - Drawbacks (Pitfalls)
@@ -109,10 +109,11 @@ For each pattern you will see below points covered:
 
 # 1. Singleton pattern :gem:
 
+## What is Singleton?
 - `GoF`: Ensure a class only has `one instance`, and provide a global point of contact to access it. 
 - `Wiki`: Restricts the instantiation of a class to one "single" instance.
 
-## Concepts:
+## Why would you choose?
 - Only one instance created. It is achieved by providing only one entry point to create the new instance of the class
 - Useful where we have to control the resources, such as database connections or sockets 
 - Lazily loaded (usually)
@@ -338,11 +339,12 @@ Explore the Enum version of Singleton pattern
 
 # 2. Builder pattern :construction_worker:
 
+## What is Builder?
 - `GoF`: Separate the construction of a complex object from its representation so that the same construction process can create different representations.
 - `Wiki`: The builder pattern is a design pattern designed to provide a flexible solution to various object creation problems in object-oriented programming. The intent of the Builder design pattern is to separate the construction of a complex object from its representation 
 - `Other`: This a pattern people often use but rarely create of there own. This pattern deals with construction of Objects with lot of parameters and want to make the object once we are done constructing it.
 
-## Concepts
+## Why would you choose?
 - Handles complex constructors
 - Large number of parameters
 - Immutability
@@ -434,7 +436,7 @@ Explore the Generics version of builder pattern
 - `Wiki`: 
 - `Other`: creates copy of objects that are very expensive to create
 
-## Concepts
+## Why would you choose?
 - Avoids costly creation
 - Avoids Subclassing
 - Typically doesn't use keyword "new"
@@ -455,6 +457,11 @@ Explore the Generics version of builder pattern
 - Create Prototype
 - Demonstrate shallow copy
 - Create with a registry
+
+This design pattern can be achieved in 2 ways  
+1. implementing Cloneable interface
+2. create copy(method with any logical name) and return the copy of current object
+First way of implementation is discouraged as specified in Effective Java:
 
 Note: 
 1. We have seen an example with `clone()` method, but this can also be achieved by creatin an interface and implementing the clone method.
@@ -498,10 +505,10 @@ References: https://refactoring.guru/design-patterns/prototype
 1. Creation method(Creation/Factory Method): "Refactoring" by Martin F. , "Refactoring to patterns" by Joshua K.
 2. Static factory method: "Effective Java" by Joshua B. 
 3. Simple (parameterized) factory: Head first Design patterns
-4. FActory MEthod and Abstract Factory: Design Patterns: Elements of Reusable Object oriented Software
+4. Factory Method and Abstract Factory: Design Patterns: Elements of Reusable Object oriented Software
 
 
-## Concepts
+## Why would you choose?
 - Doesn't expose instantiation logic
 - Defer to subclasses
 - Common interfaces
@@ -560,7 +567,7 @@ Flow:
 | one constructor method - no args | multiple constructors                             |
 | no interface                     | Interface Driven                                  |
 | No Subclasses                    | Always SubClasses are involved in a way or other  |
-| NA			                   | Adaptable to environment more easily**            |
+| NA                         | Adaptable to environment more easily**            |
 
 ## Summary
 - Parameter Driven (chooses type based on this)
@@ -572,7 +579,7 @@ Flow:
 
 # 5. AbstractFactory pattern :factory:  :factory:
 
-## Concepts
+## Why would you choose?
 
 - Factory of Factories
 - Factory of related Objects
@@ -608,9 +615,9 @@ Flow
      public CreditCard getCreditCard(CardType cardType) {
         switch (cardType) {
           case GOLD:
-   	        return new AmexGoldCreditCard();
+             return new AmexGoldCreditCard();
           case PLATINUM:
-   	        return new AmexPlatinumCreditCard();
+             return new AmexPlatinumCreditCard();
         }
      }
     public Validator getValidator(CardType cardType) {
@@ -637,7 +644,7 @@ if you are not using the ORM and you have to use the db queries depending on the
 | Factory                              | AbstractFactory                                     |
 | -------------                        |:-------------:                                      |
 | Returns various instances            | Implemented with a factory                          |
-|   - multiple constructors            | Hides the underlying concrete factory 	             |
+|   - multiple constructors            | Hides the underlying concrete factory                |
 | Interface Driven                     | 1 more layer of Abstraction added to  environment   |
 | Adaptable to environment more easily | Built through composition                           |
 
@@ -654,7 +661,7 @@ if you are not using the ORM and you have to use the db queries depending on the
 # 1. Adapter pattern  :electric_plug:
 Pattern for connecting new code to the legacy code without having to change thenworking contract that was produced from legacy code originally
 
-## Concepts
+## Why would you choose?
 - Similar to physical plug Adapter (doesnt cover all scenarios tough, but can be a good example for starter)
 - Convert Interface into another Interface
 - Connects Legacy code to current code
@@ -706,7 +713,7 @@ This adapter class implements the same interface that we had for our required en
 # 2. Bridge pattern  :bridge_at_night:
 Similar to adapter with 1 major difference that Adapter works with legacy code and bridge works with new code
 
-## Concepts
+## Why would you choose?
 
 - Decouple Abstraction and Implementation
 - Utilizes Encapsulation, Composition and Inheritance
@@ -741,7 +748,7 @@ Similar to adapter with 1 major difference that Adapter works with legacy code a
 - Color and shape with bridge
     ```java
                                       Colour (Interface)
-                           	          void applyColor()
+                                       void applyColor()
                            ___________________|___________________
                           |                                       |
             RedColour (concrete class)               RedColour (concrete class)
@@ -806,7 +813,7 @@ Similar to adapter with 1 major difference that Adapter works with legacy code a
 # 3. Composite pattern  :leaves:
 Hierarchical pattern that deals with the tree structures of information
 
-## Concepts
+## Why would you choose?
 - Component represents part or whole structures
 - Composite objects into tree structures
 - Individual Objects treated as a composite
@@ -864,7 +871,7 @@ Hierarchical pattern that deals with the tree structures of information
 
 # 4. Decorator pattern :heart_decoration:
 
-## Concepts
+## Why would you choose?
 - Wrapper to add functionality
 - Add behaviour without affecting others
 - It is more than just inheritance
@@ -928,7 +935,7 @@ Hierarchical pattern that deals with the tree structures of information
 
 Provides simple interface to COmplex or difficult to use system that is odten result of a poorly designed API
 
-## Concepts
+## Why would you choose?
 
 - Make an API easier to use
 - Reduce dependencies on outside code
@@ -976,7 +983,7 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 
 # 6. Flyweight pattern :butterfly:
 
-## Concepts
+## Why would you choose?
 
 - More efficient use of memory
 - Large number of similar objects
@@ -1025,7 +1032,7 @@ Provides simple interface to COmplex or difficult to use system that is odten re
 
 # 7. Proxy pattern :trollface:
 
-## concepts
+## Why would you choose?
 
 - Interface by wrapping
 - Can add functionality
@@ -1084,7 +1091,7 @@ Side notes:
 
 ## 1. Chain of responsibility :chains:
 
-## Concepts
+## Why would you choose?
 
 - Decoupling sender and reciever
 - Receiver contains reference to next receiver
@@ -1147,7 +1154,9 @@ Type of handlers: Director, VP, CEO
 
 ## 2. Command pattern :genie:
 
-## Concepts
+## What is Command Pattern?
+
+## Why would you choose?
 
 - Encapsulate request as and object
 - Object oriented callback
@@ -1203,7 +1212,7 @@ Type of handlers: Director, VP, CEO
 
 ## 3. Interpreter pattern :speaking_head:
 
-## Concepts
+## Why would you choose?
 
 - Represents grammer
 - Interprete a sentence
@@ -1252,7 +1261,7 @@ Type of handlers: Director, VP, CEO
 
 ## 4. Iterator pattern :loop:
 
-## Concepts (why would you choose)
+## Why would you choose?
 
 - Traverse a container
 - Doesn't expose underlying structure
@@ -1302,7 +1311,7 @@ Type of handlers: Director, VP, CEO
 
 ## 5. Mediator pattern :phone:
 
-## Concepts
+## Why would you choose?
 - Need to acheive loose coupling within objects
 - Well-defined set of objects taht communicate in complex ways
 - In case it is tough tp create reusable components you should refer this pattern--bridge_at_night
@@ -1318,6 +1327,333 @@ Type of handlers: Director, VP, CEO
 - Mediator knows colleagues
 - Pieces of mediator pattern are: Mediator, ConcreteMediator
 
+
+# 8. State design Pattern
+
+## 1. What is State pattern?
+`GoF`: Allow an object to alter its behavior when its internal state changes. The object will appear to change its class.
+`Wiki`: This pattern is close to the concept of finite-state machines. The state pattern can be interpreted as a strategy pattern, which is able to switch a strategy through invocations of methods defined in the pattern's interface.
+
+**Real life scenario:**  
+The best example of this is a vending machine, where the state changes and you can only go from one state to another.
+For Instance, You insert the coin then you have to make selection and this is the state you can go in apart from cancelling the transaction. Hence in this scenario state pattern is a perfect fit.
+
+## 2. Why would you choose?
+
+ - Want to localize state specific behaviour
+ - Current application state is stored in a object, rather then in a mix of variables across application
+ - Saperates 'state you are in' with 'state you came from or where we were at' 
+ - Follows OCP (Open/Closed Principle)
+ - Reduce cyclomatic complexity
+ - Adding new state is Easier
+ - Examples:
+   - None in Java
+   - JSF(its lifecycles and phases)
+
+## 3. Do it Yourself
+
+### 3.1 Participants
+
+ - **State:** Designed with an Abstract class or interface to define operations that each state must handle
+ - **Concrete State:** Each state is Class based and is represented by concrete class for each state specific behavior
+ - **Context:** - Delegates the state specific behaviour to respective state behaviours
+ - **UML:** Context, State, ConcreteState (no multiple if..else blocks)
+
+### 3.2 UML Diagram
+
+  ![Alt Text](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/uml/State_Design_Pattern_UML_Class_Diagram.svg "State")
+
+
+### 3.3 Without State pattern Scenario
+Lets start by considering a normal scenario of "if, else" conditions for managing the state of an application.  
+Here, we will have an example of state of fan where it is OFF or LOW and is managed via conditions.  
+
+For starter we only have 2 states as in OFF and LOW. code is as below:
+
+```java
+public class FanWithIfElseLogic {
+  final static int OFF = 0;
+  final static int LOW = 1;
+  int state = OFF;
+  
+  public void pullchain() {
+    if(state == OFF ) {
+      System.out.println("Turning Fan to LOW");
+      state = LOW;
+    } else if (state == LOW) {
+      System.out.println("Turning Fan OFF");
+      state = OFF;
+    }
+  }
+
+  @Override
+  public String toString() {
+    if(state == OFF ) {
+      return "Fan is OFF";
+    } else if (state == LOW) {
+      return "Fan is on LOW Speed";
+    }
+    return "Invalid State";
+  }
+}
+```
+
+Calling code:
+
+```java
+    FanWithIfElseLogic fan = new FanWithIfElseLogic();
+  
+    System.out.println(fan);
+    fan.pullchain();
+    
+    System.out.println(fan);
+    fan.pullchain();
+```
+
+Output:
+
+```java
+Fan is OFF
+Turning Fan to LOW
+Fan is on LOW Speed
+Turning Fan OFF
+
+```
+Now, lets try to add one more state here as MED. To add this state we will have to blatantly copy the condition and modify according to this new state.  
+
+```java
+    FanWithIfElseLogic fan = new FanWithIfElseLogic();
+  
+    // Off State
+    System.out.println(fan);
+    fan.pullchain();
+    
+    // Low State
+    System.out.println(fan);
+    fan.pullchain();
+  
+    // Med state
+    System.out.println(fan);
+    fan.pullchain();
+```
+
+Output:
+
+```java
+Fan is OFF
+Turning Fan to LOW
+Fan is on LOW Speed
+Turning Fan to MED
+Fan is on MED Speed
+Turning Fan OFF
+```
+
+Even though it was easy to add a single state here, once the code grows it will be very hard to maintain this and here state pattern comes to our rescue
+
+
+### 3.4 With State Pattern
+
+ - Lets start by having a Abstract State class instead of int for defining the state. 
+ - In Fan, We instantiate the specific states in the constructor only and assign the default state at start
+ - We have a state instance to hold the current state of fan
+
+```java
+public abstract class State {
+
+  public void handleRequest() {
+    System.out.println("This should not have been called, Exception can also be thrown");
+  }
+    
+}
+```
+
+```java
+public class FanOffState extends State {
+
+  private Fan fan;
+
+  public FanOffState(Fan fan) {
+    this.fan = fan;
+  }
+
+  public void handleRequest() {
+    System.out.println("Turn the fan low as it is next state");
+    fan.setState(fan.getFanLowState());
+    // In above scenario we can have new instance created as well, for that purpose
+    // we will use the Singleton pattern to get the instance
+  }
+  
+  /**
+   * To get the current state of Fan
+   */
+  public String toString() {
+    return "fan is OFF";
+  }
+}
+```
+
+```java
+public class FanLowState extends State {
+
+  private Fan fan;
+
+  public FanLowState(Fan fan) {
+    this.fan = fan;
+  }
+
+  public void handleRequest() {
+    System.out.println("Turn the fan Med as it is next state");
+    fan.setState(fan.getFanMedState());
+    // In above scenario we can have new instance created as well, for that purpose
+    // we will use the Singleton pattern to get the instance
+  }
+  
+  /**
+   * To get the current state of Fan
+   */
+  public String toString() {
+    return "fan is Low";
+  }
+}
+```
+
+```java
+public class FanMedState extends State {
+
+  private Fan fan;
+
+  public FanMedState(Fan fan) {
+    this.fan = fan;
+  }
+
+  public void handleRequest() {
+    System.out.println("Turn the fan Off as it is next state");
+    fan.setState(fan.getFanOffState());
+    // In above scenario we can have new instance created as well, for that purpose
+    // we will use the Singleton pattern to get the instance
+  }
+  
+  /**
+   * To get the current state of Fan
+   */
+  public String toString() {
+    return "fan is Med";
+  }
+}
+```
+
+```java
+public class Fan {
+  State fanOffState;
+  State fanLowState;
+  State fanMedState;
+
+  State state;
+
+  public Fan() {
+    fanOffState = new FanOffState(this);
+    fanLowState = new FanLowState(this);
+    fanMedState = new FanMedState(this);
+
+    // Default scenario
+    state = fanOffState;
+  }
+
+  public void pullchain() {
+    state.handleRequest();
+  }
+
+  @Override
+  public String toString() {
+    return state.toString();
+  }
+
+  public void setState(State state) {
+    this.state = state;
+  }
+
+  public State getFanOffState() {
+    return fanOffState;
+  }
+
+  public State getFanLowState() {
+    return fanLowState;
+  }
+
+  public State getFanMedState() {
+    return fanMedState;
+  }
+}
+```
+
+Calling:
+```java
+Fan fan = new Fan();
+    
+    // Off State
+    System.out.println(fan);
+    fan.pullchain();
+    
+    // Low State
+    System.out.println(fan);
+    fan.pullchain();
+  
+    // Med state
+    System.out.println(fan);
+    fan.pullchain();
+```
+
+Output:
+```java
+fan is OFF
+Turn the fan low as it is next state
+fan is Low
+Turn the fan Med as it is next state
+fan is Med
+Turn the fan Off as it is next state
+```
+
+
+## 4. Drawbacks
+
+ - You should know all your states to implement it correctly
+ - There are lot more classes needed to implement in comparison to traditional if\else implementation
+ - Keep logic out of the context and avoid getting conditional logic into it
+ - what triggers hange the state should be clear
+
+## 5. Contrast to other patterns
+
+| State                                               | Strategy                           |
+| -------------                                       |:-------------:                      |
+| Focused on state                                    | focused on algorithms and strategy|
+| Interface based, with collection of concrete states | Interface based|
+| State only knows about next state it transitions to | Algorithms are independent |
+| Each state is contained in its own class            | Class per Algorithm |
+
+# 9. Strategy design Pattern
+
+## 1. What is State pattern?
+`GoF`: Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.  
+`Wiki`: The strategy pattern (also known as the policy pattern) enables selecting an algorithm at runtime. Instead of implementing a single algorithm directly, code receives run-time instructions as to which in a family of algorithms to use.
+
+**Real life scenario:**  
+
+## 2. Why would you choose?
+
+ - To eliminate the conditional(if/else) statements
+ - Behaviour(Algorithms) is encapsulated in classes
+ - If it is tough to add new Strategies or cases in your application
+ - Client is aware of strategies and in turn chooses the strategy, but strategies may not be aware about each other
+ - Examples:
+    - java.util.Comparator
+    - 
+
+## 3. Do it yourself
+
+## 3.1 Participants
+ - Can be done with Interface but usually done with Abstract base class
+ - All the concrete classes are implemented per strategy
+ - Context, Strategy, ConcreteStrategy 
 
 ## References:
 **Courses:**  
@@ -1337,17 +1673,22 @@ Type of handlers: Director, VP, CEO
 - https://github.com/bzdgn/gang-of-four-design-patterns-in-java
 - https://github.com/AshV/GoF-Design-Patterns-by-Example
 
-
 **Good reads**
 - https://www.javabrahman.com/design-patterns/gof-gang-four-design-patterns/
 
-Singleton:  
+**Singleton:**  
 - Good read: https://medium.com/@kevalpatel2106/digesting-singleton-design-pattern-in-java-5d434f4f322
 - https://stackoverflow.com/questions/16771373/singleton-via-enum-way-is-lazy-initialized
 - https://stackoverflow.com/questions/26285520/implementing-singleton-with-an-enum-in-java
 - https://howtodoinjava.com/java/enum/is-enum-really-best-for-singletons/
 - https://dzone.com/articles/java-singletons-using-enum
+- https://www.journaldev.com/31902/gangs-of-four-gof-design-patterns
 
+**Comparisons:**
+ - Factory vs Strategy pattern: https://dzone.com/articles/design-patterns-the-strategy-and-factory-patterns  
+ - https://sourcemaking.com/design_patterns/template_method
+ - https://medium.com/educative/the-7-most-important-software-design-patterns-d60e546afb0e
+ 
 **Additional References:**
 1. Apache derby configuration: https://www.codejava.net/java-se/jdbc/connect-to-apache-derby-java-db-via-jdbc
 
