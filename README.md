@@ -1,11 +1,18 @@
-# gof-design-patterns (23)
+![GoF Design Patterns](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/GoF_Header.PNG)
 
-******
+*****
+<p align="center">
+ Gang-of-Four(GoF) Design patterns
+</p>
+
+<p align="center">
     This repository contains examples of all the design patterns listed in the 
     "Design patterns - Elements of Reusable Object-oriented Software" book 
     by Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides 
     popularly known as Gang of Four (GoF). 
-******
+</p>
+
+*****
 
 
 ## Table of contents
@@ -13,11 +20,11 @@
 - [Why you should learn design patterns](#why-you-should-learn-design-patterns)
 - [How to approach](#how-to-approach)
 - Creational design patterns (5)
-    1. [Singleton](#1-singleton-pattern-gem)
-    2. [Builder](#2-builder-pattern-construction_worker)
-    3. [Prototype](#3-prototype-pattern-clipboard)
-    4. [Factory Method](#4-factory-method-pattern-factory)
-    5. [Abstract Factory](#5-abstractfactory-pattern-factory--factory)
+   1. [Singleton](#1-singleton-pattern-gem)
+   2. [Builder](#2-builder-pattern-construction_worker)
+   3. [Prototype](#3-prototype-pattern-clipboard)
+   4. [Factory Method](#4-factory-method-pattern-factory)
+   5. [Abstract Factory](#5-abstractfactory-pattern-factory--factory)
 - Structural design patterns (7)
     1. [Adapter](#1-adapter-pattern--electric_plug) 
     2. [Bridge](#2-bridge-pattern--bridge_at_night)
@@ -32,12 +39,12 @@
     3. [Interpreter](#3-Interpreter-pattern-speaking_head)
     4. [Iterator](#4-Iterator-pattern-loop)
     5. [Mediator](#5-mediator-pattern-phone)
-    6. Memento
-    7. Observer
-    8. State
-    9. Strategy
-    10. Template method
-    11. Visitor
+    6. [Memento]
+    7. [Observer]
+    8. [State]
+    9. [Strategy]
+    10. [Template method]
+    11. [Visitor]
 
 ## What is a design pattern?
 From Wiki:-
@@ -109,11 +116,13 @@ For each pattern you will see below points covered:
 
 # 1. Singleton pattern :gem:
 
-## What is Singleton?
+## 1. What is Singleton?
+
 - `GoF`: Ensure a class only has `one instance`, and provide a global point of contact to access it. 
 - `Wiki`: Restricts the instantiation of a class to one "single" instance.
 
-## Why would you choose?
+## 2. Why would you choose?
+
 - Only one instance created. It is achieved by providing only one entry point to create the new instance of the class
 - Useful where we have to control the resources, such as database connections or sockets 
 - Lazily loaded (usually)
@@ -122,42 +131,53 @@ For each pattern you will see below points covered:
    - Logger (singleton or factory)
    - Spring beans (by default, scope is singleton in spring)
 
-## Design considerations
-- Class is responsible for creating itself and its lifecycle
-- Private instance
-- Private constructor
-- Static in nature, but not implemented via static class  as it does not guarantee it will be thread safe (contradicts bill pugh implementation, verify this)
-- No parameters required for construction, in case parameter is required for construction than it violates singleton.
-
-## Everyday Example in use
+**Example from Java**  
 
 ```java
+    public static void main(String args[]) {
     Runtime singletonRuntime = Runtime.getRuntime();
     singletonRuntime.gc();
     System.out.println(singletonRuntime);
-    
+
     Runtime anotherInstance = Runtime.getRuntime();
     System.out.println(anotherInstance);
-    
+
     if (singletonRuntime == anotherInstance) {
-            System.out.println("They are the same instance");
+      System.out.println("They are the same instance");
     }
 ```
 
-## Demo
+Output:  
+```cmd
+java.lang.Runtime@15db9742
+java.lang.Runtime@15db9742
+They are the same instance
+```
 
-**Steps to create:**  
-- We have 5 major versions of Singleton
-    - Eager initialization
-    - Lazy initialization with synchronized method
-    - Lazy initialization with double check locking method
-    - Lazy initialized with static inner class
-    - Lazy initialized with `Enum` which leads to less code. (Recommended by Joshua bloch in Effective Java)
+## 3. Do it Yourself
 
-**Common step:**  
-- Create a class with `private constructor` to prevent initialization.  
-- Making constructor private prevents the initialization via `new` keyword
-- We expose a public static method (commonly named `getInstance()`) to provide the single entry point that returns its instance 
+### 3.1 Design considerations
+ - Class is responsible for creating itself and its lifecycle
+ - Private instance
+ - Private constructor
+ - Static in nature, but not implemented via static class  as it does not guarantee it will be thread safe (contradicts bill pugh implementation, verify this)
+ - No parameters required for construction, in case parameter is required for construction than it violates singleton.
+
+### 3.2 UML Diagram
+
+
+### 3.3 Different Variations of creating a Singleton 
+ 1. Eager initialization
+ 2. Lazy initialization with synchronized method
+ 3. Lazy initialization with double check locking method
+ 4. Lazy initialized with static inner class
+ 5. Lazy initialized with `Enum` which leads to less code. (Recommended by Joshua bloch in Effective Java)
+
+#### 3.3.0 Common step:  
+ - Create a class with `private constructor` to prevent initialization.  
+ - Making constructor private prevents the initialization via `new` keyword
+ - We expose a public static method (commonly named `getInstance()`) to provide the single entry point that returns its instance 
+
 ```java
 public class Singleton {
   private Singleton() {
@@ -168,10 +188,11 @@ public class Singleton {
 }
 ```
 
-**Eager Initialization**  
-- Instance is created at the time of class loading, this is the easiest method to create a singleton class.
-- Create a static final class variable INSTANCE and initialize this with new instance of class
-- Create static method that returns this instance.
+#### 3.3.1 Eager Initialization  
+ - Instance is created at the time of class loading, this is the easiest method to create a singleton class.
+ - Create a static final class variable INSTANCE and initialize this with new instance of class
+ - Create static method that returns this instance.
+
 ```java
 public class SingletonEager {
 
@@ -184,9 +205,10 @@ public class SingletonEager {
   }
 }
 ```
-- **Disadvantages**
-    - Instance is created even if the client application may not be using it.
-    - It will create an issue if your singleton class in creating a database connection or creating a socket which may lead to memory leak problem.
+
+**Disadvantages**
+  - Instance is created even if the client application may not be using it.
+  - It will create an issue if your singleton class in creating a database connection or creating a socket which may lead to memory leak problem.
 
 > As a general rule, we name the method as getInstance(), this is just convention and not mandatorily to be followed
 
@@ -201,10 +223,11 @@ public class SingletonEager {
   }
 ```
 
-**Lazy initialization with synchronized method**  
-- Create a static class variable INSTANCE.
-- Create a synchronized method to return instance. If it is not initialized, initialize it and return.
-- In case you do not make method synchronized, multiple instances might be created in multithreaded environment
+#### 3.3.2 Lazy initialization with synchronized method  
+ - Create a static class variable INSTANCE.
+ - Create a synchronized method to return instance. If it is not initialized, initialize it and return.
+ - In case you do not make method synchronized, multiple instances might be created in multithreaded environment
+
 ```java
 public class SingletonLazyWithSynchronizedMethod {
 
@@ -224,34 +247,34 @@ public class SingletonLazyWithSynchronizedMethod {
   }
 }
 ```
-- **Disadvantages**
-    - Slow performance because of locking overheand in every call
-    - Unnecessary synchronization that is not required once the instance variable is initialized.
-    - Demo of multiple instances in case method is not synchronized
-      ```java
-        private static void lazySingletonMultiThreadsIssueDemo() {
-        Thread t1 = new Thread(() ->  {
-          SingletonLazy instance1 = SingletonLazy.getInstance();
-          System.out.println("Hashcode of instance1: "+ instance1.hashCode());
-        });
-        
-        Thread t2 = new Thread(() ->  {
-          SingletonLazy instance2 = SingletonLazy.getInstance();
-          System.out.println("Hashcode of instance2: "+ instance2.hashCode());
-        });
-        
-        t1.start();
-        t2.start();
-        
-        Output:
-        Hashcode of instance1: 60675678
-        Hashcode of instance2: 1100599114
-        Note: you might have to run this quite a few times to see this different output.
-        As, you cannot predict the thread behaviour
-        }
-      ```
+**Disadvantages**
+ - Slow performance because of locking overheand in every call
+ - Unnecessary synchronization that is not required once the instance variable is initialized.
+ - Demo of multiple instances in case method is not synchronized
+   ```java
+     private static void lazySingletonMultiThreadsIssueDemo() {
+     Thread t1 = new Thread(() ->  {
+       SingletonLazy instance1 = SingletonLazy.getInstance();
+       System.out.println("Hashcode of instance1: "+ instance1.hashCode());
+     });
+     
+     Thread t2 = new Thread(() ->  {
+       SingletonLazy instance2 = SingletonLazy.getInstance();
+       System.out.println("Hashcode of instance2: "+ instance2.hashCode());
+     });
+     
+     t1.start();
+     t2.start();
+     
+     Output:
+     Hashcode of instance1: 60675678
+     Hashcode of instance2: 1100599114
+     Note: you might have to run this quite a few times to see this different output.
+     As, you cannot predict the thread behaviour
+     }
+   ```
 
-**Lazy initialization with synchronized block**  
+#### 3.3.3 Lazy initialization with double check locking method
 - To overcome above slow performance issue we will use this way for initialization.
 - Create a static class variable INSTANCE. 
 - We are marking this variable `volatile`, so that any changes to this instance are visible to other threads instantly
@@ -295,18 +318,18 @@ public class SingletonLazyWithDoubleCheckLocking {
     }
 ``` 
 
-**Lazy initialization with static inner class**  
+#### 3.3.4 Lazy initialization with static inner class
 - TODO, code available
 
 
-**Enum Singleton**  
+#### 3.3.5 Enum Singleton
 - Implementation added with DbSingletonEnum
 
 > The best way to implement a `Serializable Singleton` is to use an Enum
 
 > From Joshua Bloch's Effective Java: This approach is functionally equivalent to the public field approach, except that it is more concise, provides the serialization machinery for free, and provides an ironclad guarantee against multiple instantiation, even in the face of sophisticated serialization or reflection attacks. While this approach has yet to be widely adopted, a single-element enum type is the best way to implement a singleton.
 
-## Drawbacks 
+## 4. Drawbacks 
 - Often overused
 - Difficult to unit test
 - If not careful, not threadsafe
@@ -314,7 +337,7 @@ public class SingletonLazyWithDoubleCheckLocking {
 
 > :stop_sign:   java.util.Calendar is not a Singleton, rather it is Prototype. It is confused as Singleton as it has getInstance() method.
 
-## Contrast to other patterns
+## 5. Contrast to other patterns
 
 | Singleton                        | Factory                                           |
 | -------------                    |:-------------:                                    |
@@ -339,12 +362,12 @@ Explore the Enum version of Singleton pattern
 
 # 2. Builder pattern :construction_worker:
 
-## What is Builder?
+## 1. What is Builder?
 - `GoF`: Separate the construction of a complex object from its representation so that the same construction process can create different representations.
 - `Wiki`: The builder pattern is a design pattern designed to provide a flexible solution to various object creation problems in object-oriented programming. The intent of the Builder design pattern is to separate the construction of a complex object from its representation 
 - `Other`: This a pattern people often use but rarely create of there own. This pattern deals with construction of Objects with lot of parameters and want to make the object once we are done constructing it.
 
-## Why would you choose?
+## 2. Why would you choose?
 - Handles complex constructors
 - Large number of parameters
 - Immutability
@@ -1328,7 +1351,7 @@ Type of handlers: Director, VP, CEO
 - Pieces of mediator pattern are: Mediator, ConcreteMediator
 
 
-# 8. State design Pattern
+# 8. State design Pattern :arrows_counterclockwise:
 
 ## 1. What is State pattern?
 `GoF`: Allow an object to alter its behavior when its internal state changes. The object will appear to change its class.
@@ -1613,7 +1636,6 @@ fan is Med
 Turn the fan Off as it is next state
 ```
 
-
 ## 4. Drawbacks
 
  - You should know all your states to implement it correctly
@@ -1630,23 +1652,80 @@ Turn the fan Off as it is next state
 | State only knows about next state it transitions to | Algorithms are independent |
 | Each state is contained in its own class            | Class per Algorithm |
 
-# 9. Strategy design Pattern
+**[&#11014;  back to top](#table-of-contents)**
 
-## 1. What is State pattern?
+# 9. Strategy design Pattern :shipit:
+
+## 1. What is strategy pattern?
 `GoF`: Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.  
 `Wiki`: The strategy pattern (also known as the policy pattern) enables selecting an algorithm at runtime. Instead of implementing a single algorithm directly, code receives run-time instructions as to which in a family of algorithms to use.
 
 **Real life scenario:**  
 
+
 ## 2. Why would you choose?
 
  - To eliminate the conditional(if/else) statements
  - Behaviour(Algorithms) is encapsulated in classes
+ - Good when you have to externalize alorithms out of your application
  - If it is tough to add new Strategies or cases in your application
  - Client is aware of strategies and in turn chooses the strategy, but strategies may not be aware about each other
  - Examples:
     - java.util.Comparator
     - 
+
+**Example from Java:**  
+```java
+public static void main(String[] args) {
+
+    Person p1 = new Person("Giri", 20);
+    Person p2 = new Person("Raj", 24);
+    Person p3 = new Person("Vyas", 19);
+    
+    List<Person> people = new ArrayList<>();
+    people.add(p1);
+    people.add(p2);
+    people.add(p3);
+    System.out.println("Before: "+ people.toString());
+    
+    Collections.sort(people, new Comparator<Person>() {
+      @Override
+      public int compare(Person o1, Person o2) {
+        if (o1.getAge() > o2.getAge()) {
+          return 1;
+        }
+
+        if (o1.getAge() < o2.getAge()) {
+          return -1;
+        }
+
+        return 0;
+      }
+    });
+    System.out.println("Sort by age: " + people.toString());
+    
+    Collections.sort(people, new Comparator<Person>() {
+      @Override
+      public int compare(Person o1, Person o2) {
+        return o1.getName().compareTo(o2.getName());
+      }
+    });
+    System.out.println("Sort by Name: " + people.toString());
+  }
+
+```
+
+Output:
+
+```java
+Before: [Person [name=Giri, age=20], Person [name=Raj, age=24], Person [name=Vyas, age=19]]
+Sort by age: [Person [name=Vyas, age=19], Person [name=Giri, age=20], Person [name=Raj, age=24]]
+Sort by Name: [Person [name=Giri, age=20], Person [name=Raj, age=24], Person [name=Vyas, age=19]]
+```
+
+Note: Above example can be done in java 8 as well but sake of readability and consistency kept it as it is.
+
+
 
 ## 3. Do it yourself
 
@@ -1654,6 +1733,187 @@ Turn the fan Off as it is next state
  - Can be done with Interface but usually done with Abstract base class
  - All the concrete classes are implemented per strategy
  - Context, Strategy, ConcreteStrategy 
+
+## 3.2 UML Diagram
+
+
+## 3.3 Implementation
+ - We are trying to create a validation logic based on the card used. This can be achieved by normal if\else as well
+ - But as the cards will be added, its complexity will increase and will be harder to maintain.
+ - Hence, creating a strategy that will be used according to the type of card 
+ - Lets start by Creating Abstract base strategy class ValidationStrategy
+
+```java
+public abstract class ValidationStrategy {
+
+  public abstract boolean isValid(CreditCard creditCard);
+
+  /**
+   * https://en.wikipedia.org/wiki/Luhn_algorithm
+   * @param creditCardNumber
+   * @return
+   */
+  protected boolean isPassingLuhnAlgo(String creditCardNumber) {
+    int sum = 0;
+    boolean alternate = false;
+
+    for (int i = creditCardNumber.length() - 1; i >= 0; i--) {
+      int n = Integer.parseInt(creditCardNumber.substring(i, i + 1));
+
+      if (alternate) {
+        n = n * 2;
+        if (n > 9) {
+          n = (n % 10) + 1;
+        }
+      }
+      sum = sum + n;
+      alternate = !alternate;
+    }
+
+    return (sum % 10 == 0);
+  }
+}
+```
+
+Now we will create CreditCard.java, Important point to notice here is, we take Validation strategy as constructor argument.  
+Hence, startegy can be governed by the client.
+
+```java
+public class CreditCard {
+  
+  private String number;
+  private String expiry;
+  private String cvv;
+  private ValidationStrategy strategy;
+  
+  public CreditCard(ValidationStrategy strategy) {
+    this.strategy = strategy;
+  }
+  
+  public boolean isValid() {
+    return strategy.isValid(this);
+  }
+
+  public String getNumber() {
+    return number;
+  }
+
+  public void setNumber(String number) {
+    this.number = number;
+  }
+  
+  public String getExpiry() {
+    return expiry;
+  }
+
+  public void setExpiry(String expiry) {
+    this.expiry = expiry;
+  }
+
+  public String getCvv() {
+    return cvv;
+  }
+
+  public void setCvv(String cvv) {
+    this.cvv = cvv;
+  }
+  
+}
+```
+
+Now create concrete strategies for the Amex and Visa validators by extending the ValidationStrategy
+```java
+public class AmexStrategy extends ValidationStrategy {
+
+  @Override
+  public boolean isValid(CreditCard creditCard) {
+    boolean isValid = true;
+    
+    isValid = creditCard.getNumber().startsWith("37")
+        || creditCard.getNumber().startsWith("34");
+    
+    if(isValid) {
+      isValid = creditCard.getNumber().length() == 15;
+    }
+    
+    if(isValid) {
+      isValid = isPassingLuhnAlgo(creditCard.getNumber());
+    }
+    
+    return isValid;
+  }
+
+}
+```
+
+```java
+public class VisaStrategy extends ValidationStrategy {
+
+  @Override
+  public boolean isValid(CreditCard creditCard) {
+    boolean isValid = true;
+    
+    isValid = creditCard.getNumber().startsWith("4");
+    
+    if(isValid) {
+      isValid = creditCard.getNumber().length() == 16;
+    }
+    
+    if(isValid) {
+      isValid = isPassingLuhnAlgo(creditCard.getNumber());
+    }
+    
+    return isValid;
+  }
+}
+
+```
+
+Calling class
+
+```java
+public class StrategyDemo {
+
+  public static void main(String[] args) {
+    // Valid scenario
+    CreditCard amexCard = new CreditCard(new AmexStrategy());
+    amexCard.setNumber("379185883464283");
+    amexCard.setExpiry("12/2020");
+    amexCard.setCvv("123");
+    System.out.println("is Amex valid: " + amexCard.isValid());
+    
+    // Editing 1 number from credit card to make it invalid
+    CreditCard amexCard2 = new CreditCard(new AmexStrategy());
+    amexCard2.setNumber("379185883464284");
+    amexCard2.setExpiry("12/2020");
+    amexCard2.setCvv("123");
+    System.out.println("is Amex valid: " + amexCard2.isValid());
+    
+    CreditCard visaCard = new CreditCard(new VisaStrategy());
+    visaCard.setNumber("4539589763663402");
+    visaCard.setExpiry("12/2020");
+    visaCard.setCvv("123");
+    System.out.println("is Visa valid: " + visaCard.isValid());
+  }
+}
+```
+
+## 4. Drawbacks
+
+ - Client must be aware about the strategies avaialble
+ - Increased number of classes within appication
+
+## 5. Contrast to other patterns
+
+| Strategy                                                         | State                                           |
+| -------------                                                    |:-------------:                                  |
+| Interface based                                                  | Interface based                                 |
+| Algorithms are independent i.e they do not know about next state | Knows only about state that it can transition to|
+| Class per Algorithm is their for Strategy                        | Class Per state                                 |
+
+
+
+**[&#11014;  back to top](#table-of-contents)**
 
 ## References:
 **Courses:**  
