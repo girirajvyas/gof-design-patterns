@@ -2,10 +2,6 @@
 
 *****
 <p align="center">
- Gang-of-Four(GoF) Design patterns
-</p>
-
-<p align="center">
     This repository contains examples of all the design patterns listed in the 
     "Design patterns - Elements of Reusable Object-oriented Software" book 
     by Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides 
@@ -13,7 +9,6 @@
 </p>
 
 *****
-
 
 ## Table of contents
 - [What is a design pattern](#what-is-a-design-pattern)
@@ -41,8 +36,8 @@
     5. [Mediator](#5-mediator-pattern-phone)
     6. [Memento]
     7. [Observer]
-    8. [State]
-    9. [Strategy]
+    8. [State](#8-state-design-pattern-arrows_counterclockwise)
+    9. [Strategy](#9-strategy-design-pattern-shipit)
     10. [Template method]
     11. [Visitor]
 
@@ -107,8 +102,8 @@ For each pattern you will see below points covered:
 |  5   | [Mediator](#5-mediator-pattern-phone)                        | Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently. |
 |  6   | [Memento]                                                    | **Without violating encapsulation, capture and externali ze an object's internal state so that the object can be restored to this st ate later.**                                                                             |
 |  7   | [Observer]                                                   | Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.                                                                    |
-|  8   | [State]                                                      | **Allow an object to alter its behavior when its internal state changes. The object will appear to change its class.**                                                                                                        |
-|  9   | [Strategy]                                                   | Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.                                                         |
+|  8   | [State](#8-state-design-pattern-arrows_counterclockwise)     | **Allow an object to alter its behavior when its internal state changes. The object will appear to change its class.**                                                                                                        |
+|  9   | [Strategy](#9-strategy-design-pattern-shipit)                                                   | Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.                                                         |
 |  10  | [Template method]                                            | **Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm's structure.**              |
 |  11  | [Visitor]                                                    | Represent an operation to be performed on the elements of an object structure. Visitor lets you define a new operation without changing the classes of the elements on which it operates.                            |
 
@@ -1112,7 +1107,7 @@ Side notes:
 
 # Behavioral Design Patterns
 
-## 1. Chain of responsibility :chains:
+# 1. Chain of responsibility :chains:
 
 ## Why would you choose?
 
@@ -1175,7 +1170,7 @@ Type of handlers: Director, VP, CEO
 
 **[&#11014;  back to top](#table-of-contents)**
 
-## 2. Command pattern :genie:
+# 2. Command pattern :genie:
 
 ## What is Command Pattern?
 
@@ -1233,7 +1228,7 @@ Type of handlers: Director, VP, CEO
 
 **[&#11014;  back to top](#table-of-contents)**
 
-## 3. Interpreter pattern :speaking_head:
+# 3. Interpreter pattern :speaking_head:
 
 ## Why would you choose?
 
@@ -1282,7 +1277,7 @@ Type of handlers: Director, VP, CEO
 
 **[&#11014;  back to top](#table-of-contents)**
 
-## 4. Iterator pattern :loop:
+# 4. Iterator pattern :loop:
 
 ## Why would you choose?
 
@@ -1332,7 +1327,7 @@ Type of handlers: Director, VP, CEO
 
  **[&#11014;  back to top](#table-of-contents)**
 
-## 5. Mediator pattern :phone:
+# 5. Mediator pattern :phone:
 
 ## Why would you choose?
 - Need to acheive loose coupling within objects
@@ -1674,7 +1669,17 @@ Turn the fan Off as it is next state
     - java.util.Comparator
     - 
 
-**Example from Java:**  
+## 3. Do it yourself
+
+### 3.1 Participants
+ - Can be done with Interface but usually done with Abstract base class
+ - All the concrete classes are implemented per strategy
+ - Context, Strategy, ConcreteStrategy 
+
+### 3.2 UML Diagram
+
+
+### 3.3 Example from Java (Collections#sort with comparator)
 ```java
 public static void main(String[] args) {
 
@@ -1722,22 +1727,9 @@ Before: [Person [name=Giri, age=20], Person [name=Raj, age=24], Person [name=Vya
 Sort by age: [Person [name=Vyas, age=19], Person [name=Giri, age=20], Person [name=Raj, age=24]]
 Sort by Name: [Person [name=Giri, age=20], Person [name=Raj, age=24], Person [name=Vyas, age=19]]
 ```
-
 Note: Above example can be done in java 8 as well but sake of readability and consistency kept it as it is.
 
-
-
-## 3. Do it yourself
-
-## 3.1 Participants
- - Can be done with Interface but usually done with Abstract base class
- - All the concrete classes are implemented per strategy
- - Context, Strategy, ConcreteStrategy 
-
-## 3.2 UML Diagram
-
-
-## 3.3 Implementation
+### 3.3 Implementation
  - We are trying to create a validation logic based on the card used. This can be achieved by normal if\else as well
  - But as the cards will be added, its complexity will increase and will be harder to maintain.
  - Hence, creating a strategy that will be used according to the type of card 
@@ -1911,7 +1903,337 @@ public class StrategyDemo {
 | Algorithms are independent i.e they do not know about next state | Knows only about state that it can transition to|
 | Class per Algorithm is their for Strategy                        | Class Per state                                 |
 
+**[&#11014;  back to top](#table-of-contents)**
 
+# 9. Template method design Pattern :part_alternation_mark:
+
+## 1. What is Template method pattern?
+
+`GoF`: Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm's structure.  
+`Wiki`: The template method is a method in a superclass, usually an abstract superclass, and defines the skeleton of an operation in terms of a number of high-level steps. These steps are themselves implemented by additional helper methods in the same class as the template method.  
+The helper methods may be either abstract methods, in which case subclasses are required to provide concrete implementations, or hook methods, which have empty bodies in the superclass. Subclasses can (but are not required to) customize the operation by overriding the hook methods. The intent of the template method is to define the overall structure of the operation, while allowing subclasses to refine, or redefine, certain steps.
+
+## 2. Why would you choose?
+
+ - fantastic technique for code reuse
+ - Used extensively in designining libraries and frameworks
+ - IoC containers use this pattern to allow pluggable components
+ - Main focus is on what we are trying to solve by enabling to force an algorithm and allowing pieces to be configured by user
+ - Examples:
+   - java.util.Collections#sort()
+   - java.util.AbstractList#indexOf()
+   - JDBC, Spring JDBC
+
+## 3. How to implement?
+
+### 3.1 Design considerations
+
+ - It is based around abstract base class
+ - Base class is responsible for calling the childs (not vice-versa)
+ - Hooks are created, in case they have to overriden (Optional)
+ - Operations must be overridden
+ - UML Elements: AbstractBase class, ConcreteClass
+
+### 3.2 UML Diagrams
+
+
+### 3.3 Example from Java (java.util.Collections#sort)
+
+Person Pojo class without implementing Comparable 
+```java
+public class Person {
+
+  private String name;
+  private Integer age;
+
+  public Person(String name, Integer age) {
+    super();
+    this.name = name;
+    this.age = age;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public Integer getAge() {
+    return age;
+  }
+
+  public void setAge(Integer age) {
+    this.age = age;
+  }
+
+  @Override
+  public String toString() {
+    return "Person [name=" + name + ", age=" + age + "]";
+  }
+}
+```
+
+Lets try to compare the list of Person objects via Collections#sort(). Here, we will get compile time error as person does not implement Comparable
+```java
+public class TemplateMethodEveryDayExample {
+
+  public static void main(String[] args) {
+
+    Person p1 = new Person("Giri", 20);
+    Person p2 = new Person("Raj", 24);
+    Person p3 = new Person("Vyas", 19);
+    
+    List<Person> people = new ArrayList<>();
+    people.add(p1);
+    people.add(p2);
+    people.add(p3);
+    System.out.println("Before: "+ people.toString());
+    
+    Collections.sort(people); // Compilation error here as Person does not implement Comparable as of now
+    System.out.println("Sort by age: " + people.toString());
+  }
+}
+```
+
+Now, we will implement Comparable to our Person Pojo.
+```java
+public class Person implements Comparable<Person> {
+
+  private String name;
+  private Integer age;
+
+  public Person(String name, Integer age) {
+    super();
+    this.name = name;
+    this.age = age;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public Integer getAge() {
+    return age;
+  }
+
+  public void setAge(Integer age) {
+    this.age = age;
+  }
+
+  @Override
+  public String toString() {
+    return "Person [name=" + name + ", age=" + age + "]";
+  }
+
+  @Override
+  public int compareTo(Person person) {
+    if (this.age > person.getAge()) {
+      return 1;
+    }
+
+    if (this.age < person.getAge()) {
+      return -1;
+    }
+
+    return 0;
+  }
+}
+```
+
+Now, Compilation error is gone
+```java
+public class TemplateMethodEveryDayExample {
+
+  public static void main(String[] args) {
+
+    Person p1 = new Person("Giri", 20);
+    Person p2 = new Person("Raj", 24);
+    Person p3 = new Person("Vyas", 19);
+    
+    List<Person> people = new ArrayList<>();
+    people.add(p1);
+    people.add(p2);
+    people.add(p3);
+    System.out.println("Before: "+ people.toString());
+    
+    Collections.sort(people); // No Compilation error as Person implements Comparable now
+    System.out.println("Sort by age: " + people.toString());
+  }
+}
+```
+
+Output:
+```java
+Before: [Person [name=Giri, age=20], Person [name=Raj, age=24], Person [name=Vyas, age=19]]
+Sort by age: [Person [name=Vyas, age=19], Person [name=Giri, age=20], Person [name=Raj, age=24]]
+```
+
+### 3.4 Implementation
+
+ - OrderTemplate, WebOrder, StoreOrder
+ - Create Template method
+
+We will first create OrderTemplate
+
+```java
+public abstract class OrderTemplate {
+
+  public boolean isGift; // hook
+
+  public abstract void doCheckout(); // Operation
+  public abstract void doPayment(); // Operation
+  public abstract void doReceipt(); // Operation
+  public abstract void doDelivery(); // Operation
+  
+  public final void wrapGift() {
+    System.out.println("Gift wrapped");
+  }
+  
+  // final so as to restrict overriding
+  public final void processOrder() {
+    
+    doCheckout();
+    doPayment();
+    if(isGift) {
+      wrapGift();
+    } else {
+      doReceipt();
+    }
+    doDelivery();
+  }
+}
+```
+
+Lets create a Web and Store specific implementation
+
+```java
+public class WebOrder extends OrderTemplate {
+
+  @Override
+  public void doCheckout() {
+    System.out.println("Get items from cart");
+    System.out.println("set gift preferences");
+    System.out.println("set Delivery address");
+    System.out.println("set billing address");
+  }
+
+  @Override
+  public void doPayment() {
+    System.out.println("Process payment without card present");
+  }
+
+  @Override
+  public void doReceipt() {
+    System.out.println("Ship the item to address");
+  }
+
+  @Override
+  public void doDelivery() {
+    System.out.println("Email receipt");
+  }
+}
+```
+
+```java
+public class StoreOrder extends OrderTemplate {
+
+  @Override
+  public void doCheckout() {
+    System.out.println("Manually collect items in cart");
+  }
+
+  @Override
+  public void doPayment() {
+    System.out.println("Process payment with card present");
+  }
+
+  @Override
+  public void doReceipt() {
+    System.out.println("Print receipt");
+  }
+
+  @Override
+  public void doDelivery() {
+    System.out.println("Bag items at counter");
+  }
+}
+```
+
+Demo class
+
+```java
+public class TemplateDemo {
+  
+  public static void main(String[] args) {
+    System.out.println("Web order:");
+    OrderTemplate webOrder = new WebOrder();
+    webOrder.processOrder();
+    
+    System.out.println();
+    System.out.println("Store order:");
+    OrderTemplate storeOrder = new StoreOrder();
+    storeOrder.processOrder();
+  }
+}
+```
+
+Output:
+
+```console
+Web order:
+Get items from cart
+set gift preferences
+set Delivery address
+set billing address
+Process payment without card present
+Ship the item to address
+Email receipt
+
+Store order:
+Manually collect items in cart
+Process payment with card present
+Bag items at counter
+Bag items at counter
+```
+
+## 4. Drawbacks
+
+ - Make sure to restrict access to certain methods correctly
+ - Important to implement hooks and operations as well
+ - Confusing hierarchy as algorithm is divided across multiple classes
+ - Difficult programme flow depening on the number of templates you make
+
+## 5. Contrast to other patterns
+
+| Template Method                                     | Strategy                           |
+| -------------                                       |:-------------:                      |
+| Same algorithm and different implementations        | Algorithm per strategy, |
+| Always class based                                  | Interface based|
+| Template method is chosen at compile time           | Algorithms are chosen at runtime |
+
+## Summary
+
+ - Guarantees algorithm adherence
+ - Mostly used in IOC containers
+ - Often reffered as Hollywood principle (Dont call us, we'll call you)
+ - Easier Implementation
+
+**[&#11014;  back to top](#table-of-contents)**
+
+# 11. Visitor design Pattern :santa:
+
+## 1. What is Template method pattern?
+
+`GoF`: 
+`Wiki`: 
+
+## 2. Why would you choose?
 
 **[&#11014;  back to top](#table-of-contents)**
 
