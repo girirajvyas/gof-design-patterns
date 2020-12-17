@@ -6,6 +6,7 @@
     "Design patterns - Elements of Reusable Object-oriented Software" book 
     by Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides 
     popularly known as Gang of Four (GoF). 
+    
 </p>
 
 *****
@@ -38,8 +39,8 @@
     7. [Observer]
     8. [State](#8-state-design-pattern-arrows_counterclockwise)
     9. [Strategy](#9-strategy-design-pattern-shipit)
-    10. [Template method]
-    11. [Visitor]
+    10. [Template method](#10-template-method-design-pattern-part_alternation_mark)
+    11. [Visitor](#11-visitor-design-pattern-santa)
 
 ## What is a design pattern?
 From Wiki:-
@@ -104,8 +105,8 @@ For each pattern you will see below points covered:
 |  7   | [Observer]                                                   | Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.                                                                    |
 |  8   | [State](#8-state-design-pattern-arrows_counterclockwise)     | **Allow an object to alter its behavior when its internal state changes. The object will appear to change its class.**                                                                                                        |
 |  9   | [Strategy](#9-strategy-design-pattern-shipit)                                                   | Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.                                                         |
-|  10  | [Template method]                                            | **Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm's structure.**              |
-|  11  | [Visitor]                                                    | Represent an operation to be performed on the elements of an object structure. Visitor lets you define a new operation without changing the classes of the elements on which it operates.                            |
+|  10  | [Template method](#10-template-method-design-pattern-part_alternation_mark)| **Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm's structure.**              |
+|  11  | [Visitor](#11-visitor-design-pattern-santa)                  | Represent an operation to be performed on the elements of an object structure. Visitor lets you define a new operation without changing the classes of the elements on which it operates.                            |
 
 # Creational design patterns
 
@@ -1905,7 +1906,7 @@ public class StrategyDemo {
 
 **[&#11014;  back to top](#table-of-contents)**
 
-# 9. Template method design Pattern :part_alternation_mark:
+# 10. Template method design Pattern :part_alternation_mark:
 
 ## 1. What is Template method pattern?
 
@@ -2228,12 +2229,377 @@ Bag items at counter
 
 # 11. Visitor design Pattern :santa:
 
-## 1. What is Template method pattern?
+## 1. What is Visitor method pattern?
 
-`GoF`: 
-`Wiki`: 
+`[GoF](https://en.wikipedia.org/wiki/Visitor_pattern)`: Represent an operation to be performed on the elements of an object structure. Visitor lets you define a new operation without changing the classes of the elements on which it operates.
+`Wiki`: visitor design pattern is a way of separating an algorithm from an object structure on which it operates. A practical result of this separation is the ability to add new operations to existing object structures without modifying the structures. It is one way to follow the open/closed principle.  
+In essence, the visitor allows adding new virtual functions to a family of classes, without modifying the classes. Instead, a visitor class is created that implements all of the appropriate specializations of the virtual function. The visitor takes the instance reference as input, and implements the goal through double dispatch.
 
 ## 2. Why would you choose?
+
+ - Saperate algorithm from object structure
+ - Expecting lot of change and adding new features cant modify the existing Object structure alreadt created
+ - Helps in maintaining Open/Closed principle in Design
+ - Visitor class contains the changes and specializations rather than original object
+ - Examples:
+   - javax.lang.model.element.Element
+   - javax.lang.model.element.ElementVisitor
+
+## 3. How to implement?
+
+### 3.1 Design considerations
+
+ - Interface Based
+ - We must design around the visitor from the beginning and it is hard to fit it later
+ - Implement Visitor in each Element
+ - Elements have Visit method
+ - Visitor knows every element
+ - UML: Visitor, ConcreteVisitor, Element, ConcreteElement
+ 
+
+### 3.2 UML Diagrams
+
+### 3.3 Without Visitor
+
+We will try to see and example of ATV(All Terrain Vehicle) parts where we are trying to create order for the parts.
+
+Lets start with creating a interface so that all the parts of this type.
+
+```java
+public interface AtvPart {
+
+}
+```
+
+Now we will have 3 different types of ATV parts for starter
+```java
+public class Wheel implements AtvPart {
+
+}
+```
+
+```java
+public class Oil implements AtvPart {
+
+}
+```
+
+```java
+public class Fender implements AtvPart {
+
+}
+```
+
+Also, we will create a PartsOrder class to add and get the parts.
+
+```java
+public class PartsOrder implements AtvPart {
+
+  private List<AtvPart> parts = new ArrayList<>();
+
+  public void addParts(AtvPart part) {
+    parts.add(part);
+  }
+
+  public List<AtvPart> getParts() {
+    return Collections.unmodifiableList(parts);
+  }
+}
+```
+
+Demo class:
+```java
+public class VisitorDemo {
+
+  public static void main(String[] args) {
+    PartsOrder order = new PartsOrder();
+    
+    order.addParts(new Wheel());
+    order.addParts(new Oil());
+    order.addParts(new Fender());
+    
+    order.calculateShipping();// Compilation error as not yet created
+  }
+}
+```
+
+The challenge starts when We plan to calculate shipping for these orders. Hence, we have to create this method into the interface and force individual classess to provide the implementation of it.  
+Here, we have only 3 products to start with, but it would be challenging if we had 1000s of product or we wanted to add some other operation.  
+Lets start by defining this method in interface and provide the implementation in 3 parts that we have defined along with the partsOrder where we will sum all of those.  
+
+```java
+public interface AtvPart {
+  double calculateShipping();
+}
+```
+```java
+public class Wheel implements AtvPart {
+
+  @Override
+  public double calculateShipping() {
+    return 10;
+  }
+}
+```
+```java
+public class Fender implements AtvPart {
+
+  @Override
+  public double calculateShipping() {
+    return 1;
+  }
+}
+```
+```java
+public class Oil implements AtvPart {
+
+  @Override
+  public double calculateShipping() {
+    return 5;
+  }
+}
+```
+
+```java
+public class PartsOrder implements AtvPart {
+
+  private List<AtvPart> parts = new ArrayList<>();
+
+  public void addParts(AtvPart part) {
+    parts.add(part);
+  }
+
+  public List<AtvPart> getParts() {
+    return Collections.unmodifiableList(parts);
+  }
+
+  @Override
+  public double calculateShipping() {
+    double shippingCost = 0;
+    for (AtvPart atvPart : parts) {
+      shippingCost += atvPart.calculateShipping();
+    }
+    return shippingCost;
+  }
+}
+```
+
+Demo class:
+
+```java
+public class VisitorDemo {
+
+  public static void main(String[] args) {
+    PartsOrder order = new PartsOrder();
+    
+    order.addParts(new Wheel());
+    order.addParts(new Oil());
+    order.addParts(new Fender());
+    
+    double shippingCost = order.calculateShipping();
+    System.out.println(shippingCost);
+  }
+}
+```
+
+```console
+16.0
+```
+
+### 3.4 With Visitor
+
+Lets start from the place where we have not added the calculateShipping() method in ATV interface.  
+We have 2 parts to our solution, one is acceptor whereas another is the visitor.  
+We will create `accept` method in our `AtvPart.java` interface and it will take parameter `AtvPartVisitor.java` interface having `visit` methods
+
+```java
+public interface AtvPart {
+  public void accept(AtvPartVisitor visitor);
+}
+```
+
+```java
+public interface AtvPartVisitor {
+
+  void visit(Fender fender);
+  void visit(Oil oil);
+  void visit(Wheel wheel);
+  void visit(PartsOrder partsOrder);
+}
+```
+
+```java
+public class AtvPartsShippingVisitor implements AtvPartVisitor {
+
+  double shippingAmount = 0;
+  
+  @Override
+  public void visit(Fender fender) {
+    System.out.println("Adding cost of Fender");
+    shippingAmount += 1;
+  }
+
+  @Override
+  public void visit(Oil oil) {
+    System.out.println("Adding cost of oil");
+    shippingAmount += 5;
+  }
+
+  @Override
+  public void visit(Wheel wheel) {
+    System.out.println("Adding cost of wheel");
+    shippingAmount += 10;
+  }
+
+  @Override
+  public void visit(PartsOrder partsOrder) {
+    if(partsOrder.getParts().size() > 2) {
+      System.out.println("As more than 2 items bought, discount applied");
+      System.out.println("Original amount: " + shippingAmount);
+      shippingAmount -= 5;
+    }
+    System.out.println("Final Shipping Amount is: " + shippingAmount);
+  }
+}
+```
+
+```java
+public class Fender implements AtvPart {
+
+  @Override
+  public void accept(AtvPartVisitor visitor) {
+    visitor.visit(this);
+  }
+}
+```
+
+```java
+public class Oil implements AtvPart {
+
+  @Override
+  public void accept(AtvPartVisitor visitor) {
+    visitor.visit(this);
+  }
+}
+```
+
+```java
+public class Wheel implements AtvPart {
+
+  @Override
+  public void accept(AtvPartVisitor visitor) {
+    visitor.visit(this);    
+  }
+}
+```
+
+```java
+public class VisitorDemo {
+
+  public static void main(String[] args) {
+    PartsOrder order = new PartsOrder();
+    
+    order.addParts(new Wheel());
+    order.addParts(new Oil());
+    order.addParts(new Fender());
+    
+    order.accept(new AtvPartsShippingVisitor());
+  }
+}
+```
+
+Output:
+
+```java
+Adding cost of wheel
+Adding cost of oil
+Adding cost of Fender
+As more than 2 items bought, discount applied
+Original amount: 16.0
+Final Shipping Amount is: 11.0
+```
+
+Now to show how easy it is to add new functionality of Display. Lets create a display visitor
+
+```java
+public class AtvPartsDisplayVisitor implements AtvPartVisitor {
+
+  @Override
+  public void visit(Fender fender) {
+    System.out.println("We have fender");
+  }
+
+  @Override
+  public void visit(Oil oil) {
+    System.out.println("We have oil");
+  }
+
+  @Override
+  public void visit(Wheel wheel) {
+    System.out.println("We have wheel");
+  }
+
+  @Override
+  public void visit(PartsOrder partsOrder) {
+    System.out.println("We have an order");
+  }
+}
+```
+
+```java
+public class VisitorDemo {
+
+	public static void main(String[] args) {
+		PartsOrder order = new PartsOrder();
+		
+		order.addParts(new Wheel());
+		order.addParts(new Oil());
+		order.addParts(new Fender());
+		
+		order.accept(new AtvPartsShippingVisitor());
+		System.out.println();
+		order.accept(new AtvPartsDisplayVisitor());
+	}
+}
+```
+
+Output:
+
+```cmd
+Adding cost of wheel
+Adding cost of oil
+Adding cost of Fender
+As more than 2 items bought, discount applied
+Original amount: 16.0
+Final Shipping Amount is: 11.0
+
+We have wheel
+We have oil
+We have fender
+We have an order
+
+```
+
+## 4. Drawbacks
+
+ - As you have to plan this ahead you have to make sure that it is adapted and not just have increased the complexity of system 
+ - As you can have visitors added on the fly this may lead to confusion
+ - Each visitor may not implement all of its method and hecnce may have to use Adapter pattern in parallel
+ 
+
+## 5. Contrast to other patterns
+
+| Visitor                                         | Iterator                           |
+| -------------                                   |:-------------:                      |
+| Interface based                                 | Interface based but mostly implemented with anonymous inner class |
+| Focus on adaptability by externalizing changes  | Iterator encapsulates navigation but not necessarily externalize it |
+| Adding visitor is easy and encouraged           | Genrally single iterator is implemented |
+
+## 5. Summary
+
+ - We expect changes in application and not sure about them upfront
+ - Adds minor complexity to application
+ - Used when we want to externalize changes
 
 **[&#11014;  back to top](#table-of-contents)**
 
