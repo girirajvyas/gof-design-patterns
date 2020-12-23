@@ -101,7 +101,7 @@ For each pattern you will see below points covered:
 |  3   | [Interpreter](#3-Interpreter-pattern-speaking_head)          | Given a language, define a represention for its grammar along with an interpreter that uses the representation to interpret sentences in the language.                                                               |
 |  4   | [Iterator](#4-Iterator-pattern-loop)                         | **Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation.**                                                                                                  |
 |  5   | [Mediator](#5-mediator-pattern-phone)                        | Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently. |
-|  6   | [Memento]                                                    | **Without violating encapsulation, capture and externali ze an object's internal state so that the object can be restored to this st ate later.**                                                                             |
+|  6   | [Memento]                                                    | **Without violating encapsulation, capture and externali ze an object's internal state so that the object can be restored to this state later.**                                                                             |
 |  7   | [Observer]                                                   | Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.                                                                    |
 |  8   | [State](#8-state-design-pattern-arrows_counterclockwise)     | **Allow an object to alter its behavior when its internal state changes. The object will appear to change its class.**                                                                                                        |
 |  9   | [Strategy](#9-strategy-design-pattern-shipit)                                                   | Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.                                                         |
@@ -1330,22 +1330,316 @@ Type of handlers: Director, VP, CEO
 
 # 5. Mediator pattern :phone:
 
-## Why would you choose?
-- Need to acheive loose coupling within objects
+## 1. What is Mediator pattern?
+
+`GoF`: Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently.  
+**[Wiki](https://en.wikipedia.org/wiki/Mediator_pattern)**: "In object-oriented programming, programs often consist of many classes. Business logic and computation are distributed among these classes. However, as more classes are added to a program, especially during maintenance and/or refactoring, the problem of communication between these classes may become more complex. This makes the program harder to read and maintain. Furthermore, it can become difficult to change the program, since any change may affect code in several other classes.  
+ With the mediator pattern, communication between objects is encapsulated within a mediator object. Objects no longer communicate directly with each other, but instead communicate through the mediator. This reduces the dependencies between communicating objects, thereby reducing coupling."
+
+## 2. Why would you choose?
+- Used when you Need to acheive loose coupling within objects
 - Well-defined set of objects taht communicate in complex ways
-- In case it is tough tp create reusable components you should refer this pattern--bridge_at_night
+- In case it is tough to create reusable components you should refer this pattern--bridge_at_night
 - It simplty acts as a hub/router in your application
 - **Examples:** 
     - java.util.Timer
     - java.lang.reflect.Method#invoke()
 
-## Design considerations
+## 3. How to Implement?
+
+### 3.1 Design considerations
 
 - Interface based with a concrete class
 - Minimizes Inheritance
 - Mediator knows colleagues
 - Pieces of mediator pattern are: Mediator, ConcreteMediator
 
+### 3.2 UML diagram
+
+### 3.3 Example from Java (Timer)
+
+```java
+import java.awt.Toolkit;
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class MediatorEverydayExample {
+  private Toolkit toolkit;
+  private Timer timer;
+
+  public MediatorEverydayExample(int seconds) {
+    timer = new Timer();
+    timer.schedule(new RemindTask(), seconds * 1000);
+    timer.schedule(new RemindTaskWithBeep(), seconds * 2 * 1000);
+    toolkit = Toolkit.getDefaultToolkit();
+  }
+
+  class RemindTask extends TimerTask {
+
+    @Override
+    public void run() {
+      System.out.println("Time' up!");
+    }
+  }
+
+  class RemindTaskWithBeep extends TimerTask {
+
+    @Override
+    public void run() {
+      System.out.println("Time' up Beeeep");
+      toolkit.beep();
+      timer.cancel();
+    }
+  }
+  
+  public static void main(String[] args) {
+    System.out.println("Scheduling task");
+    new MediatorEverydayExample(3);
+    System.out.println("Task Scheduled");
+  }
+}
+```
+
+output:
+```cmd
+Scheduling task
+Task Scheduled
+Time' up!
+Time' up Beeeep
+```
+
+### 3.4 Implementation
+
+ - We will implement using a Mediator and a Colleague object
+ - Fix problem of duplicating logic with command pattern
+ - Reconfigure the light and light switch object used in the command pattern
+
+
+
+```java
+// Colleague
+public interface Command {
+  public void execute();
+}
+```
+
+```java
+// receiver
+public class Light {
+
+  private boolean isOn = false;
+  private String location = "";
+
+  public Light() {
+
+  }
+
+  public Light(String location) {
+    this.location = location;
+  }
+
+  public boolean isOn() {
+    return isOn;
+  }
+
+  public void toggle() {
+    if (isOn) {
+      off();
+      isOn = false;
+    } else {
+      on();
+      isOn = true;
+    }
+  }
+
+  public void on() {
+    System.out.println(location + "Light Switched ONN");
+  }
+
+  public void off() {
+    System.out.println(location + "Light Switched OFF");
+  }
+}
+```
+
+```java
+public class Mediator {
+
+  private List<Light> lights = new ArrayList<>();
+  
+  public void registerLight(Light light) {
+    lights.add(light);
+  }
+  
+  public void turnOnAllLights() {
+    for(Light light: lights) {
+      if(!light.isOn()) {
+        light.toggle();
+      }
+    }
+  }
+}
+```
+
+```java
+public class MediatorDemo {
+
+  public static void main(String[] args) {
+    Mediator mediator = new Mediator();
+    
+    
+    Light bedroomLight = new Light("Bedroom");
+    Light kitchenLight = new Light("Kitchen");
+    
+    mediator.registerLight(bedroomLight);
+    mediator.registerLight(kitchenLight);
+    
+    Command turnOnallLightsCommand = new TurnOnAllLightsCommand(mediator);
+    turnOnallLightsCommand.execute();
+  }
+}
+```
+
+Output:
+```cmd
+BedroomLight Switched ONN
+KitchenLight Switched ONN
+```
+
+Now, adding a new command to switch off all lights becomes a bit easy as all the logic is handled by Mediator now instead of the concrete commands  
+Create new TurnOffAllLightsCommand.java class  
+
+```java
+public class TurnOffAllLightsCommand implements Command {
+
+  private Mediator mediator;
+  
+  public TurnOffAllLightsCommand(Mediator mediator) {
+    this.mediator = mediator;
+  }
+  
+  @Override
+  public void execute() {
+    mediator.turnOffAllLights();
+  }
+}
+```
+
+Add turnOffAllLights method to switch off all the lights  
+```java
+public class Mediator {
+
+  private List<Light> lights = new ArrayList<>();
+  
+  public void registerLight(Light light) {
+    lights.add(light);
+  }
+  
+  public void turnOnAllLights() {
+    for(Light light: lights) {
+      if(!light.isOn()) {
+        light.toggle();
+      }
+    }
+  }
+
+  public void turnOffAllLights() {
+    for(Light light: lights) {
+      if(light.isOn()) {
+        light.toggle();
+      }
+    }
+  }
+}
+```
+
+
+Demo: Add new call for turning lights off
+
+```java
+public class MediatorDemo {
+
+  public static void main(String[] args) {
+    Mediator mediator = new Mediator();
+    
+    
+    Light bedroomLight = new Light("Bedroom");
+    Light kitchenLight = new Light("Kitchen");
+    
+    mediator.registerLight(bedroomLight);
+    mediator.registerLight(kitchenLight);
+    
+    Command turnOnallLightsCommand = new TurnOnAllLightsCommand(mediator);
+    turnOnallLightsCommand.execute();
+    
+    Command turnOffallLightsCommand = new TurnOffAllLightsCommand(mediator);
+    turnOffallLightsCommand.execute();
+  }
+}
+```
+
+Output:
+
+```cmd
+BedroomLight Switched ONN
+KitchenLight Switched ONN
+BedroomLight Switched OFF
+KitchenLight Switched OFF
+```
+
+## 4. Drawbacks
+
+ - Try to avoid creating a Diety Object
+ - It might limit subclassing
+ - Confusion on using Mediator over command pattern, whereas best works when used together
+
+## 5. Contrast to other patterns
+
+| Mediator                                      | Observer                           |
+| -------------                                 |:-------------:                      |
+| Defines how object interact with each other   | It is one to many broadcast|
+| Achieves this via Object decoupling           | Object decoupling via broadcasting|
+| More specific as mediator has to be modified itself | More generic as becoming a listener required just adding that listener|
+
+## 6. Summary
+
+ - Helps achieving loose coupling
+ - Achieved via simplified communication between complex objects
+ - Keep a check on Mediator complexity as it is easy to get it full with different methods
+ - Should be used with Command patterns instead of using as a replacement of it
+
+**[&#11014;  back to top](#table-of-contents)**
+
+# 5. Memento :arrow_right_hook:
+
+## 1. What is Memento pattern?
+
+`GoF`: Without violating encapsulation, capture and externali ze an object's internal state so that the object can be restored to this state later.  
+**[Wiki](https://en.wikipedia.org/wiki/Memento_pattern)**: "The memento pattern is a software design pattern that provides the ability to restore an object to its previous state (undo via rollback).  
+The memento pattern is implemented with three objects: the originator, a caretaker and a memento. The originator is some object that has an internal state. The caretaker is going to do something to the originator, but wants to be able to undo the change. The caretaker first asks the originator for a memento object. Then it does whatever operation (or sequence of operations) it was going to do. To roll back to the state before the operations, it returns the memento object to the originator. The memento object itself is an opaque object (one which the caretaker cannot, or should not, change). When using this pattern, care should be taken if the originator may change other objects or resources—the memento pattern operates on a single object."  
+
+## 2. Why would you choose?
+- When you want to restore object to a previous state
+- This is achieved via externalizing the internal state which can be retrieved later
+- Mostly used to implement undo/Rollback functionality 
+- It SHields complex internals from the other objects
+- **Examples:** 
+    - java.util.Date
+    - java.io.Serializable
+
+## 3. How to Implement?
+
+### 3.1 Design considerations
+
+### 3.2 UML Diagrams
+
+## 4. Drawbacks
+
+## 5. Contrast to other patterns
+
+## 6. Summary
+
+**[&#11014;  back to top](#table-of-contents)**
 
 # 8. State design Pattern :arrows_counterclockwise:
 
@@ -1369,7 +1663,7 @@ For Instance, You insert the coin then you have to make selection and this is th
    - None in Java
    - JSF(its lifecycles and phases)
 
-## 3. Do it Yourself
+## 3. How to Implement?
 
 ### 3.1 Participants
 
@@ -1730,7 +2024,7 @@ Sort by Name: [Person [name=Giri, age=20], Person [name=Raj, age=24], Person [na
 ```
 Note: Above example can be done in java 8 as well but sake of readability and consistency kept it as it is.
 
-### 3.3 Implementation
+### 3.4 Implementation
  - We are trying to create a validation logic based on the card used. This can be achieved by normal if\else as well
  - But as the cards will be added, its complexity will increase and will be harder to maintain.
  - Hence, creating a strategy that will be used according to the type of card 
@@ -2231,9 +2525,9 @@ Bag items at counter
 
 ## 1. What is Visitor method pattern?
 
-`[GoF](https://en.wikipedia.org/wiki/Visitor_pattern)`: Represent an operation to be performed on the elements of an object structure. Visitor lets you define a new operation without changing the classes of the elements on which it operates.
-`Wiki`: visitor design pattern is a way of separating an algorithm from an object structure on which it operates. A practical result of this separation is the ability to add new operations to existing object structures without modifying the structures. It is one way to follow the open/closed principle.  
-In essence, the visitor allows adding new virtual functions to a family of classes, without modifying the classes. Instead, a visitor class is created that implements all of the appropriate specializations of the virtual function. The visitor takes the instance reference as input, and implements the goal through double dispatch.
+`GoF`: Represent an operation to be performed on the elements of an object structure. Visitor lets you define a new operation without changing the classes of the elements on which it operates.  
+**[Wiki](https://en.wikipedia.org/wiki/Visitor_pattern):** visitor design pattern is a way of separating an algorithm from an object structure on which it operates. A practical result of this separation is the ability to add new operations to existing object structures without modifying the structures. It is one way to follow the open/closed principle.  
+In essence, the visitor allows adding new virtual functions to a family of classes, without modifying the classes. Instead, a visitor class is created that implements all of the appropriate specializations of the virtual function. The visitor takes the instance reference as input, and implements the goal through double dispatch.  
 
 ## 2. Why would you choose?
 
@@ -2549,17 +2843,17 @@ public class AtvPartsDisplayVisitor implements AtvPartVisitor {
 ```java
 public class VisitorDemo {
 
-	public static void main(String[] args) {
-		PartsOrder order = new PartsOrder();
-		
-		order.addParts(new Wheel());
-		order.addParts(new Oil());
-		order.addParts(new Fender());
-		
-		order.accept(new AtvPartsShippingVisitor());
-		System.out.println();
-		order.accept(new AtvPartsDisplayVisitor());
-	}
+  public static void main(String[] args) {
+    PartsOrder order = new PartsOrder();
+    
+    order.addParts(new Wheel());
+    order.addParts(new Oil());
+    order.addParts(new Fender());
+    
+    order.accept(new AtvPartsShippingVisitor());
+    System.out.println();
+    order.accept(new AtvPartsDisplayVisitor());
+  }
 }
 ```
 
