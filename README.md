@@ -35,7 +35,7 @@
     3. [Interpreter](#3-Interpreter-pattern-speaking_head)
     4. [Iterator](#4-Iterator-pattern-loop)
     5. [Mediator](#5-mediator-pattern-phone)
-    6. [Memento]
+    6. [Memento](#6-memento-arrow_right_hook)
     7. [Observer]
     8. [State](#8-state-design-pattern-arrows_counterclockwise)
     9. [Strategy](#9-strategy-design-pattern-shipit)
@@ -101,10 +101,10 @@ For each pattern you will see below points covered:
 |  3   | [Interpreter](#3-Interpreter-pattern-speaking_head)          | Given a language, define a represention for its grammar along with an interpreter that uses the representation to interpret sentences in the language.                                                               |
 |  4   | [Iterator](#4-Iterator-pattern-loop)                         | **Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation.**                                                                                                  |
 |  5   | [Mediator](#5-mediator-pattern-phone)                        | Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently. |
-|  6   | [Memento]                                                    | **Without violating encapsulation, capture and externali ze an object's internal state so that the object can be restored to this state later.**                                                                             |
+|  6   | [Memento](#6-memento-arrow_right_hook)                       | **Without violating encapsulation, capture and externali ze an object's internal state so that the object can be restored to this state later.**                                                                             |
 |  7   | [Observer]                                                   | Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.                                                                    |
 |  8   | [State](#8-state-design-pattern-arrows_counterclockwise)     | **Allow an object to alter its behavior when its internal state changes. The object will appear to change its class.**                                                                                                        |
-|  9   | [Strategy](#9-strategy-design-pattern-shipit)                                                   | Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.                                                         |
+|  9   | [Strategy](#9-strategy-design-pattern-shipit)                | Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.                                                         |
 |  10  | [Template method](#10-template-method-design-pattern-part_alternation_mark)| **Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm's structure.**              |
 |  11  | [Visitor](#11-visitor-design-pattern-santa)                  | Represent an operation to be performed on the elements of an object structure. Visitor lets you define a new operation without changing the classes of the elements on which it operates.                            |
 
@@ -1610,7 +1610,7 @@ KitchenLight Switched OFF
 
 **[&#11014;  back to top](#table-of-contents)**
 
-# 5. Memento :arrow_right_hook:
+# 6. Memento :arrow_right_hook:
 
 ## 1. What is Memento pattern?
 
@@ -1626,6 +1626,239 @@ The memento pattern is implemented with three objects: the originator, a caretak
 - **Examples:** 
     - java.util.Date
     - java.io.Serializable
+
+## 3. How to Implement?
+
+### 3.1 Design considerations
+ - Design is class based having three main roles
+ - Originator: Object which we want to create a copy or save point, it creates original memento
+ - CareTaker: Manages the copies or mementos that are created
+ - Memento: Copy of the Originator that we want to store, 
+   - Magic cookie: Memento consists of a magic cookie, it is a combination of fields that it takes to recreate or copy the state of object and it is stored inside memento
+   
+### 3.2 UML Diagrams
+
+### 3.3 Example from Java (Serialable)
+
+```java
+public class MementoEverydayExample {
+
+  private static void serailize(Employee emp) {
+    try {
+      FileOutputStream fileOutputStream = new FileOutputStream("/tmp/employee.ser");
+      ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+      objectOutputStream.writeObject(emp);
+      objectOutputStream.close();
+      fileOutputStream.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void main(String[] args) {
+
+    Employee employee = new Employee();
+    employee.setName("Giri");
+    employee.setName("abc, park street,");
+    employee.setPhone("9999999999");
+
+    serailize(employee);
+
+    Employee newEmployee = deserialize();
+
+    System.out.println(newEmployee.getName());
+  }
+
+  private static Employee deserialize() {
+    Employee emp = null;
+    try {
+      FileInputStream fileInputStream = new FileInputStream("/tmp/employee.ser");
+      ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+
+      emp = (Employee) objectInputStream.readObject();
+      objectInputStream.close();
+      fileInputStream.close();
+    } catch (IOException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    return emp;
+  }
+}
+```
+
+Output:  
+```cmd
+Giri
+```
+
+### 3.4 Implementation
+
+We will reuse the above Employee class just without the Serializable. Here, we will provide a save and revert method to save the state of an object 
+
+```java
+//Originator: Object whose copy we want 
+public class Employee {
+
+  private String name;
+  private String address;
+  private String phone;
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public EmployeeMemento save() {
+    return new EmployeeMemento(name, phone);
+  }
+
+  public void revert(EmployeeMemento employee) {
+    this.name = employee.getName();
+    this.phone = employee.getPhone();
+  }
+
+  @Override
+  public String toString() {
+    return name + ":" + phone;
+  }
+}
+```
+
+To save the state we will require another Object that we name as memento where it will have copies of that object with the fields that we are interested in.
+```java
+//Memento: can ignore fields whose state we don't want to recreate
+public class EmployeeMemento {
+
+  private String name;
+  private String phone;
+  
+  public EmployeeMemento(String name, String phone) {
+    this.name = name;
+    this.phone = phone;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+  
+}
+```
+
+The final piece will be a Caretaker that will maintain this history. We have used the stack implementation that will help in maintaining the complete history.
+
+```java
+// Caretaker
+public class Caretaker {
+
+  private Stack<EmployeeMemento> employeeHistory = new Stack<>();
+  
+  public void save(Employee emp) {
+    employeeHistory.push(emp.save());
+  }
+  
+  public void revert(Employee emp) {
+    emp.revert(employeeHistory.pop());
+  }
+}
+```
+
+Demo:  
+```java
+public class MementoDemo {
+
+  public static void main(String[] args) {
+    Caretaker caretaker = new Caretaker();
+    
+    Employee emp = new Employee();
+    emp.setName("Giri");
+    emp.setAddress("abc park street");
+    emp.setPhone("999999999");
+    System.out.println("Employee before save:                 " + emp);
+    caretaker.save(emp); // 1st instance saved
+    
+    emp.setName("Giriraj");
+    caretaker.save(emp); // 2nd instance saved
+    System.out.println("Employee after changed name and save: " + emp);
+    
+    emp.setName("Vyas"); // wont be saved as save not called  
+    
+    caretaker.revert(emp);
+    System.out.println("Revrted to last saved point:          " + emp);
+    
+    caretaker.revert(emp);
+    System.out.println("Revrted to original:                  " + emp);
+  }
+}
+```
+
+```cmd
+Employee before save:                  Giri:999999999
+Employee after changed name and save:  Giriraj:999999999
+Reverted to last saved point:          Giriraj:999999999
+Reverted to original:                  Giri:999999999
+```
+## 4. Drawbacks
+ - Can be expensive if the Originator has a large set of data
+ - Caretaker should consider deleting the history when specific limit is reached
+ - Take care that the originator's information is not exposed
+
+## 5. Contrast to other patterns
+
+| Memento                                      | Command                           |
+| -------------                                 |:-------------:                      |
+| It is used to capture the state   | Focuses on the request being captured |
+| Each state captured is an independent state so that can be roll backed or recreated in future  | Focuses on the independent request |
+| Focuses on building history with the help of caretaker object   | History is a side benefit |
+
+## 6. Summary
+
+ - It is used to capture state
+ - Can get heavy with the history and hence should be taken care by deleting it in regular intervals
+ - Recreate state of an object
+ - Similar to Command with different emphasis on history and state rather than requests
+
+**[&#11014;  back to top](#table-of-contents)**
+
+# 7. Observer :eyes:
+
+## 1. What is Observer pattern?
+
+`GoF`: Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.  
+**[Wiki](https://en.wikipedia.org/wiki/Observer_pattern)**: "The observer pattern is a software design pattern in which an object, named the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods.  
+It is mainly used for implementing distributed event handling systems, in "event driven" software. In those systems, the subject is usually named a "stream of events" or "stream source of events", while the observers are called "sinks of events". The stream nomenclature alludes to a physical setup where the observers are physically separated and have no control over the emitted events from the subject/stream-source. This pattern then perfectly suits any process where data arrives from some input, rather isn't available to the CPU at startup, yet can arrive "at random" (HTTP requests, GPIO data, user input from keyboard/mouse/..., distributed databases and blockchains, ...). Most modern programming-languages comprise built-in "event" constructs implementing the observer-pattern components. While not mandatory, most 'observers' implementations would use background threads listening for subject-events and other support mechanisms provided by the kernel (Linux epoll, ...)."  
+
+## 2. Why would you choose?
+- 
+- 
+- 
+- 
+- **Examples:** 
+    - 
+    - 
 
 ## 3. How to Implement?
 
