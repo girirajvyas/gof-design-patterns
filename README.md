@@ -36,13 +36,15 @@
     4. [Iterator](#4-Iterator-pattern-loop)
     5. [Mediator](#5-mediator-pattern-phone)
     6. [Memento](#6-memento-arrow_right_hook)
-    7. [Observer]
+    7. [Observer](#7-observer-eyes)
     8. [State](#8-state-design-pattern-arrows_counterclockwise)
     9. [Strategy](#9-strategy-design-pattern-shipit)
     10. [Template method](#10-template-method-design-pattern-part_alternation_mark)
     11. [Visitor](#11-visitor-design-pattern-santa)
 
-## What is a design pattern?
+# Introduction
+
+## 1. What is a design pattern?
 From Wiki:-
 - **A general reusable solution to a commonly occurring problem** within a given context in software design.  
 - Not a finished design that can be transformed directly into source or machine code. 
@@ -54,18 +56,22 @@ Classification:-
 - Sructural: Deals with the class structure such as Inheritance and Composition.
 - Behavioral: Provides solution for the better interaction between objects, also how to provide lose coupling, and flexibility to extend easily in future.
 
-## Why you should learn design patterns?
+## 2. Why you should learn design patterns?
 - Easy to communicate a proble among fellow developers
 - It provides a common vocabulary to explain about problem
 - It is an abstract topic
 - Revisit materails about patterns will alway give you an new perspective everytime.
 
-## How to approach?
-For each pattern you will see below points covered:
-- Overview of the pattern
+## 3. How to approach?
+In case you are planning to learn them, you will typically find the structure as below for most of the patterns described here.
+
+- What is it?
 - Why would you choose?
-- Design considerations
-- Demo / Live example from an API / Steps to create
+- How to implement?
+  - Design considerations
+  - UML Diagram
+  - Example from Java
+  - Implementation
 - Drawbacks (Pitfalls)
 - Contrast to another patterns
 - Summary
@@ -102,7 +108,7 @@ For each pattern you will see below points covered:
 |  4   | [Iterator](#4-Iterator-pattern-loop)                         | **Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation.**                                                                                                  |
 |  5   | [Mediator](#5-mediator-pattern-phone)                        | Define an object that encapsulates how a set of objects interact. Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently. |
 |  6   | [Memento](#6-memento-arrow_right_hook)                       | **Without violating encapsulation, capture and externali ze an object's internal state so that the object can be restored to this state later.**                                                                             |
-|  7   | [Observer]                                                   | Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.                                                                    |
+|  7   | [Observer](#7-observer-eyes)                                 | Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.                                                                    |
 |  8   | [State](#8-state-design-pattern-arrows_counterclockwise)     | **Allow an object to alter its behavior when its internal state changes. The object will appear to change its class.**                                                                                                        |
 |  9   | [Strategy](#9-strategy-design-pattern-shipit)                | Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.                                                         |
 |  10  | [Template method](#10-template-method-design-pattern-part_alternation_mark)| **Define the skeleton of an algorithm in an operation, deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm's structure.**              |
@@ -1618,6 +1624,8 @@ KitchenLight Switched OFF
 **[Wiki](https://en.wikipedia.org/wiki/Memento_pattern)**: "The memento pattern is a software design pattern that provides the ability to restore an object to its previous state (undo via rollback).  
 The memento pattern is implemented with three objects: the originator, a caretaker and a memento. The originator is some object that has an internal state. The caretaker is going to do something to the originator, but wants to be able to undo the change. The caretaker first asks the originator for a memento object. Then it does whatever operation (or sequence of operations) it was going to do. To roll back to the state before the operations, it returns the memento object to the originator. The memento object itself is an opaque object (one which the caretaker cannot, or should not, change). When using this pattern, care should be taken if the originator may change other objects or resources—the memento pattern operates on a single object."  
 
+Literal meaning of memento is "an object kept as a reminder of a person or event." or a souvenir. This will help in understanding what this pattern does  
+
 ## 2. Why would you choose?
 - When you want to restore object to a previous state
 - This is achieved via externalizing the internal state which can be retrieved later
@@ -1851,26 +1859,235 @@ Reverted to original:                  Giri:999999999
 **[Wiki](https://en.wikipedia.org/wiki/Observer_pattern)**: "The observer pattern is a software design pattern in which an object, named the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods.  
 It is mainly used for implementing distributed event handling systems, in "event driven" software. In those systems, the subject is usually named a "stream of events" or "stream source of events", while the observers are called "sinks of events". The stream nomenclature alludes to a physical setup where the observers are physically separated and have no control over the emitted events from the subject/stream-source. This pattern then perfectly suits any process where data arrives from some input, rather isn't available to the CPU at startup, yet can arrive "at random" (HTTP requests, GPIO data, user input from keyboard/mouse/..., distributed databases and blockchains, ...). Most modern programming-languages comprise built-in "event" constructs implementing the observer-pattern components. While not mandatory, most 'observers' implementations would use background threads listening for subject-events and other support mechanisms provided by the kernel (Linux epoll, ...)."  
 
+other: decoupling pattern when a subject needs to be observed by 1 or more observers
 ## 2. Why would you choose?
-- 
-- 
-- 
-- 
+- When a subject has one to many observers
+- When goal is to decouple objects
+- Used when we need event handling capabilities
+- Pub/Sub or Publisher/Subscriber is another name for the Observer pattern with a caveat that observer is synchronous where pub/sub is not 
+- Mostly used in MVC pattern where view is event driven
 - **Examples:** 
-    - 
-    - 
+    - java.util.Observer
+    - java.util.EventListener
+    - javax.jms.Topic
 
 ## 3. How to Implement?
 
 ### 3.1 Design considerations
-
+ - Subject: It is a subject that needs to be observed. It is typically an interface or abstract class which has concrete implementations.
+ - Observer: Observers register thmselves to the Subject. It is implemented via Interface with various concrete implementations.
+ - Views are Observers in an event driven application
+ - UML: Subject, ConcreteSubject, Observer, ConcreteObserver 
+ 
 ### 3.2 UML Diagrams
 
-## 4. Drawbacks
+### 3.3 Example from Java (Observer/Observable)
 
+```java
+public class ObserverEverydayExample {
+
+  public static void main(String[] args) {
+    TwitterStream stream = new TwitterStream();
+    
+    Client client1 = new Client("Giri");
+    Client client2 = new Client("Raj");
+    
+    stream.addObserver(client1);
+    stream.addObserver(client2);
+    
+    stream.someoneTweeted();
+  }
+}
+
+// Concrete Subject
+class TwitterStream extends Observable {
+  
+  public void someoneTweeted() {
+    setChanged();
+    notifyObservers();
+  }
+  
+}
+
+// Concrete Observer
+class Client implements Observer {
+
+  private String name;
+  
+  public Client(String name) {
+    this.name = name;
+  }
+  
+  @Override
+  public void update(Observable o, Object arg) {
+    System.out.println("Updating " + name + "'s feed. someone tweeted");
+  }
+  
+}
+```
+
+### 3.4 Implementation
+
+Lets start by creating an abstract Subject and Observer  
+
+```java
+public abstract class Subject {
+
+  private List<Observer> observers = new ArrayList<>();
+  
+  abstract void setState(String state);
+  abstract String getState();
+  
+  
+  public void attach(Observer observer) {
+    observers.add(observer);
+  }
+  
+  public void detach(Observer observer) {
+    observers.remove(observer);
+  }
+  
+  public void notifyObservers() {
+    for(Observer observer : observers) {
+      observer.update();
+    }
+  }
+}
+```
+
+```java
+public abstract class Observer {
+
+  protected Subject subject;
+
+  abstract void update();
+}
+```
+
+Now, we will have concrete implementations of the same
+
+```java
+public class MessageStream extends Subject {
+  
+  private Deque<String> messageHistory = new ArrayDeque<>();
+
+  @Override
+  void setState(String message) {
+    messageHistory.add(message);
+    this.notifyObservers();
+  }
+
+  @Override
+  String getState() {
+    return messageHistory.getLast();
+  }
+}
+```
+
+```java
+public class PhoneClient extends Observer {
+
+  public PhoneClient(Subject subject) {
+    this.subject = subject;
+    subject.attach(this);
+  }
+
+  public void addMessage(String message) {
+    subject.setState(message + " - sent from phone");
+  }
+
+  @Override
+  void update() {
+    System.out.println("Phone Stream: " + subject.getState());
+  }
+}
+```
+
+Demo:
+
+```java
+public class ObserverDemo {
+  
+  public static void main(String[] args) {
+    Subject subject = new MessageStream();
+    
+    PhoneClient phoneClient = new PhoneClient(subject);
+    phoneClient.addMessage("Here's a new message");
+    
+  }
+}
+```
+
+Output:
+
+```cmd
+Phone Stream: Here's a new message - sent from phone
+```
+
+Lets try to add a new client/Observer and see the efforts required to do the same. 
+
+```java
+public class TabletClient extends Observer {
+
+  public TabletClient(Subject subject) {
+    this.subject = subject;
+    subject.attach(this);
+  }
+
+  public void addMessage(String message) {
+    subject.setState(message + " - sent from Tablet");
+  }
+
+  @Override
+  void update() {
+    System.out.println("Phone Strem: " + subject.getState());
+  }
+}
+```
+
+Demo:
+
+```java
+public class ObserverDemo {
+  
+  public static void main(String[] args) {
+    Subject subject = new MessageStream();
+    
+    PhoneClient phoneClient = new PhoneClient(subject);
+    TabletClient tabletClient = new TabletClient(subject);
+    
+    phoneClient.addMessage("Here's a new message");
+    tabletClient.addMessage("Here is another message");
+  }
+}
+```
+
+Output:
+
+```cmd
+Phone Stream: Here's a new message - sent from phone
+Tablet Stream: Here's a new message - sent from phone
+Phone Stream: Here is another message - sent from Tablet
+Tablet Stream: Here is another message - sent from Tablet
+```
+
+## 4. Drawbacks
+ - there can be unexpected changes notified
+ - As the system is disconnected it will hard to find WHAT Changed in subject 
+ - Debugging is difficult
+ 
 ## 5. Contrast to other patterns
 
+| Observer                                      | Mediator                           |
+| -------------                                 |:-------------:                      |
+| It is one to many broadcast   | one-to-one-to-many where object talks to mediator and then mediator talks to another objects |
+| primarily decouples the object an the observers who want to watch it | used for decoupling |
+| Uses broadcast communication | Handling complex communication in  more direct model  |
+
 ## 6. Summary
+ - Observer can be used along with Mediator in notification system where mediator is used in Subject
+ - Often used for decoupled communication
+ - Build in functionality in Java API as well
 
 **[&#11014;  back to top](#table-of-contents)**
 
