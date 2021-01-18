@@ -12,35 +12,36 @@
 *****
 
 ## Table of contents
-- [What is a design pattern](#what-is-a-design-pattern)
-- [Why you should learn design patterns](#why-you-should-learn-design-patterns)
-- [How to approach](#how-to-approach)
+- Introduction
+  - [What is a design pattern](#what-is-a-design-pattern)
+  - [Why you should learn design patterns](#why-you-should-learn-design-patterns)
+  - [How to approach](#how-to-approach)
 - Creational design patterns (5)
-   1. [Singleton](#1-singleton-pattern-gem)
-   2. [Builder](#2-builder-pattern-construction_worker)
-   3. [Prototype](#3-prototype-pattern-clipboard)
-   4. [Factory Method](#4-factory-method-pattern-factory)
-   5. [Abstract Factory](#5-abstractfactory-pattern-factory--factory)
+  1. [Singleton](#1-singleton-pattern-gem)
+  2. [Builder](#2-builder-pattern-construction_worker)
+  3. [Prototype](#3-prototype-pattern-clipboard)
+  4. [Factory Method](#4-factory-method-pattern-factory)
+  5. [Abstract Factory](#5-abstractfactory-pattern-factory--factory)
 - Structural design patterns (7)
-    1. [Adapter](#1-adapter-pattern--electric_plug) 
-    2. [Bridge](#2-bridge-pattern--bridge_at_night)
-    3. [Composite](#3-Composite-pattern--leaves)
-    4. [Decorator](#4-decorator-pattern-heart_decoration)
-    5. [Facade](#5-facade-pattern--notes)
-    6. [Flyweight](#6-flyweight-pattern-butterfly)
-    7. [Proxy](#7-proxy-pattern-trollface)
+  1. [Adapter](#1-adapter-pattern--electric_plug) 
+  2. [Bridge](#2-bridge-pattern--bridge_at_night)
+  3. [Composite](#3-Composite-pattern--leaves)
+  4. [Decorator](#4-decorator-pattern-heart_decoration)
+  5. [Facade](#5-facade-pattern--notes)
+  6. [Flyweight](#6-flyweight-pattern-butterfly)
+  7. [Proxy](#7-proxy-pattern-trollface)
 - Behavioral design patterns (11)
-    1. [Chain of Responsibility](#1-chain-of-responsibility-chains)
-    2. [Command](#2-command-pattern-genie)
-    3. [Interpreter](#3-Interpreter-pattern-speaking_head)
-    4. [Iterator](#4-Iterator-pattern-loop)
-    5. [Mediator](#5-mediator-pattern-phone)
-    6. [Memento](#6-memento-arrow_right_hook)
-    7. [Observer](#7-observer-eyes)
-    8. [State](#8-state-design-pattern-arrows_counterclockwise)
-    9. [Strategy](#9-strategy-design-pattern-shipit)
-    10. [Template method](#10-template-method-design-pattern-part_alternation_mark)
-    11. [Visitor](#11-visitor-design-pattern-santa)
+  1. [Chain of Responsibility](#1-chain-of-responsibility-chains)
+  2. [Command](#2-command-pattern-genie)
+  3. [Interpreter](#3-Interpreter-pattern-speaking_head)
+  4. [Iterator](#4-Iterator-pattern-loop)
+  5. [Mediator](#5-mediator-pattern-phone)
+  6. [Memento](#6-memento-arrow_right_hook)
+  7. [Observer](#7-observer-eyes)
+  8. [State](#8-state-design-pattern-arrows_counterclockwise)
+  9. [Strategy](#9-strategy-design-pattern-shipit)
+  10. [Template method](#10-template-method-design-pattern-part_alternation_mark)
+  11. [Visitor](#11-visitor-design-pattern-santa)
 
 # Introduction
 
@@ -52,9 +53,9 @@ From Wiki:-
 - Design patterns are **formalized best practices** that the programmer can use to solve common problems when designing an application or system.
 
 Classification:-
-- Creational: Deals with the creation of an object
-- Sructural: Deals with the class structure such as Inheritance and Composition.
-- Behavioral: Provides solution for the better interaction between objects, also how to provide lose coupling, and flexibility to extend easily in future.
+- **Creational:** Deals with the creation of an object
+- **Sructural:** Deals with the class structure such as Inheritance and Composition.
+- **Behavioral:** Provides solution for the better interaction between objects, also how to provide lose coupling, and flexibility to extend easily in future.
 
 ## 2. Why you should learn design patterns?
 - Easy to communicate a proble among fellow developers
@@ -121,7 +122,8 @@ In case you are planning to learn them, you will typically find the structure as
 ## 1. What is Singleton?
 
 - `GoF`: Ensure a class only has `one instance`, and provide a global point of contact to access it. 
-- `Wiki`: Restricts the instantiation of a class to one "single" instance.
+- [Wiki](https://en.wikipedia.org/wiki/Singleton_pattern): singleton pattern is a software design pattern that restricts the instantiation of a class to one "single" instance. This is useful when exactly one object is needed to coordinate actions across the system. The term comes from the mathematical concept of a singleton.  
+Critics consider the singleton to be an anti-pattern in that it is frequently used in scenarios where it is not beneficial, introduces unnecessary restrictions in situations where a sole instance of a class is not actually required, and introduces global state into an application
 
 ## 2. Why would you choose?
 
@@ -133,7 +135,18 @@ In case you are planning to learn them, you will typically find the structure as
    - Logger (singleton or factory)
    - Spring beans (by default, scope is singleton in spring)
 
-**Example from Java**  
+## 3. How to implement
+
+### 3.1 Design considerations
+ - Class is responsible for creating itself and its lifecycle
+ - Private instance
+ - Private constructor
+ - Static in nature, but not implemented via static class  as it does not guarantee it will be thread safe (contradicts bill pugh implementation, verify this)
+ - No parameters required for construction, in case parameter is required for construction than it violates singleton.
+
+### 3.2 UML Diagram
+
+### 3.3 Example from Java
 
 ```java
     public static void main(String args[]) {
@@ -156,26 +169,14 @@ java.lang.Runtime@15db9742
 They are the same instance
 ```
 
-## 3. Do it Yourself
-
-### 3.1 Design considerations
- - Class is responsible for creating itself and its lifecycle
- - Private instance
- - Private constructor
- - Static in nature, but not implemented via static class  as it does not guarantee it will be thread safe (contradicts bill pugh implementation, verify this)
- - No parameters required for construction, in case parameter is required for construction than it violates singleton.
-
-### 3.2 UML Diagram
-
-
-### 3.3 Different Variations of creating a Singleton 
+### 3.4 Different Variations of creating a Singleton 
  1. Eager initialization
  2. Lazy initialization with synchronized method
  3. Lazy initialization with double check locking method
  4. Lazy initialized with static inner class
  5. Lazy initialized with `Enum` which leads to less code. (Recommended by Joshua bloch in Effective Java)
 
-#### 3.3.0 Common step:  
+#### 3.4.0 Common step:  
  - Create a class with `private constructor` to prevent initialization.  
  - Making constructor private prevents the initialization via `new` keyword
  - We expose a public static method (commonly named `getInstance()`) to provide the single entry point that returns its instance 
@@ -190,7 +191,7 @@ public class Singleton {
 }
 ```
 
-#### 3.3.1 Eager Initialization  
+#### 3.4.1 Eager Initialization  
  - Instance is created at the time of class loading, this is the easiest method to create a singleton class.
  - Create a static final class variable INSTANCE and initialize this with new instance of class
  - Create static method that returns this instance.
@@ -225,7 +226,7 @@ public class SingletonEager {
   }
 ```
 
-#### 3.3.2 Lazy initialization with synchronized method  
+#### 3.4.2 Lazy initialization with synchronized method  
  - Create a static class variable INSTANCE.
  - Create a synchronized method to return instance. If it is not initialized, initialize it and return.
  - In case you do not make method synchronized, multiple instances might be created in multithreaded environment
@@ -276,7 +277,7 @@ public class SingletonLazyWithSynchronizedMethod {
      }
    ```
 
-#### 3.3.3 Lazy initialization with double check locking method
+#### 3.4.3 Lazy initialization with double check locking method
 - To overcome above slow performance issue we will use this way for initialization.
 - Create a static class variable INSTANCE. 
 - We are marking this variable `volatile`, so that any changes to this instance are visible to other threads instantly
@@ -320,11 +321,11 @@ public class SingletonLazyWithDoubleCheckLocking {
     }
 ``` 
 
-#### 3.3.4 Lazy initialization with static inner class
+#### 3.4.4 Lazy initialization with static inner class
 - TODO, code available
 
 
-#### 3.3.5 Enum Singleton
+#### 3.4.5 Enum Singleton
 - Implementation added with DbSingletonEnum
 
 > The best way to implement a `Serializable Singleton` is to use an Enum
@@ -366,8 +367,9 @@ Explore the Enum version of Singleton pattern
 
 ## 1. What is Builder?
 - `GoF`: Separate the construction of a complex object from its representation so that the same construction process can create different representations.
-- `Wiki`: The builder pattern is a design pattern designed to provide a flexible solution to various object creation problems in object-oriented programming. The intent of the Builder design pattern is to separate the construction of a complex object from its representation 
 - `Other`: This a pattern people often use but rarely create of there own. This pattern deals with construction of Objects with lot of parameters and want to make the object once we are done constructing it.
+- [Wiki](https://en.wikipedia.org/wiki/Builder_pattern): The builder pattern is a design pattern designed to provide a flexible solution to various object creation problems in object-oriented programming. The intent of the Builder design pattern is to separate the construction of a complex object from its representation 
+
 
 ## 2. Why would you choose?
 - Handles complex constructors
@@ -377,15 +379,43 @@ Explore the Enum version of Singleton pattern
   - StringBuilder
   - DocumentBuilder
   - Locale.Builder
-  
-## Design considerations
+
+## 3. How to implement
+
+### 3.1 Design considerations
 - Flexibility over telescoping constructors
 - Generally implemented with static inner class
 - Calls appropriate constructor
 - Negates the need for exposed setters
 - Java 1.5+ can take advantage of generics ***
 
-## Example/Demo
+### 3.2 UML Diagram
+
+### 3.3 Example from Java
+
+```java
+public class BuilderJavaApiExample {
+	
+	public static void main(String[] args) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("This is an example ");
+		builder.append("of the builder pattern. ");
+		builder.append("It has methods to append ");
+		builder.append("almost anything we want to a String. ");
+		builder.append(42);
+		System.out.println(builder.toString());
+	}
+	
+}
+```
+
+Output:  
+```cmd
+This is an example of the builder pattern. It has methods to append almost anything we want to a String. 42
+```
+
+### 3.4 Implementation
+
 - Demonstrate exposed setters (LunchOrderBean.java / LunchOrderBeanDemo.java)
 - Demonstrate Telescoping constructors (LunchOrderTelescopic.java / LunchOrderTelescopicDemo.java)
 - Create Builder (LunchOrder.java / LunchOrderDemo.java)
@@ -427,13 +457,13 @@ Explore the Enum version of Singleton pattern
   ```
 - Done  
 
-## Drawbacks
+## 4. Drawbacks
 - Immutable objects are created
 - Inner static class is generally used for implementation
 - It is always Designed first 
 - Adds complexity, as people are not comfortable with object returning itself with each subsequent call
 
-## Contrast to other patterns
+## 5. Contrast to other patterns
 
 | Builder                               | Prototype                              |
 | -------------                         |:-------------:                         |
@@ -443,7 +473,7 @@ Explore the Enum version of Singleton pattern
 | Works with a legacy code              | Difficult to implement in legacy code  |
 
 
-## Summary
+## 6. Summary
 - Creative way to deal with complexity
 - Easy to implement
 - few drawbacks
@@ -457,11 +487,14 @@ Explore the Generics version of builder pattern
 
 # 3. Prototype pattern :clipboard:
 
-- `GoF`: Specify the kinds of objects to create using a protypical instance, and create new objects by copying this prototype
-- `Wiki`: 
-- `Other`: creates copy of objects that are very expensive to create
+## 1. What is Prototype Pattern?
 
-## Why would you choose?
+- `GoF`: Specify the kinds of objects to create using a protypical instance, and create new objects by copying this prototype
+- `Other`: creates copy of objects that are very expensive to create
+- [Wiki](): 
+
+
+## 2. Why would you choose?
 - Avoids costly creation
 - Avoids Subclassing
 - Typically doesn't use keyword "new"
@@ -469,15 +502,22 @@ Explore the Generics version of builder pattern
 - Usually implemented with a registry
 - **Example:**
   - java.lang.Object#clone()
-  
-## Design considerations
+
+## 3. How to implement?
+
+### 3.1 Design considerations
 - Typically implements clone/cloneable
 - Avoids keyword "new"
 - Although copy, each instance is unique
 - Costly construction not handled by client (builder is opposite of prototype)
 - Can still utilize parameters for construction
 - Shallow vs deep copy design considerations can be made 
- 
+
+### 3.2 UML Diagram
+
+### 3.3 Example from Java
+
+
 ## Example/Demo
 - Create Prototype
 - Demonstrate shallow copy
@@ -492,13 +532,13 @@ Note:
 1. We have seen an example with `clone()` method, but this can also be achieved by creatin an interface and implementing the clone method.
 2. You can replace string with enum in createItem method of registry.
 
-## Drawbacks
+## 4. Drawbacks
 - Sometimes not clear when to use
 - Used with other patterns
    - Registry
 - Mostly shallow copy by clone, for deep copy we have to implement ourselves and it requires a lot of code
 
-## Contrast to other patterns
+## 5. Contrast to other patterns
 
 | Prototype                             | Factory                                                            |
 | -------------                         |:-------------:                                                     |
@@ -507,7 +547,7 @@ Note:
 | Choose shallow vs deep copy           | Create fresh and cconcrete instance of object                      |
 | Main purpose to create copy of itself | NA                                                                 |
 
-## Summary
+## 6. Summary
 - Guarantee unique instance
 - Often refactored in 
 - Can help with performance issues
@@ -579,12 +619,12 @@ Flow:
     }
 ```
    
-## Drawbacks:
+## 4. Drawbacks:
 - Complexity 
 - Creation in subclass **
 - Refactoring: This is not something that is refactored later, rather a design decision to make early in development
 
-## Contrast to other patterns
+## 5. Contrast to other patterns
 
 | Singleton                        | Factory                                           |
 | -------------                    |:-------------:                                    |
@@ -594,7 +634,7 @@ Flow:
 | No Subclasses                    | Always SubClasses are involved in a way or other  |
 | NA                         | Adaptable to environment more easily**            |
 
-## Summary
+## 6. Summary
 - Parameter Driven (chooses type based on this)
 - Solves Complex creation (Choose type at runtime)
 - A little complex
