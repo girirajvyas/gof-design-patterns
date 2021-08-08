@@ -141,36 +141,16 @@ Critics consider the singleton to be an anti-pattern in that it is frequently us
  - Class is responsible for creating itself and its lifecycle
  - Private instance
  - Private constructor
- - Static in nature, but not implemented via static class  as it does not guarantee it will be thread safe (contradicts bill pugh implementation, verify this)
  - No parameters required for construction, in case parameter is required for construction than it violates singleton.
 
 ### 3.2 UML Diagram
-![Singleton UML](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/uml/singleton_uml.PNG)
+![Singleton UML](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/singleton/singleton_uml.PNG)
 
 ### 3.3 Example from Java
 
-```java
-    public static void main(String args[]) {
-        Runtime singletonRuntime = Runtime.getRuntime();
-        singletonRuntime.gc();
-        System.out.println(singletonRuntime);
+![Java Example](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/singleton/singleton_example_from_java.svg)
 
-        Runtime anotherInstance = Runtime.getRuntime();
-        System.out.println(anotherInstance);
-
-        if (singletonRuntime == anotherInstance) {
-          System.out.println("They are the same instance");
-        }
-    }
-```
-
-Output:  
-```cmd
-java.lang.Runtime@15db9742
-java.lang.Runtime@15db9742
-They are the same instance
-```
-![Java Example](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/uml/singleton_java_example3.svg)
+![Java Example2](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/singleton/singleton_example_from_java2.svg)
 
 ### 3.4 Different Variations of creating a Singleton 
  1. Eager initialization
@@ -193,6 +173,7 @@ public class Singleton {
  }
 }
 ```
+![Common step](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/singleton/singleton_common_step.svg)
 
 #### 3.4.1 Eager Initialization  
  - Instance is created at the time of class loading, this is the easiest method to create a singleton class.
