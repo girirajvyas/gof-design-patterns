@@ -145,20 +145,22 @@ Critics consider the singleton to be an anti-pattern in that it is frequently us
  - No parameters required for construction, in case parameter is required for construction than it violates singleton.
 
 ### 3.2 UML Diagram
+![Singleton UML](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/uml/singleton_uml.PNG)
 
 ### 3.3 Example from Java
 
 ```java
     public static void main(String args[]) {
-    Runtime singletonRuntime = Runtime.getRuntime();
-    singletonRuntime.gc();
-    System.out.println(singletonRuntime);
+        Runtime singletonRuntime = Runtime.getRuntime();
+        singletonRuntime.gc();
+        System.out.println(singletonRuntime);
 
-    Runtime anotherInstance = Runtime.getRuntime();
-    System.out.println(anotherInstance);
+        Runtime anotherInstance = Runtime.getRuntime();
+        System.out.println(anotherInstance);
 
-    if (singletonRuntime == anotherInstance) {
-      System.out.println("They are the same instance");
+        if (singletonRuntime == anotherInstance) {
+          System.out.println("They are the same instance");
+        }
     }
 ```
 
@@ -168,6 +170,7 @@ java.lang.Runtime@15db9742
 java.lang.Runtime@15db9742
 They are the same instance
 ```
+![Java Example](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/uml/singleton_java_example2.svg)
 
 ### 3.4 Different Variations of creating a Singleton 
  1. Eager initialization
@@ -491,8 +494,12 @@ Explore the Generics version of builder pattern
 
 - `GoF`: Specify the kinds of objects to create using a protypical instance, and create new objects by copying this prototype
 - `Other`: creates copy of objects that are very expensive to create
-- [Wiki](): 
-
+- [Wiki](https://en.wikipedia.org/wiki/Prototype_pattern):  It is used when the type of objects to create is determined by a prototypical instance, which is cloned to produce new objects. This pattern is used to:
+  - avoid subclasses of an object creator in the client application, like the factory method pattern does.
+  - avoid the inherent cost of creating a new object in the standard way (e.g., using the 'new' keyword) when it is prohibitively expensive for a given application.  
+To implement the pattern, declare an abstract base class that specifies a pure virtual clone() method. Any class that needs a "polymorphic constructor" capability derives itself from the abstract base class, and implements the clone() operation.  
+The client, instead of writing code that invokes the "new" operator on a hard-coded class name, calls the clone() method on the prototype, calls a factory method with a parameter designating the particular concrete derived class desired, or invokes the clone() method through some mechanism provided by another design pattern.  
+The mitotic division of a cell — resulting in two identical cells — is an example of a prototype that plays an active role in copying itself and thus, demonstrates the Prototype pattern. When a cell splits, two cells of identical genotype result. In other words, the cell clones itself   
 
 ## 2. Why would you choose?
 - Avoids costly creation
@@ -516,7 +523,9 @@ Explore the Generics version of builder pattern
 ### 3.2 UML Diagram
 
 ### 3.3 Example from Java
+```java
 
+```
 
 ## Example/Demo
 - Create Prototype
@@ -575,7 +584,7 @@ References: https://refactoring.guru/design-patterns/prototype
 
 ## Why would you choose?
 - Doesn't expose instantiation logic
-- Defer to subclasses
+- Defer to subclasses i.e A super class has multiple sub-classes and based on input, need to return one of the sub-class
 - Common interfaces
 - Specified by architecture, implemented by user
 - **Examples:**
@@ -646,7 +655,7 @@ Flow:
 
 ## Why would you choose?
 
-- Factory of Factories
+- Factory of Factories i.e there is a family of factories and you need a super factory for related factories
 - Factory of related Objects
 - Common Interface
 - Defer to subclasses for instantiation
@@ -3416,13 +3425,16 @@ We have an order
 - https://dzone.com/articles/java-singletons-using-enum
 - https://www.journaldev.com/31902/gangs-of-four-gof-design-patterns
 
-**Comparisons:**
+**Comparisons:**  
  - Factory vs Strategy pattern: https://dzone.com/articles/design-patterns-the-strategy-and-factory-patterns  
  - https://sourcemaking.com/design_patterns/template_method
  - https://medium.com/educative/the-7-most-important-software-design-patterns-d60e546afb0e
  
-**Additional References:**
-1. Apache derby configuration: https://www.codejava.net/java-se/jdbc/connect-to-apache-derby-java-db-via-jdbc
+**Additional References:**  
+ - Apache derby configuration: https://www.codejava.net/java-se/jdbc/connect-to-apache-derby-java-db-via-jdbc
+
+**Anti-Patterns**  
+ - https://en.wikipedia.org/wiki/Anti-pattern
 
 **Did you know:**  
  > As announced in June 2015, JavaDB is no longer included in recent versions of the JDK. It was removed from JDK 7 and JDK 8 with the July 17, 2018 Critical Patch Update. JavaDB was a rebranding of Apache Derby. Developers who like to continue using JavaDB should download the latest version from The Apache DB Project.  Source: https://www.oracle.com/java/technologies/javadb.html
