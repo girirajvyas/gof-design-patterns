@@ -170,7 +170,7 @@ java.lang.Runtime@15db9742
 java.lang.Runtime@15db9742
 They are the same instance
 ```
-![Java Example](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/uml/singleton_java_example2.svg)
+![Java Example](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/uml/singleton_java_example3.svg)
 
 ### 3.4 Different Variations of creating a Singleton 
  1. Eager initialization
