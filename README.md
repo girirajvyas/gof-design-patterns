@@ -3452,5 +3452,8 @@ We have an order
 **Anti-Patterns**  
  - https://en.wikipedia.org/wiki/Anti-pattern
 
+**Design patterns in light of lambda expressions**
+ - https://www.youtube.com/watch?v=WN9kgdSVhDo
+
 **Did you know:**  
  > As announced in June 2015, JavaDB is no longer included in recent versions of the JDK. It was removed from JDK 7 and JDK 8 with the July 17, 2018 Critical Patch Update. JavaDB was a rebranding of Apache Derby. Developers who like to continue using JavaDB should download the latest version from The Apache DB Project.  Source: https://www.oracle.com/java/technologies/javadb.html
