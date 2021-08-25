@@ -144,19 +144,37 @@ Critics consider the singleton to be an anti-pattern in that it is frequently us
  - No parameters required for construction, in case parameter is required for construction than it violates singleton.
 
 ### 3.2 UML Diagram
+
 ![Singleton UML](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/singleton/singleton_uml.PNG)
 
 ### 3.3 Example from Java
 
-![Java Example](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/singleton/singleton_example_from_java.svg)
+```java
+    public static void main(String args[]) {
+    Runtime singletonRuntime = Runtime.getRuntime();
+    singletonRuntime.gc();
+    System.out.println(singletonRuntime);
 
-![Java Example2](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/singleton/singleton_example_from_java2.svg)
+    Runtime anotherInstance = Runtime.getRuntime();
+    System.out.println(anotherInstance);
+
+    if (singletonRuntime == anotherInstance) {
+      System.out.println("They are the same instance");
+    }
+```
+
+Output:  
+```cmd
+java.lang.Runtime@15db9742
+java.lang.Runtime@15db9742
+They are the same instance
+```
 
 ### 3.4 Different Variations of creating a Singleton 
  1. Eager initialization
  2. Lazy initialization with synchronized method
  3. Lazy initialization with double check locking method
- 4. Lazy initialized with static inner class
+ 4. Lazy initialized with static inner class (Bill pugh implementation)
  5. Lazy initialized with `Enum` which leads to less code. (Recommended by Joshua bloch in Effective Java)
 
 #### 3.4.0 Common step:  
@@ -166,14 +184,10 @@ Critics consider the singleton to be an anti-pattern in that it is frequently us
 
 ```java
 public class Singleton {
-  private Singleton() {
- }
- 
- public static Singleton getInstance(){
- }
+  private Singleton() { }
+  public static Singleton getInstance(){ }
 }
 ```
-![Common step](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/singleton/singleton_common_step.svg)
 
 #### 3.4.1 Eager Initialization  
  - Instance is created at the time of class loading, this is the easiest method to create a singleton class.
@@ -305,13 +319,34 @@ public class SingletonLazyWithDoubleCheckLocking {
     }
 ``` 
 
-#### 3.4.4 Lazy initialization with static inner class
+#### 3.4.4 Lazy initialization with static inner class (Bill pugh)
 - TODO, code available
 
 
 #### 3.4.5 Enum Singleton
 - Implementation added with DbSingletonEnum
 
+```java
+public enum DbSingletonEnum {
+
+  INSTANCE;
+
+  private Connection conn;
+
+  private DbSingletonEnum() {
+    try {
+      String dbUrl = "jdbc:derby:memory:codejava/webdb;create=true";
+      conn = DriverManager.getConnection(dbUrl);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public Connection getConnection() {
+    return conn;
+  }
+}
+```
 > The best way to implement a `Serializable Singleton` is to use an Enum
 
 > From Joshua Bloch's Effective Java: This approach is functionally equivalent to the public field approach, except that it is more concise, provides the serialization machinery for free, and provides an ironclad guarantee against multiple instantiation, even in the face of sophisticated serialization or reflection attacks. While this approach has yet to be widely adopted, a single-element enum type is the best way to implement a singleton.
