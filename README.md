@@ -2189,7 +2189,7 @@ For Instance, You insert the coin then you have to make selection and this is th
 
 ### 3.2 UML Diagram
 
-  ![Alt Text](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/uml/State_Design_Pattern_UML_Class_Diagram.svg "State")
+  ![Alt Text](https://github.com/girirajvyas/gof-design-patterns/raw/master/resources/images/state/State_Design_Pattern_UML_Class_Diagram.svg "State")
 
 
 ### 3.3 Without State pattern Scenario
@@ -3411,6 +3411,22 @@ We have an order
  - Used when we want to externalize changes
 
 **[&#11014;  back to top](#table-of-contents)**
+
+# Refactoring to patterns
+
+## Wrappers:
+### High level	
+ - Adapter: Wraps and changes
+ - Decorator: wraps and adds
+ - Facade: wraps, unites and simplifies
+	
+### With details
+ - Adapter: wraps and existing class and acts as connector between two incompatible interfaces
+ - Decorator: Attaches additional responsibilities to an object. In other words, it provides an enhanced interface to the original object. decorator replaced with functional programming composition -> eg: function andThen
+
+## Strategy
+ - Long and Complex -> Strategy with class
+ - short and simple -> lambda
 
 ## References:
 **Courses:**  
